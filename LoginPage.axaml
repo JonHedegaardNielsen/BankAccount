@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BankAccount.LoginPage">
+	<ContentControl x:Name="MainContent">
+		<StackPanel Orientation="Vertical">
+			<Grid Margin="0,30,0,0" Background="LightGreen" VerticalAlignment="Center" Width="400" Height="400" ColumnDefinitions="auto" RowDefinitions="auto,50,auto, auto, auto, auto">
+				<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+					<Label Margin="10,10,0,0" Grid.Row="0" Grid.Column="0">Username</Label>
+					<TextBox Margin="10,10,0,0" Grid.Row="1" Grid.Column="0"></TextBox>
+					<Label Margin="10,30,0,0" Grid.Row="2" Grid.Column="0">Password</Label>
+					<TextBox Margin="10,10,0,0" Grid.Row="4" Grid.Column="0" Width="300"></TextBox>
+					<Button Margin="10,0,0,0" VerticalAlignment="Bottom" Click="Login" Grid.Row="5">Login</Button>
+				</StackPanel>
+			</Grid>
+		</StackPanel>
+	</ContentControl>
+</UserControl>
