@@ -15,10 +15,11 @@
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="LoginPage.axaml.cs">
+    <Compile Update="Pages\LoginPage.axaml.cs">
       <DependentUpon>LoginPage.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

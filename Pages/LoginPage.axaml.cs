@@ -14,5 +14,11 @@ public partial class LoginPage : UserControl
 
     private void Login(object sender, RoutedEventArgs e)
     {
+        if ()
+        {
+			this.FindControl<ContentControl>("MainContent").Content = new MainPage();
+		}
 	}
+
+
 }
