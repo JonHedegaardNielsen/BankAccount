@@ -6,13 +6,17 @@
         x:Class="BankAccount.LoginPage">
 	<ContentControl x:Name="MainContent">
 		<StackPanel Orientation="Vertical">
-			<Grid Margin="0,30,0,0" Background="LightGreen" VerticalAlignment="Center" Width="400" Height="400" ColumnDefinitions="auto" RowDefinitions="auto,50,auto, auto, auto, auto">
+			<Grid Margin="0,30,0,0" Background="LightGreen" VerticalAlignment="Center" Width="400" Height="400" ColumnDefinitions="auto" RowDefinitions="auto,50,auto, auto, auto, auto, auto">
 				<StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-					<Label Margin="10,10,0,0" Grid.Row="0" FontSize="16" Grid.Column="0">Username</Label>
-					<TextBox Margin="10,10,0,0" Grid.Row="1" Grid.Column="0"></TextBox>
-					<Label Margin="10,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
-					<TextBox Margin="10,10,0,0" Grid.Row="4" Grid.Column="0" Width="300"></TextBox>
-					<Button Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Click="Login" Grid.Row="5">Login</Button>
+					<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,">
+
+						<Label Margin="10,10,0,0" Grid.Row="0" FontSize="16" Grid.Column="0">Username</Label>
+						<TextBox x:Name="textBoxUsername" Margin="10,10,0,0" Grid.Row="1" Grid.Column="0"></TextBox>
+						<Label Margin="10,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
+						<TextBox x:Name="textBoxPassword" Margin="10,10,0,0" Grid.Row="4" Grid.Column="0" Width="300"></TextBox>
+						<Button Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Click="Login" Grid.Row="5">Login</Button>
+						<Button Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Click="Signup" Grid.Row="6">Signup</Button>
+					</Grid>
 				</StackPanel>
 			</Grid>
 		</StackPanel>

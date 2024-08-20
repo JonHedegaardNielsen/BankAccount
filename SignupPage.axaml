@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankAccount.SignupPage">
+	<ContentControl x:Name="MainContent">
+		<Grid Width="400" VerticalAlignment="Center" Background="LimeGreen" RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto, auto" ColumnDefinitions="300">
+			<Label Grid.Row="0" Margin="5,5,0,0">Username</Label>
+			<TextBox Grid.Column="0" Grid.Row="1" Margin="5,5,0,0" x:Name="textBoxUsername" MaxLength="32" HorizontalAlignment="Stretch"/>
+			<Label Grid.Row="2" Margin="5,20,0,0">Password</Label>
+			<TextBox Grid.Column="0" Grid.Row="3" x:Name="textBoxPassword" MaxLength="32" Margin="5,5,0,0" HorizontalAlignment="Stretch"/>
+			<Label Grid.Row="4" Margin="5,20,0,0">Re-insert password</Label>
+			<TextBox x:Name="textBoxReInsertPassword"  Grid.Column="0" MaxLength="32" Grid.Row="5" Margin="5,5,0,0" HorizontalAlignment="Stretch"></TextBox>
+			<Button Click="CreatUser" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,20">Create Account</Button>
+			<Button Click="Login" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" Margin="5,0,0,20">Login</Button>
+			<TextBlock x:Name="textBoxFailText1" Grid.Column="0" IsVisible="False" Foreground="Red" FontSize="12" Grid.Row="8" VerticalAlignment="Bottom">Password and Username has to be </TextBlock>
+			<TextBlock x:Name="textBoxFailText2" Grid.Column="0" IsVisible="false" Foreground="Red" FontSize="12" Grid.Row="9" VerticalAlignment="Bottom">between 8 and 32 charecters</TextBlock>
+		</Grid>
+	</ContentControl>
+</UserControl>

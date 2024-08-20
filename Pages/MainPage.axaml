@@ -4,15 +4,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.MainPage">
-	<ScrollViewer VerticalScrollBarVisibility="Auto" >
-		<StackPanel>
-			<Grid RowDefinitions="Auto">
-				<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1276" MinHeight="1020" Background="">
-					<TabItem Header="Main">
-						
-					</TabItem>
-				</TabControl>
-			</Grid>
-		</StackPanel>
-	</ScrollViewer>
+	<ContentControl x:Name="MainContent">
+		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1276" MinHeight="1020" Background="">
+			<TabItem Header="BankAccounts">
+				<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded">
+					
+				</Grid>
+				
+			</TabItem>
+			<TabItem Header="Loans">
+				
+			</TabItem>
+			<TabItem Header="Settings">
+				
+			</TabItem>
+		</TabControl>
+	</ContentControl>
 </UserControl>

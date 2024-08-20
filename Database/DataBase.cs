@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using Microsoft.SqlServer.Server;
 
 namespace BankAccount;
 
 abstract class Database<T>
 {
-	private string ConnectionString = "Server=JON;Database=BankAccount;Trusted_Connection=True;";
-
-	
+	private string ConnectionString = "Server=JON;Database=bankAccount;Trusted_Connection=True;";
 
 	protected SqlConnection GetConnection()
 	{
@@ -21,7 +19,7 @@ abstract class Database<T>
 		return connection;
 	}
 
-	public List<T> RunQuery<T>(string query, Func<SqlDataReader, T> getValues)
+	protected List<T> RunQuery<T>(string query, Func<SqlDataReader, T> getValues)
 	{
 		List<T> values = new List<T>();
 
@@ -42,13 +40,21 @@ abstract class Database<T>
 		return values;
 	}
 
-	protected void ExecuteNonQuery(string query)
+	protected bool ExecuteNonQuery(string query)
 	{
 		using (SqlConnection connection = GetConnection())
 		{
 			using (SqlCommand command = new SqlCommand(query, connection))
 			{
-				command.ExecuteNonQuery();
+				try
+				{
+					command.ExecuteNonQuery();
+					return true;
+				}
+				catch (SqlException ex) 
+				{ 
+					return false;
+				}
 			}
 		}
 	}
