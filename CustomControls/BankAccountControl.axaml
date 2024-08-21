@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.BankAccountControl">
-	<ContentControl>
-		<Grid Background="LightGreen" Width="50" Height="50">
-            
+	<Border Width="300" Height="100" BorderBrush="green" BorderThickness="3" CornerRadius="20" Background="LightGreen">
+		<Grid Margin="0,0,0,0" x:Name="gridBankAccount"  Width="" Height="" ColumnDefinitions="auto" RowDefinitions="*,*">
+			<TextBlock x:Name="textBlockBankAccountTitle" Grid.Row="0" Grid.Column="0" FontSize="30" x:CompileBindings="False" Text="{Binding Name}"></TextBlock>
+			<TextBlock x:Name="textBlockBankAccountBalance" Grid.Row="1" Grid.Column="0" FontSize="20" x:CompileBindings="False" Text="{Binding Balance, StringFormat='{}{0:C}'}"></TextBlock>
 		</Grid>
-	</ContentControl>
+	</Border>
 </UserControl>

@@ -11,4 +11,11 @@ public class BankAccount
 	public int Id;
 	public string Name { get; private set; }
 	public string Balance { get; private set; }
+
+	public BankAccount(int id, string name, string balance)
+	{
+		Name = name;
+		Balance = balance;
+		Id = id;
+	}
 }

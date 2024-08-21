@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Server;
+using System.Collections;
 
 namespace BankAccount;
 
@@ -38,6 +39,23 @@ abstract class Database<T>
 		}
 
 		return values;
+	}
+
+	protected T RunSingleQuery(string query, Func<SqlDataReader, T> getValue)
+	{
+		using (SqlConnection connection = GetConnection())
+		{
+			using (SqlCommand command = new SqlCommand(query, connection))
+			{
+				using (SqlDataReader reader = command.ExecuteReader())
+				{
+					reader.Read();
+					
+					return getValue(reader);
+					
+				}
+			}
+		}
 	}
 
 	protected bool ExecuteNonQuery(string query)

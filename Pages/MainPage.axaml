@@ -7,16 +7,21 @@
 	<ContentControl x:Name="MainContent">
 		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1276" MinHeight="1020" Background="">
 			<TabItem Header="BankAccounts">
-				<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded">
+				<StackPanel Orientation="Horizontal">
+					<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded" ColumnDefinitions="*,*" RowDefinitions="*,*,*,*,*,*,*,*">
+						
+						<Button Click="CreateNewBankAccount" Margin="40,0,0,0" CornerRadius="20" Grid.Column="1" Grid.Row="0" FontSize="32" Width="500" Height="70">
+							<Label HorizontalAlignment="Center">Create New Bank Account</Label>
+						</Button>
+					</Grid>
 					
-				</Grid>
-				
+				</StackPanel>
 			</TabItem>
 			<TabItem Header="Loans">
 				
 			</TabItem>
 			<TabItem Header="Settings">
-				
+
 			</TabItem>
 		</TabControl>
 	</ContentControl>

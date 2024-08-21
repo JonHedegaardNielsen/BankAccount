@@ -15,15 +15,17 @@ class UserDatabase : Database<User>
 	public bool CreateUser(string username, string password) =>
 		ExecuteNonQuery($"INSERT INTO [user](userName, password) VALUES('{username}', '{password}')");
 
-	private User GetData(SqlDataReader reader) =>
-		new User(int.Parse( reader["userId"].ToString()), reader["userName"].ToString(), reader["password"].ToString());
+	private User GetData(SqlDataReader reader)
+	{
+		int userId = int.Parse(reader["userId"].ToString());
+		return new User(userId ,reader["userName"].ToString(), reader["password"].ToString(), BankAccountDatabase.Instance.GetBankAccounts(userId));
+	}
 
 	public bool FindUser(string username, string password, out User? user)
 	{
 		try
 		{
-			var v = RunQuery($"SELECT * FROM [user] WHERE username = '{username}' AND [password] = '{password}'", GetData);
-			user = v[0];
+			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username = '{username}' AND [password] = '{password}'", GetData);
 			return true;
 		}
 		catch(ArgumentOutOfRangeException)

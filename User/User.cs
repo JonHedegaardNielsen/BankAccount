@@ -13,10 +13,11 @@ public class User
 	public string Password { get; private set; } = string.Empty;
 
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
-	public List<BankAccount> bankAccounts { get; private set; } = new List<BankAccount>();
+	public List<BankAccount> BankAccounts { get; private set; } = new List<BankAccount>();
 
-	public User(int id, string username, string password)
+	public User(int id, string username, string password, List<BankAccount> bankAccounts)
 	{
+		BankAccounts = bankAccounts;
 		Id = id;
 		Username = username;
 		Password = password;

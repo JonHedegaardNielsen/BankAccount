@@ -6,8 +6,16 @@ namespace BankAccount;
 
 public partial class BankAccountControl : UserControl
 {
-    public BankAccountControl()
+    BankAccount BankAccount { get; set; }
+
+    public BankAccountControl() 
     {
         InitializeComponent();
     }
+
+    public BankAccountControl(BankAccount bankAccount)
+    {
+        InitializeComponent();
+        DataContext = bankAccount;
+	}
 }

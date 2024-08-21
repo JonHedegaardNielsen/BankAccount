@@ -23,8 +23,22 @@ public partial class MainPage : UserControl
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
 	{
 		Grid grid = (Grid)sender;
-        
-		foreach (var item in User.bankAccounts)
-	        grid.Children.Add(new BankAccountControl());
+        int rowCounter = 0;
+
+		foreach (var bankAccount in User.BankAccounts)
+		{
+			var child = new BankAccountControl(bankAccount);
+			child.SetValue(Grid.RowProperty, rowCounter);
+
+
+			grid.Children.Add(child);
+
+			rowCounter++;
+		}
+	}
+
+	private void CreateNewBankAccount(object sender , RoutedEventArgs e)
+	{
+
 	}
 }
