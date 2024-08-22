@@ -14,7 +14,7 @@ class BankAccountDatabase : Database<BankAccount>
 
 
 	private BankAccount GetData(SqlDataReader sqlDataReader) =>
-		new BankAccount(int.Parse(sqlDataReader["bankAccountId"].ToString()), sqlDataReader["name"].ToString(), sqlDataReader["balance"].ToString());
+		new BankAccount(int.Parse(sqlDataReader["bankAccountId"].ToString()), sqlDataReader["name"].ToString(), decimal.Parse(sqlDataReader["balance"].ToString()));
 
 	public List<BankAccount> GetBankAccounts(int userId)
 	{

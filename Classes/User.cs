@@ -15,11 +15,13 @@ public class User
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
 	public List<BankAccount> BankAccounts { get; private set; } = new List<BankAccount>();
 
-	public User(int id, string username, string password, List<BankAccount> bankAccounts)
+	
+	public User(int id, string username, string password, List<BankAccount> bankAccounts, List<Loan> loans)
 	{
 		BankAccounts = bankAccounts;
 		Id = id;
 		Username = username;
 		Password = password;
+		Loans = loans;
 	}
 }

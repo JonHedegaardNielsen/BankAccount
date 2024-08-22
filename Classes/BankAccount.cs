@@ -10,9 +10,9 @@ public class BankAccount
 {
 	public int Id;
 	public string Name { get; private set; }
-	public string Balance { get; private set; }
+	public decimal Balance { get; private set; }
 
-	public BankAccount(int id, string name, string balance)
+	public BankAccount(int id, string name, decimal balance)
 	{
 		Name = name;
 		Balance = balance;

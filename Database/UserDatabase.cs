@@ -18,7 +18,7 @@ class UserDatabase : Database<User>
 	private User GetData(SqlDataReader reader)
 	{
 		int userId = int.Parse(reader["userId"].ToString());
-		return new User(userId ,reader["userName"].ToString(), reader["password"].ToString(), BankAccountDatabase.Instance.GetBankAccounts(userId));
+		return new User(userId ,reader["userName"].ToString(), reader["password"].ToString(), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
 	}
 
 	public bool FindUser(string username, string password, out User? user)
