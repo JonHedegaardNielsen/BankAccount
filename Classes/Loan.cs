@@ -31,7 +31,7 @@ public class Loan
 		BankAccount = bankAccount;
 		Debt = debt;
 		//Name = name;
-		//Interest= interest;
+		//Interest = interest;
 		//CostForEachPayment = costForEachPayment;
 
 	}
