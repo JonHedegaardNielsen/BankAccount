@@ -9,7 +9,7 @@ namespace BankAccount;
 
 public partial class MainPage : UserControl
 {
-    User? User;
+    User User;
 
 	public MainPage()
 	{
@@ -50,7 +50,7 @@ public partial class MainPage : UserControl
 		}
 	}
 
-	private void Changeopage(UserControl page)
+	private void Changepage(UserControl page)
 	{
 		this.FindControl<ContentControl>("MainContent").Content = page;
 	}
@@ -58,11 +58,11 @@ public partial class MainPage : UserControl
 
 	private void CreateNewBankAccount(object sender , RoutedEventArgs e)
 	{
-		//Changeopage(new CreateLoanPage(User));
+		Changepage(new CreateBankAccountPage(User));
 	}
 
 	private void CreateLoan(object sender, RoutedEventArgs e)
 	{
-		Changeopage(new CreateLoanPage(User));
+		Changepage(new CreateLoanPage(User));
 	}
 }

@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Server;
 using System.Collections;
+using System.Globalization;
 
 namespace BankAccount;
 
-abstract class Database<T>
+public abstract class Database<T>
 {
 	private string ConnectionString = "Server=JON;Database=bankAccount;Trusted_Connection=True;";
 
@@ -58,21 +59,28 @@ abstract class Database<T>
 		}
 	}
 
+	protected string FormatDecimal(decimal num)
+	{
+		CultureInfo culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+		culture.NumberFormat.NumberDecimalSeparator = ".";
+		return num.ToString("F2", culture);
+	}
+
 	protected bool ExecuteNonQuery(string query)
 	{
 		using (SqlConnection connection = GetConnection())
 		{
 			using (SqlCommand command = new SqlCommand(query, connection))
 			{
-				try
-				{
+				//try
+				//{
 					command.ExecuteNonQuery();
 					return true;
-				}
-				catch (SqlException ex) 
-				{ 
-					return false;
-				}
+			//}
+			//	catch (SqlException ex) 
+			//	{
+			//	return false;
+			//}
 			}
 		}
 	}

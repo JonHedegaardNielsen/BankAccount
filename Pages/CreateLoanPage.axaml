@@ -8,24 +8,43 @@
 			 x:DataType="uc:Loan">
 	
 	<ContentControl x:Name="MainContent" Loaded="PageLoaded">
-		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto" Width="300" Height="400" ColumnDefinitions="250" HorizontalAlignment="Center" Margin="0,10,0,0" Background="DarkSeaGreen">
-			<ComboBox x:Name="comboBoxLoanTypes" Margin="10,10,0,0" Grid.Column="0" HorizontalAlignment="Stretch" SelectionChanged="SelectLoan" Grid.Row="1">
+		
+		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto" Width="300" Height="450" ColumnDefinitions="250" HorizontalAlignment="Center" Margin="0,10,0,0" Background="DarkSeaGreen">
+	
+			<Label Margin="10,0,0,0" Grid.Row="0">Type</Label>
+			
+			<ComboBox x:Name="comboBoxLoanTypes" Margin="10,5,0,0" Grid.Column="0" HorizontalAlignment="Stretch" SelectionChanged="SelectLoan" Grid.Row="1">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
-						<TextBlock x:CompileBindings="False" Text="{Binding Name}"/>
+						<TextBlock x:DataType="uc:Loan" Text="{Binding Name}"/>
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Label Grid.Row="0">Type</Label>
+			
+			
 			<Label Grid.Row="2" Margin="10,5,0,0" Grid.Column="0">Value</Label>
 			<TextBox IsReadOnly="True"  Grid.Row="3" Text="{Binding InitialValue, StringFormat='{}{0:C}'}" Margin="10,0,0,0"/>
+			
 			<Label Grid.Row="4" Margin="10,5,0,0" Grid.Column="0">Interest</Label>
 			<TextBox IsReadOnly="True" Grid.Row="5" Margin="10,5,0,0" Text="{Binding Interest, StringFormat={}{0}%}" Grid.Column="0"/>
+			
 			<Label Grid.Row="6" Margin="10,5,0,0">Payment Type</Label>
 			<TextBox IsReadOnly="True" Grid.Row="7" Margin="10,5,0,0" Text="{Binding PaymentType}"></TextBox>
+			
 			<Label Grid.Column="0" Grid.Row="8" Margin="10,5,0,0">Cost Per Payment</Label>
 			<TextBox IsReadOnly="True" Grid.Row="9" Margin="10,5,0,0" Text="{Binding CostForEachPayment, StringFormat='{}{0:C}'}"></TextBox>
-			<Button Grid.Row="10" HorizontalAlignment="Center" Margin="0,15,0,0">Take Loan</Button>
+
+			<Label Grid.Row="10" Grid.Column="0" Margin="10,5,0,0">Bank Account</Label>
+			<ComboBox x:Name="comboBoxBankAccount" Margin="10,10,0,0" Grid.Column="0" HorizontalAlignment="Stretch" Grid.Row="11">
+				<ComboBox.ItemTemplate>
+					<DataTemplate>
+						<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+
+			<Button Click="CreateLoan" Grid.Row="12" HorizontalAlignment="Center" Margin="0,15,0,0">Take Loan</Button>
+			<Button Click="BackToMainPage" Grid.Row="13" HorizontalAlignment="Center" Margin="0,15,0,0">Go Back</Button>
 		</Grid>
 	</ContentControl>
 </UserControl>

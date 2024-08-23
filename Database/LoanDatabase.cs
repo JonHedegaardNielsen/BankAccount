@@ -13,7 +13,7 @@ namespace BankAccount;
 	public static LoanDatabase Instance { get; private set; } = new();
 
 	private Loan GetData(SqlDataReader reader) =>
-		new Loan((PaymentTypes)reader["paymentTime"], decimal.Parse(reader["debt"].ToString()), 
+		new Loan(reader["name"].ToString(), decimal.Parse(reader["Interest"].ToString()), decimal.Parse(reader["CostForEachPayment"].ToString()),(PaymentTypes)reader["paymentTime"], decimal.Parse(reader["debt"].ToString()), 
 			new BankAccount(int.Parse(reader["bankAccountId"].ToString()), reader["name"].ToString(), decimal.Parse(reader["balance"].ToString())));
 
 	public List<Loan> SelectLoan(int userId)
@@ -23,7 +23,7 @@ namespace BankAccount;
 
 	public void Insert(Loan loan ,int userId, int bankAccountId)
 	{
-
+		ExecuteNonQuery($"INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name]) VALUES({(int)loan.PaymentType}, {loan.InitialValue}, {userId}, {bankAccountId}, {loan.CostForEachPayment}, { FormatDecimal(loan.Interest)}, '{loan.Name}')");
+		loan.BankAccount = BankAccountDatabase.Instance.GetSingleBankAccount(bankAccountId);
 	}
-
 }

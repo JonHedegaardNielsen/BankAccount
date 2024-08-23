@@ -1,4 +1,4 @@
-﻿use master;use master;
+﻿use master;
 
 DROP DATABASE IF EXISTS bankAccount
 
@@ -12,7 +12,7 @@ GO
 CREATE TABLE bankAccount(bankAccountId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, balance DECIMAL DEFAULT(0), userId INT ,PRIMARY KEY(bankAccountId), FOREIGN KEY (UserId) REFERENCES [User](UserId))
 GO
 
-CREATE TABLE loan(loanId INT IDENTITY(1,1), CostForEachPayment DECIMAL NOT NULL, Interest DECIMAL NOT NULL, paymentTime INT NOT NULL, debt DECIMAL DEFAULT(0), userId INT, PRIMARY KEY(loanId),  FOREIGN KEY (UserId) REFERENCES [User](UserId))
+CREATE TABLE loan(loanId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, CostForEachPayment DECIMAL NOT NULL, Interest DECIMAL NOT NULL, paymentTime INT NOT NULL, debt DECIMAL DEFAULT(0), userId INT NOT NULL, PRIMARY KEY(loanId), bankAccountId INT NOT NULL, FOREIGN KEY (bankAccountId) REFERENCES bankAccount(bankAccountId),FOREIGN KEY (UserId) REFERENCES [User](UserId))
 GO
 
 INSERT INTO [user](userName, [password]) VALUES('akselSmuk', 'test1234')
@@ -21,7 +21,6 @@ GO
 INSERT INTO bankAccount([name], balance, userId) VALUES('Opsparing', 500, 1), ('konto', 700, 1)
 GO
 
---INSERT INTO loan(paymentTime, debt, userId, CostForEachPayment, Interest) VALUES(2, 400, 1, 1, 500, 0,2), (1, 400, 1, 2, 30, 0,5)
---GO
-
+INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name]) VALUES(2, 400, 1, 1, 500, 0.2, 'Quick loan'), (1, 400, 1, 2, 30, 0.5, 'Carloan')
+GO
 

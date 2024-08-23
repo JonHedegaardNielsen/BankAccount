@@ -14,7 +14,7 @@ public class Loan
 	public decimal CostForEachPayment { get; private set; } 
 	public decimal Interest { get; private set; }
 	public decimal InitialValue { get; private set; }
-	private BankAccount? BankAccount;
+	public BankAccount? BankAccount { get; set; }
 
 	public Loan(string name, decimal initialValue, PaymentTypes paymentType, decimal interest, decimal costForEachPayment)
 	{
@@ -23,16 +23,17 @@ public class Loan
 		InitialValue = initialValue;
 		Interest = interest;
 		CostForEachPayment = costForEachPayment;
+		Debt = initialValue;
 	}
 
-	public Loan(/*string name, decimal interest, decimal costForEachPayment,*/ PaymentTypes paymentType, decimal debt, BankAccount bankAccount)
+	public Loan(string name, decimal interest, decimal costForEachPayment, PaymentTypes paymentType, decimal debt, BankAccount bankAccount)
 	{
 		PaymentType = paymentType;
 		BankAccount = bankAccount;
 		Debt = debt;
-		//Name = name;
-		//Interest = interest;
-		//CostForEachPayment = costForEachPayment;
+		Name = name;
+		Interest = interest;
+		CostForEachPayment = costForEachPayment;
 
 	}
 }

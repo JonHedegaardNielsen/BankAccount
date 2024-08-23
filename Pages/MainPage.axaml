@@ -7,19 +7,17 @@
 	<ContentControl x:Name="MainContent">
 		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="1276" MinHeight="1020" Background="">
 			<TabItem Header="BankAccounts">
-				<StackPanel Orientation="Horizontal">
-					<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded" ColumnDefinitions="300,*" RowDefinitions="*,*,*,*,*,*,*,*">
+				<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded" ColumnDefinitions="300,*" RowDefinitions="*,*,*,*,*,*,*,*">
 
-						<Button Click="CreateNewBankAccount" Margin="0,0,0,0" CornerRadius="20" Grid.Column="1" Grid.Row="0" FontSize="32" Width="500" Height="70">
-							<Label HorizontalAlignment="Center">Create New Bank Account</Label>
-						</Button>
-					</Grid>
+					<Button Click="CreateNewBankAccount" Margin="0,0,0,0" CornerRadius="20" Grid.Column="1" Grid.Row="0" FontSize="32" Width="500" Height="70">
+						<Label HorizontalAlignment="Center">Create New Bank Account</Label>
+					</Button>
+				</Grid>
 
-				</StackPanel>
 			</TabItem>
 			<TabItem Header="Loans">
-				<Grid x:Name="gridLoan" Loaded="LoadLoan" ColumnDefinitions="300,*" RowDefinitions="auto,auto,auto,auto,auto">
-					<Button Grid.Column="1" Click="CreateLoan">Take New Loan</Button>
+				<Grid x:Name="gridLoan" Loaded="LoadLoan" ColumnDefinitions="500,*" RowDefinitions="auto,auto,auto,auto,auto">
+					<Button Grid.Column="1" Height="70" Width="350" CornerRadius="15" HorizontalAlignment="Center" FontSize="32" Click="CreateLoan">Take New Loan</Button>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Settings">

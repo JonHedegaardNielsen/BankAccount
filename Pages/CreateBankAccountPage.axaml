@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankAccount.CreateBankAccountPage">
+	<Border CornerRadius="5" Width="250" BorderBrush="black" Padding="10,5,30,0" Height="300" BorderThickness="4" Background="GreenYellow">
+		<Grid RowDefinitions="auto,auto,auto,auto,auto" Margin="0,0,0,0" ColumnDefinitions="*">
+			<Label Grid.Row="0" FontSize="20">Name</Label>
+			<TextBox Grid.Row="1" Grid.Column="0"/>
+
+			<Button Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">Create Bank Account</Button>
+			<Button Grid.Row="3" Margin="0,30,0,0" HorizontalAlignment="Center">Go Back</Button>
+			
+			
+		</Grid>
+	</Border>
+</UserControl>

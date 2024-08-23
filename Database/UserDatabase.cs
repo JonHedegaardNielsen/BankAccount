@@ -28,7 +28,7 @@ class UserDatabase : Database<User>
 			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username = '{username}' AND [password] = '{password}'", GetData);
 			return true;
 		}
-		catch(ArgumentOutOfRangeException)
+		catch(Exception ex)
 		{
 			user = null;
 			return false;
