@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace BankAccount;
 
@@ -13,6 +13,9 @@ public partial class SignupPage : UserControl
 		InitializeComponent();
 	}
 
+	private List<char> Password = new();
+	private List<char> ReInsertPassword = new();
+
 	private void SetFailTextVisibility(bool isVisible)
 	{
 		textBoxFailText1.IsVisible = isVisible;
@@ -21,7 +24,10 @@ public partial class SignupPage : UserControl
 
 	private void CreatUser(object sender, RoutedEventArgs e)
 	{
-		if (textBoxPassword.Text == textBoxReInsertPassword.Text && UserDatabase.Instance.CreateUser(textBoxUsername.Text, textBoxPassword.Text))
+		string password = Login.PasswordToString(Password);
+		string reInsertPassword = Login.PasswordToString(ReInsertPassword);
+
+		if (password == reInsertPassword && UserDatabase.Instance.CreateUser(textBoxUsername.Text, Login.PasswordToString(Password)))
 		{
 			SetFailTextVisibility(false);
 			textBoxUsername.Text = string.Empty;
@@ -32,8 +38,18 @@ public partial class SignupPage : UserControl
 			SetFailTextVisibility(true);
 	}
 
-	private void Login(object sender, RoutedEventArgs e)
+	private void GoToLogin(object sender, RoutedEventArgs e)
 	{
 		this.FindControl<ContentControl>("MainContent").Content = new LoginPage();
+	}
+
+	private void PasswordTextChanged(object sender, TextChangedEventArgs e)
+	{
+		Login.HideLogin((TextBox)sender, Password);
+	}
+
+	private void PasswordReInsertChanged(object sender, TextChangedEventArgs e)
+	{
+		Login.HideLogin((TextBox)sender, ReInsertPassword);
 	}
 }

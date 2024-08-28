@@ -8,9 +8,11 @@
 			 x:DataType="uc:BankAccount">
 	
 	<Border Width="300" Height="100" BorderBrush="green" BorderThickness="3" CornerRadius="20" Background="LightGreen">
-		<Grid Margin="0,0,0,0" x:Name="gridBankAccount"  Width="" Height="" ColumnDefinitions="auto" RowDefinitions="*,*">
+		<Grid Margin="0,0,0,0" x:Name="gridBankAccount" ColumnDefinitions="*, Auto" RowDefinitions="*,*">
 			<TextBlock x:Name="textBlockBankAccountTitle" Grid.Row="0" Grid.Column="0" FontSize="30" Text="{Binding Name}"></TextBlock>
 			<TextBlock x:Name="textBlockBankAccountBalance" Grid.Row="1" Grid.Column="0" FontSize="20" Text="{Binding Balance, StringFormat='{}{0:C}'}"></TextBlock>
+			<Button Click="GoToInfoPage" Grid.Column="1" Width="55" FontSize="20">Info</Button>
+			
 		</Grid>
 	</Border>
 </UserControl>

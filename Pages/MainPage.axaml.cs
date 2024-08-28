@@ -21,17 +21,16 @@ public partial class MainPage : UserControl
         User = user;
         InitializeComponent();
     }
-
+	
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
 	{
-		Grid grid = (Grid)sender;
         int rowCounter = 0;
-
+		
 		foreach (var bankAccount in User.BankAccounts)
 		{
 			var child = new BankAccountControl(bankAccount);
 			child.SetValue(Grid.RowProperty, rowCounter);
-			grid.Children.Add(child);
+			gridBankAccount.Children.Add(child);
 			rowCounter++;
 		}
 	}
@@ -56,7 +55,7 @@ public partial class MainPage : UserControl
 	}
 
 
-	private void CreateNewBankAccount(object sender , RoutedEventArgs e)
+	private void CreateNewBankAccount(object sender, RoutedEventArgs e)
 	{
 		Changepage(new CreateBankAccountPage(User));
 	}

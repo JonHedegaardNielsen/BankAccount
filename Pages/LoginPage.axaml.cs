@@ -2,22 +2,27 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-
+using System.Collections.Generic;
+using System.ComponentModel;
 namespace BankAccount;
+using System;
+using System.Security.Cryptography.X509Certificates;
+using Tmds.DBus.Protocol;
 
 public partial class LoginPage : UserControl
 {
+    private List<char> Password = new();
+    
+    
     public LoginPage()
     {
         InitializeComponent();
     }
 
-    private void Login(object sender, RoutedEventArgs e)
+    private void LoginToBankAccount(object sender, RoutedEventArgs e)
     {
-        if(UserDatabase.Instance.FindUser(textBoxUsername.Text, textBoxPassword.Text, out User user))
-        {
+        if(UserDatabase.Instance.FindUser(textBoxUsername.Text, Login.PasswordToString(Password), out User user))
 			this.FindControl<ContentControl>("MainContent").Content = new MainPage(user);
-		}
 	}
 
 	private void Signup(object sender, RoutedEventArgs e)
@@ -25,5 +30,8 @@ public partial class LoginPage : UserControl
 		this.FindControl<ContentControl>("MainContent").Content = new SignupPage();
     }
 
-
+    private void PasswordTextChanged(object sender, TextChangedEventArgs e)
+    {
+		Login.HideLogin(textBoxPassword, Password);
+	}
 }

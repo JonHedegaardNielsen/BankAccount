@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,10 @@ public partial class BankAccountControl : UserControl
     {
         InitializeComponent();
         DataContext = bankAccount;
+	}
+
+	private void GoToInfoPage(object? sender, RoutedEventArgs e)
+	{
+		this.FindControl<ContentControl>("MainContent").Content = (new BankAccountInfoPage());
 	}
 }

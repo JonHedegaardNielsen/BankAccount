@@ -25,10 +25,10 @@ class UserDatabase : Database<User>
 	{
 		try
 		{
-			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username = '{username}' AND [password] = '{password}'", GetData);
+			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username COLLATE Latin1_General_BIN = '{username}' AND [password] COLLATE Latin1_General_BIN = '{password}'", GetData);
 			return true;
 		}
-		catch(Exception ex)
+		catch(Exception)
 		{
 			user = null;
 			return false;
