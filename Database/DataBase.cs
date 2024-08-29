@@ -21,7 +21,7 @@ public abstract class Database<T>
 		return connection;
 	}
 
-	protected List<T> RunQuery<T>(string query, Func<SqlDataReader, T> getValues)
+	protected List<T> RunQuery(string query, Func<SqlDataReader, T> getValues)
 	{
 		List<T> values = new List<T>();
 
@@ -51,9 +51,9 @@ public abstract class Database<T>
 				using (SqlDataReader reader = command.ExecuteReader())
 				{
 					reader.Read();
-					
+
 					return getValue(reader);
-					
+
 				}
 			}
 		}
@@ -72,15 +72,15 @@ public abstract class Database<T>
 		{
 			using (SqlCommand command = new SqlCommand(query, connection))
 			{
-				//try
-				//{
+				try
+				{
 					command.ExecuteNonQuery();
 					return true;
-			//}
-			//	catch (SqlException ex) 
-			//	{
-			//	return false;
-			//}
+				}
+				catch (SqlException)
+				{
+					return false;
+				}
 			}
 		}
 	}

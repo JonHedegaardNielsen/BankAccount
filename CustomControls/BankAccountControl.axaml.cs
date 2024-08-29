@@ -24,6 +24,6 @@ public partial class BankAccountControl : UserControl
 
 	private void GoToInfoPage(object? sender, RoutedEventArgs e)
 	{
-		this.FindControl<ContentControl>("MainContent").Content = (new BankAccountInfoPage());
+		this.FindControl<ContentControl>("MainContent").Content = new BankAccountInfoPage();
 	}
 }

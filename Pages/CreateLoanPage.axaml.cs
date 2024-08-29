@@ -4,13 +4,11 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System.Collections.Generic;
 using System.Linq;
-namespace BankAccount;
 
-using Azure;
-using System;
+
+namespace BankAccount;
 public partial class CreateLoanPage : UserControl
 {
-    private User? CurrentUser;
 
     Loan? SelectedLoanType;
 
@@ -25,13 +23,7 @@ public partial class CreateLoanPage : UserControl
     public CreateLoanPage()
     {
         InitializeComponent();
-	}
-
-    public CreateLoanPage(User user)
-    {
-        InitializeComponent();
-        CurrentUser = user;
-		BankAccounts = BankAccountDatabase.Instance.GetBankAccounts(CurrentUser.Id);
+		BankAccounts = BankAccountDatabase.Instance.GetBankAccounts(User.CurrentUser.Id);
 	}
 
 	private void PageLoaded(object sender, RoutedEventArgs e)
@@ -49,12 +41,15 @@ public partial class CreateLoanPage : UserControl
 
     private void CreateLoan(object sender, RoutedEventArgs e)
     {
-        LoanDatabase.Instance.Insert(SelectedLoanType, CurrentUser.Id, ((BankAccount)comboBoxBankAccount.SelectedItem).Id);
-        CurrentUser.Loans.Add(SelectedLoanType);
+        LoanDatabase.Instance.Insert(SelectedLoanType, User.CurrentUser.Id, ((BankAccount)comboBoxBankAccount.SelectedItem).Id);
+        User.CurrentUser.Loans.Add(SelectedLoanType);
+        SelectedLoanType = null;
+        comboBoxLoanTypes.Clear();
+        comboBoxLoanTypes.ItemsSource = LoanTypes;
     }
 
 	private void BackToMainPage(object sender, RoutedEventArgs e)
     {
-		this.FindControl<ContentControl>("MainContent").Content = new MainPage(CurrentUser);
+		this.FindControl<ContentControl>("MainContent").Content = new MainPage();
 	}
 }

@@ -8,14 +8,22 @@ namespace BankAccount;
 
 public class BankAccount
 {
-	public int Id;
+	public int Id { get; private set; }
 	public string Name { get; private set; }
-	public decimal Balance { get; private set; }
+	public decimal Balance { get; set; }
 
 	public BankAccount(int id, string name, decimal balance)
 	{
 		Name = name;
 		Balance = balance;
 		Id = id;
+	}
+
+	public void Transfer(decimal balanceToTransfer, BankAccount bankAccountTranferFrom)
+	{
+		Balance += balanceToTransfer;
+		bankAccountTranferFrom.Balance -= balanceToTransfer;
+		BankAccountDatabase.Instance.UpdateBalance(Id, Balance);
+		BankAccountDatabase.Instance.UpdateBalance(bankAccountTranferFrom.Id, bankAccountTranferFrom.Balance);
 	}
 }

@@ -8,6 +8,9 @@ namespace BankAccount;
 
 public class User
 {
+	public static User? CurrentUser { get; set; }
+
+
 	public int Id { get; private set; }
 	public string Username { get; private set; } = string.Empty;
 	public string Password { get; private set; } = string.Empty;

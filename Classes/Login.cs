@@ -26,7 +26,7 @@ public static class Login
 				{
 					password[counter] = c;
 				}
-				catch (ArgumentOutOfRangeException ex)
+				catch (ArgumentOutOfRangeException)
 				{
 					password.Add(c);
 				}

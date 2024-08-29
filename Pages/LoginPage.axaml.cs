@@ -21,8 +21,11 @@ public partial class LoginPage : UserControl
 
     private void LoginToBankAccount(object sender, RoutedEventArgs e)
     {
-        if(UserDatabase.Instance.FindUser(textBoxUsername.Text, Login.PasswordToString(Password), out User user))
-			this.FindControl<ContentControl>("MainContent").Content = new MainPage(user);
+        if(UserDatabase.Instance.FindUser(textBoxUsername.Text, Login.PasswordToString(Password), out User? user))
+        {
+            User.CurrentUser = user;
+            this.FindControl<ContentControl>("MainContent").Content = new MainPage();
+		}
 	}
 
 	private void Signup(object sender, RoutedEventArgs e)

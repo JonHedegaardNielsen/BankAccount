@@ -26,4 +26,9 @@ public class BankAccountDatabase : Database<BankAccount>
 	{
 		ExecuteNonQuery($"INSERT INTO bankAccount(userId, [name], balance) VALUES({userId}, '{name}', {FormatDecimal(balance)})");
 	}
+
+	public void UpdateBalance(int bankAccountId, decimal newBalance)
+	{
+		ExecuteNonQuery($"UPDATE bankAccount SET balance={newBalance} WHERE bankAccountId = {bankAccountId}");
+	}
 }
