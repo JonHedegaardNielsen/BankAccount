@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,10 @@ public class User
 		Username = username;
 		Password = password;
 		Loans = loans;
+	}
+
+	public static void UpdateCurrentUser()
+	{
+		CurrentUser = UserDatabase.Instance.GetUserFromId(CurrentUser.Id);
 	}
 }

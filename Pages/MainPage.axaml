@@ -18,8 +18,8 @@
 
 			</TabItem>
 			<TabItem Header="Loans">
-				<Grid x:Name="gridLoan" Loaded="LoadLoan" ColumnDefinitions="500,*" RowDefinitions="auto,auto,auto,auto,auto">
-					<Button Grid.Column="1" Height="70" Width="350" CornerRadius="15" HorizontalAlignment="Center" FontSize="32" Click="CreateLoan">Take New Loan</Button>
+				<Grid x:Name="gridLoan" Loaded="LoadLoan" ColumnDefinitions="300,*" RowDefinitions="auto,auto,auto,auto,auto">
+					<Button Grid.Column="1" Height="70" Width="350" CornerRadius="15" Grid.Row="1" HorizontalAlignment="Center" FontSize="32" Click="CreateLoan">Take New Loan</Button>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Transfer">

@@ -14,9 +14,9 @@ public partial class CreateLoanPage : UserControl
 
     List<Loan> LoanTypes = new List<Loan>()
     {
-        new("House Loan", 10000000, PaymentTypes.monthly, 1.5m, 5000),
-        new("Car Loan", 100000, PaymentTypes.quarterly, 3, 2000),
-        new("Quick Loan", 5000, PaymentTypes.monthly, 20, 1000)
+        new("House Loan",PaymentTypes.monthly , 10000000 , 1.5m, 5000),
+        new("Car Loan", PaymentTypes.quarterly, 100000, 3, 2000),
+        new("Quick Loan", PaymentTypes.monthly , 5000, 20, 1000)
     };
     List<BankAccount> BankAccounts;
 
@@ -41,7 +41,11 @@ public partial class CreateLoanPage : UserControl
 
     private void CreateLoan(object sender, RoutedEventArgs e)
     {
-        LoanDatabase.Instance.Insert(SelectedLoanType, User.CurrentUser.Id, ((BankAccount)comboBoxBankAccount.SelectedItem).Id);
+        BankAccount bankAccount = (BankAccount)comboBoxBankAccount.SelectedItem;
+
+		LoanDatabase.Instance.Insert(SelectedLoanType, User.CurrentUser.Id, bankAccount.Id);
+        bankAccount.Balance += SelectedLoanType.InitialValue;
+        BankAccountDatabase.Instance.UpdateBalance(bankAccount.Id, bankAccount.Balance);
         User.CurrentUser.Loans.Add(SelectedLoanType);
         SelectedLoanType = null;
         comboBoxLoanTypes.Clear();

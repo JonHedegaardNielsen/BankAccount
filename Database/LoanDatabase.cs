@@ -13,8 +13,7 @@ namespace BankAccount;
 	public static LoanDatabase Instance { get; private set; } = new();
 
 	private Loan GetData(SqlDataReader reader) =>
-		new Loan(reader["name"].ToString(), decimal.Parse(reader["Interest"].ToString()), decimal.Parse(reader["CostForEachPayment"].ToString()),(PaymentTypes)reader["paymentTime"], decimal.Parse(reader["debt"].ToString()), 
-			new BankAccount(int.Parse(reader["bankAccountId"].ToString()), reader["name"].ToString(), decimal.Parse(reader["balance"].ToString())));
+		new Loan(reader.GetString(1), reader.GetDecimal(2), reader.GetDecimal(3), (PaymentTypes)reader.GetValue(4), reader.GetDecimal(5), reader.GetDateTime(7), new(reader.GetInt32(9), reader.GetString(10), reader.GetDecimal(11)));
 
 	public List<Loan> SelectLoan(int userId)
 	{
@@ -23,7 +22,7 @@ namespace BankAccount;
 
 	public void Insert(Loan loan ,int userId, int bankAccountId)
 	{
-		ExecuteNonQuery($"INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name]) VALUES({(int)loan.PaymentType}, {loan.InitialValue}, {userId}, {bankAccountId}, {loan.CostForEachPayment}, { FormatDecimal(loan.Interest)}, '{loan.Name}')");
+		ExecuteNonQuery($"INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name], payDate) VALUES({(int)loan.PaymentType}, {loan.InitialValue}, {userId}, {bankAccountId}, {loan.CostForEachPayment}, { FormatDecimal(loan.Interest)}, '{loan.Name}', '{loan.PayDate.ToString("MM-dd-YY")}')");
 		loan.BankAccount = BankAccountDatabase.Instance.GetSingleBankAccount(bankAccountId);
 	}
 }

@@ -13,8 +13,8 @@ public class BankAccountDatabase : Database<BankAccount>
 	private BankAccountDatabase() { }
 
 
-	private BankAccount GetData(SqlDataReader sqlDataReader) =>
-		new BankAccount(int.Parse(sqlDataReader["bankAccountId"].ToString()), sqlDataReader["name"].ToString(), decimal.Parse(sqlDataReader["balance"].ToString()));
+	private BankAccount GetData(SqlDataReader dataReader) =>
+		new BankAccount(dataReader.GetInt32(0), dataReader.GetString(1), dataReader.GetDecimal(2));
 
 	public List<BankAccount> GetBankAccounts(int userId) =>
 		RunQuery($"SELECT * FROM bankAccount WHERE userId = {userId}", GetData);

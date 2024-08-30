@@ -10,13 +10,12 @@ namespace BankAccount;
 
 public partial class MainPage : UserControl
 {
-
 	public MainPage()
 	{
 		InitializeComponent();
 		comboBoxBankAccountTransferFrom.ItemsSource = User.CurrentUser.BankAccounts;
 		comboBoxBankAccountTransferTo.ItemsSource = User.CurrentUser.BankAccounts;
-		
+		User.UpdateCurrentUser();
 	}
 
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
@@ -37,12 +36,11 @@ public partial class MainPage : UserControl
 		Grid grid = (Grid)sender;
 		int rowCounter = 0;
 
-		grid.Children.Clear();
-
 		foreach (var loan in User.CurrentUser.Loans)
 		{
 			var child = new LoanControl(loan);
 			child.SetValue(Grid.RowProperty, rowCounter);
+			child.SetValue(Grid.ColumnProperty, 0);
 			grid.Children.Add(child);
 			rowCounter++;
 		}

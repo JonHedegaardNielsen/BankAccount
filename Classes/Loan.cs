@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,12 @@ public class Loan
 	public decimal Interest { get; private set; }
 	public decimal InitialValue { get; private set; }
 	public BankAccount? BankAccount { get; set; }
+	public DateTime PayDate { get; private set; }
+	public string PayDateString => $"Next Pay Date: {PayDate.ToString("dd-MM-yyyy")}";
 
-	public Loan(string name, decimal initialValue, PaymentTypes paymentType, decimal interest, decimal costForEachPayment)
+	private decimal NextPaymentAmount;
+
+	public Loan(string name, PaymentTypes paymentType , decimal initialValue, decimal interest, decimal costForEachPayment)
 	{
 		Name = name;
 		PaymentType = paymentType;
@@ -26,7 +31,7 @@ public class Loan
 		Debt = initialValue;
 	}
 
-	public Loan(string name, decimal interest, decimal costForEachPayment, PaymentTypes paymentType, decimal debt, BankAccount bankAccount)
+	public Loan(string name, decimal costForEachPayment, decimal interest, PaymentTypes paymentType, decimal debt, DateTime payDate, BankAccount bankAccount)
 	{
 		PaymentType = paymentType;
 		BankAccount = bankAccount;
@@ -34,6 +39,25 @@ public class Loan
 		Name = name;
 		Interest = interest;
 		CostForEachPayment = costForEachPayment;
+		PayDate = payDate;
+		
 
+	}
+
+	private void AddInterest()
+	{
+		Debt *= (Interest / 100) + 1;
+	}
+
+	public bool PayLoan(BankAccount bankAccount)
+	{
+		if (BankAccount.Balance >= NextPaymentAmount)
+		{
+			BankAccount.Balance -= NextPaymentAmount;
+			Debt -= NextPaymentAmount;
+			return true;
+		}
+
+		return false;
 	}
 }

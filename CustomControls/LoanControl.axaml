@@ -20,6 +20,7 @@
 			</TextBlock>
 			<TextBlock Margin="10,0,0,0" Text="{Binding Debt, StringFormat='{}Total Debt: {0:C}'}" FontSize="16" Grid.Column="0" Grid.Row="1"/>
 			<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" Grid.Column="0" Grid.Row="2"/>
+			<TextBlock Margin="10,0,0,0" Text="{Binding PayDateString}'" FontSize="16" Grid.Column="0" Grid.Row="3"/>
 		</Grid>
 	</Border>
 </UserControl>

@@ -17,21 +17,24 @@ class UserDatabase : Database<User>
 
 	private User GetData(SqlDataReader reader)
 	{
-		int userId = int.Parse(reader["userId"].ToString());
-		return new User(userId ,reader["userName"].ToString(), reader["password"].ToString(), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
+		int userId = reader.GetInt32(0);
+		return new User(userId ,reader.GetString(1), reader.GetString(2), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
 	}
 
 	public bool FindUser(string username, string password, out User? user)
 	{
-		try
-		{
+		//try
+		//{
 			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username COLLATE Latin1_General_BIN = '{username}' AND [password] COLLATE Latin1_General_BIN = '{password}'", GetData);
 			return true;
-		}
-		catch(Exception)
-		{
-			user = null;
-			return false;
-		}
+		//}
+		//catch(Exception)
+		//{
+		//	user = null;
+		//	return false;
+		//}
 	}
+
+	public User GetUserFromId(int userId) =>
+		RunSingleQuery($"SELECT * FROM [user] WHERE userId = {userId}", GetData);
 }
