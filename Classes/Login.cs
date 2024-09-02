@@ -24,6 +24,7 @@ public static class Login
 			{
 				try
 				{
+					
 					password[counter] = c;
 				}
 				catch (ArgumentOutOfRangeException)

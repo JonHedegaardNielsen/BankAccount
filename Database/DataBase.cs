@@ -66,21 +66,13 @@ public abstract class Database<T>
 		return num.ToString("F2", culture);
 	}
 
-	protected bool ExecuteNonQuery(string query)
+	protected void ExecuteNonQuery(string query)
 	{
 		using (SqlConnection connection = GetConnection())
 		{
 			using (SqlCommand command = new SqlCommand(query, connection))
 			{
-				try
-				{
-					command.ExecuteNonQuery();
-					return true;
-				}
-				catch (SqlException)
-				{
-					return false;
-				}
+				command.ExecuteNonQuery();
 			}
 		}
 	}

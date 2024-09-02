@@ -12,8 +12,10 @@ class UserDatabase : Database<User>
 	private UserDatabase() { }
 	public static UserDatabase Instance = new UserDatabase();
 
-	public bool CreateUser(string username, string password) =>
+	public void CreateUser(string username, string password)
+	{
 		ExecuteNonQuery($"INSERT INTO [user](userName, password) VALUES('{username}', '{password}')");
+	}
 
 	private User GetData(SqlDataReader reader)
 	{
@@ -23,16 +25,16 @@ class UserDatabase : Database<User>
 
 	public bool FindUser(string username, string password, out User? user)
 	{
-		//try
-		//{
+		try
+		{
 			user = RunSingleQuery($"SELECT TOP(1) * FROM [user] WHERE username COLLATE Latin1_General_BIN = '{username}' AND [password] COLLATE Latin1_General_BIN = '{password}'", GetData);
 			return true;
-		//}
-		//catch(Exception)
-		//{
-		//	user = null;
-		//	return false;
-		//}
+		}
+		catch (InvalidOperationException)
+		{
+			user = null;
+			return false;
+		}
 	}
 
 	public User GetUserFromId(int userId) =>

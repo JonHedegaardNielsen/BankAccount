@@ -24,8 +24,12 @@ public partial class LoginPage : UserControl
         if(UserDatabase.Instance.FindUser(textBoxUsername.Text, Login.PasswordToString(Password), out User? user))
         {
             User.CurrentUser = user;
-            this.FindControl<ContentControl>("MainContent").Content = new MainPage();
+			LabelFailText.IsVisible = false;
+
+			this.FindControl<ContentControl>("MainContent").Content = new MainPage();
 		}
+		else
+            LabelFailText.IsVisible = true;
 	}
 
 	private void Signup(object sender, RoutedEventArgs e)
