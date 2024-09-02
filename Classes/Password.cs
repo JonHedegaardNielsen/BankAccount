@@ -9,6 +9,6 @@ namespace BankAccount;
 public class Password
 {
 	string Value;
-	string HiddenPassword => 
+	string HiddenPassword;
 
 }
