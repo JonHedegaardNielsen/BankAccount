@@ -25,12 +25,8 @@ public partial class SignupPage : UserControl
 		textBoxPasswordMatchFail.IsVisible = isVisibleMatchFail;
 	}
 
-	
-
 	private void CreatUser(object sender, RoutedEventArgs e)
 	{
-		string password = Login.PasswordToString(Password);
-
 		bool CheckLength(string text)
 		{
 			try
@@ -43,11 +39,10 @@ public partial class SignupPage : UserControl
 			}
 		}
 
-		string reInsertPassword = Login.PasswordToString(ReInsertPassword);
 		SetFailTextVisibility(false, false);
 		try
 		{
-			UserDatabase.Instance.CreateUser(textBoxUsername.Text, Login.PasswordToString(Password));
+			UserDatabase.Instance.CreateUser(textBoxUsername.Text, textBoxPassword.Text);
 
 			textBoxUsername.Text = string.Empty;
 			textBoxPassword.Text = string.Empty;
@@ -55,22 +50,12 @@ public partial class SignupPage : UserControl
 		}
 		catch (Exception)
 		{
-			SetFailTextVisibility(!(CheckLength(password) || CheckLength(reInsertPassword) || CheckLength(textBoxUsername.Text)), password != reInsertPassword);
+			SetFailTextVisibility(!(CheckLength(textBoxPassword.Text) || CheckLength(textBoxReInsertPassword.Text) || CheckLength(textBoxUsername.Text)), textBoxPassword.Text != textBoxReInsertPassword.Text);
 		}
 	}
 
 	private void GoToLogin(object sender, RoutedEventArgs e)
 	{
 		this.FindControl<ContentControl>("MainContent").Content = new LoginPage();
-	}
-
-	private void PasswordTextChanged(object sender, TextChangedEventArgs e)
-	{
-		Login.HideLogin((TextBox)sender, Password);
-	}
-
-	private void PasswordReInsertChanged(object sender, TextChangedEventArgs e)
-	{
-		Login.HideLogin((TextBox)sender, ReInsertPassword);
 	}
 }

@@ -35,7 +35,7 @@ public partial class MainPage : UserControl
 	{
 		Grid grid = (Grid)sender;
 		int rowCounter = 0;
-
+		
 		foreach (var loan in User.CurrentUser.Loans)
 		{
 			var child = new LoanControl(loan);

@@ -7,20 +7,22 @@
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:Loan"
 			 >
-
-	<Border CornerRadius="30" Width="300" Height="150" Background="LimeGreen" BorderBrush="Black" BorderThickness="7" HorizontalAlignment="Left">
-		<Grid RowDefinitions="*,*,*,*" ColumnDefinitions="*">
-			<TextBlock Margin="10,0,0,0" FontSize="16" Grid.Column="0" Grid.Row="0">
-				<TextBlock.Text>
-					<MultiBinding StringFormat="{}{0}: {1:C}">
-						<Binding Path="PaymentType"/>
-						<Binding Path="CostForEachPayment"/>
-					</MultiBinding>
-				</TextBlock.Text>
-			</TextBlock>
-			<TextBlock Margin="10,0,0,0" Text="{Binding Debt, StringFormat='{}Total Debt: {0:C}'}" FontSize="16" Grid.Column="0" Grid.Row="1"/>
-			<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" Grid.Column="0" Grid.Row="2"/>
-			<TextBlock Margin="10,0,0,0" Text="{Binding PayDateString}'" FontSize="16" Grid.Column="0" Grid.Row="3"/>
-		</Grid>
-	</Border>
+	<ContentControl x:Name="MainContent">
+		<Border CornerRadius="30" Width="300" Height="150" Background="LimeGreen" BorderBrush="Black" BorderThickness="7" HorizontalAlignment="Left">
+			<Grid RowDefinitions="*,*,*,*,30" ColumnDefinitions="*">
+				<TextBlock Margin="10,0,0,0" FontSize="16" Grid.Column="0" Grid.Row="0">
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0}: {1:C}">
+							<Binding Path="PaymentType"/>
+							<Binding Path="CostForEachPayment"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
+				<TextBlock x:Name="textBoxDebt" Margin="10,0,0,0" Text="{Binding DebtString}" FontSize="16" Grid.Column="0" Grid.Row="1"/>
+				<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" Grid.Column="0" Grid.Row="2"/>
+				<TextBlock x:Name="textBoxPayDate" Margin="10,0,0,0" Text="{Binding PayDateString}'" FontSize="16" Grid.Column="0" Grid.Row="3"/>
+				<Button x:Name="btnPayDebt" Click="PayOffLoan" Margin="10,0,0,0" Grid.Row="4" IsVisible="{Binding IsPayTime}">Pay Loan</Button>
+			</Grid>
+		</Border>
+	</ContentControl>
 </UserControl>

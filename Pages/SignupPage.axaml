@@ -5,19 +5,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.SignupPage">
 	<ContentControl x:Name="MainContent">
-		<Border></Border>
 		<Grid Width="400" VerticalAlignment="Center" Background="LimeGreen" RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto, auto" ColumnDefinitions="300">
 			<Label Grid.Row="0" Margin="5,5,0,0">Username</Label>
 			<TextBox Grid.Column="0" Grid.Row="1" Margin="5,5,0,0" x:Name="textBoxUsername" MaxLength="32" HorizontalAlignment="Stretch"/>
 			<Label Grid.Row="2" Margin="5,20,0,0">Password</Label>
-			<TextBox TextChanged="PasswordTextChanged" Grid.Column="0" Grid.Row="3" x:Name="textBoxPassword" MaxLength="32" Margin="5,5,0,0" HorizontalAlignment="Stretch"/>
+			<TextBox PasswordChar="*" Grid.Column="0" Grid.Row="3" x:Name="textBoxPassword" MaxLength="32" Margin="5,5,0,0" HorizontalAlignment="Stretch"/>
 			<Label Grid.Row="4" Margin="5,20,0,0">Re-insert password</Label>
-			<TextBox TextChanged="PasswordReInsertChanged" x:Name="textBoxReInsertPassword"  Grid.Column="0" MaxLength="32" Grid.Row="5" Margin="5,5,0,0" HorizontalAlignment="Stretch"></TextBox>
+			<TextBox x:Name="textBoxReInsertPassword" PasswordChar="*" Grid.Column="0" MaxLength="32" Grid.Row="5" Margin="5,5,0,0" HorizontalAlignment="Stretch"></TextBox>
 			<Button Click="CreatUser" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,20">Create Account</Button>
 			<Button Click="GoToLogin" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" Margin="5,0,0,20">Login</Button>
 			<Label x:Name="textBoxFailText1" Grid.Column="0" IsVisible="False" Foreground="Red" FontSize="16" Grid.Row="8" VerticalAlignment="Bottom">Password and Username has to be </Label>
 			<Label x:Name="textBoxFailText2" Grid.Column="0" IsVisible="False" Foreground="Red" FontSize="16" Grid.Row="9" VerticalAlignment="Bottom">between 8 and 32 charecters</Label>
 			<Label x:Name="textBoxPasswordMatchFail" Grid.Row="10" Grid.Column="0" IsVisible="False" Foreground="Red" FontSize="16">Passwords does not match</Label>
+			
 		</Grid>
 	</ContentControl>
 </UserControl>

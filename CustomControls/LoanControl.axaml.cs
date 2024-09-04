@@ -1,12 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using System;
 
 namespace BankAccount;
 
 public partial class LoanControl : UserControl
 {
-    private Loan? Loan;
+    private Loan Loan;
 
     public LoanControl()
     {
@@ -17,7 +19,15 @@ public partial class LoanControl : UserControl
     {
         InitializeComponent();
         Loan = loan;
-
-        DataContext = Loan;
+        btnPayDebt.IsVisible = Loan.IsPayTime();
+		DataContext = Loan;
     }
+
+	private void PayOffLoan(object? sender, RoutedEventArgs e)
+	{
+        Loan.PayLoan();
+		textBoxPayDate.Text = Loan.PayDateString;
+		textBoxDebt.Text = Loan.DebtString;
+        btnPayDebt.IsVisible = Loan.IsPayTime();
+	}
 }

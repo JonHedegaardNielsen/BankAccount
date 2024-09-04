@@ -13,7 +13,7 @@ CREATE TABLE bankAccount(bankAccountId INT IDENTITY(1,1), [name] NVARCHAR(32) NO
 CONSTRAINT UQ_Name_UserId UNIQUE ([name], userId) )
 GO
 
-CREATE TABLE loan(loanId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, CostForEachPayment DECIMAL NOT NULL, Interest DECIMAL NOT NULL, paymentTime INT NOT NULL, debt DECIMAL DEFAULT(0), userId INT NOT NULL, 
+CREATE TABLE loan(loanId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, CostForEachPayment DECIMAL NOT NULL, Interest DECIMAL NOT NULL, paymentTime INT NOT NULL, debt DECIMAL DEFAULT(0), payDate DATE, userId INT NOT NULL, 
 PRIMARY KEY(loanId), bankAccountId INT NOT NULL, FOREIGN KEY (bankAccountId) REFERENCES bankAccount(bankAccountId),FOREIGN KEY (UserId) REFERENCES [User](UserId))
 GO
 
@@ -23,6 +23,5 @@ GO
 INSERT INTO bankAccount([name], balance, userId) VALUES('Opsparing', 500, 1), ('konto', 700, 1)
 GO
 
-INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name]) VALUES(2, 400, 1, 1, 500, 0.2, 'Quick loan'), (1, 400, 1, 2, 30, 0.5, 'Carloan')
+INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name], payDate) VALUES(2, 400, 1, 1, 500, 0.2, 'Quick loan', GETDATE()), (1, 400, 1, 2, 30, 0.5, 'Carloan', GETDATE())
 GO
-

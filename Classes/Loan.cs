@@ -9,17 +9,21 @@ namespace BankAccount;
 
 public class Loan
 {
+	public int Id { get; }
 	public string Name { get; set; }
 	public PaymentTypes PaymentType { get; set; }
 	public decimal Debt { get; private set; }
+	public string DebtString => $"Total Debt {Debt.ToString()} kr.";
 	public decimal CostForEachPayment { get; private set; } 
 	public decimal Interest { get; private set; }
 	public decimal InitialValue { get; private set; }
 	public BankAccount? BankAccount { get; set; }
-	public DateTime PayDate { get; private set; }
+	public DateTime PayDate { get; private set; } = DateTime.Now;
 	public string PayDateString => $"Next Pay Date: {PayDate.ToString("dd-MM-yyyy")}";
 
-	private decimal NextPaymentAmount;
+	private decimal NextPaymentAmount = 100;
+	public bool IsPayTime() =>
+		PayDate >= GetCurrentDate();
 
 	public Loan(string name, PaymentTypes paymentType , decimal initialValue, decimal interest, decimal costForEachPayment)
 	{
@@ -31,8 +35,9 @@ public class Loan
 		Debt = initialValue;
 	}
 
-	public Loan(string name, decimal costForEachPayment, decimal interest, PaymentTypes paymentType, decimal debt, DateTime payDate, BankAccount bankAccount)
+	public Loan(int id, string name, decimal costForEachPayment, decimal interest, PaymentTypes paymentType, decimal debt, DateTime payDate, BankAccount bankAccount)
 	{
+		Id = id;
 		PaymentType = paymentType;
 		BankAccount = bankAccount;
 		Debt = debt;
@@ -40,24 +45,60 @@ public class Loan
 		Interest = interest;
 		CostForEachPayment = costForEachPayment;
 		PayDate = payDate;
-		
-
 	}
+
+	private DateTime GetCurrentDate()
+	{
+		DateTime timeNow = DateTime.Now;
+		return new DateTime(timeNow.Year, timeNow.Month, timeNow.Day, 0, 0, 0);
+	}
+
+	public bool CheckLoanDate() =>
+		PayDate.Day >= DateTime.Now.Day;
 
 	private void AddInterest()
 	{
 		Debt *= (Interest / 100) + 1;
 	}
 
-	public bool PayLoan(BankAccount bankAccount)
+	public bool PayLoan()
 	{
 		if (BankAccount.Balance >= NextPaymentAmount)
 		{
 			BankAccount.Balance -= NextPaymentAmount;
 			Debt -= NextPaymentAmount;
+			ChangePayDate();
+			LoanDatabase.Instance.UpdateLoan(this);
 			return true;
 		}
 
+		AddInterest();
 		return false;
+	}
+
+	public void ChangePayDate()
+	{
+		PayDate = GetNextPayDate();
+	}
+
+	private DateTime GetNextPayDate()
+	{
+		switch (PaymentType)
+		{
+			case PaymentTypes.Weekly:
+				return PayDate.AddDays(7);
+
+			case PaymentTypes.Monthly:
+				return PayDate.AddMonths(1);
+
+			case PaymentTypes.Yearly:
+				return PayDate.AddYears(1);
+
+			case PaymentTypes.Quarterly:
+				return PayDate.AddMonths(3);
+
+			default:
+				throw new ArgumentException();
+		}
 	}
 }

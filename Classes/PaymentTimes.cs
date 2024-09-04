@@ -2,9 +2,8 @@
 namespace BankAccount;
 public enum PaymentTypes
 {
-	yearly,
-	quarterly,
-	monthly,
-	weekly,
-
+	Weekly,
+	Yearly,
+	Quarterly,
+	Monthly,
 }
