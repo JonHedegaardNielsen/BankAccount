@@ -29,5 +29,11 @@ public partial class LoanControl : UserControl
 		textBoxPayDate.Text = Loan.PayDateString;
 		textBoxDebt.Text = Loan.DebtString;
         btnPayDebt.IsVisible = Loan.IsPayTime();
+
+        if (Loan.LoanFinished)
+        {
+			IsEnabled = false;
+            IsVisible = false;
+		}
 	}
 }

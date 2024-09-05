@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-public class User
+public class BankUser
 {
-	public static User? CurrentUser { get; set; }
+	public static BankUser? CurrentUser { get; set; }
 
 
 	public int Id { get; private set; }
@@ -20,7 +20,7 @@ public class User
 	public List<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
 
 	
-	public User(int id, string username, string password, List<BankAccount> bankAccounts, List<Loan> loans)
+	public BankUser(int id, string username, string password, List<BankAccount> bankAccounts, List<Loan> loans)
 	{
 		BankAccounts = bankAccounts;
 		Id = id;
@@ -31,6 +31,6 @@ public class User
 
 	public static void UpdateCurrentUser()
 	{
-		CurrentUser = UserDatabase.Instance.GetUserFromId(CurrentUser.Id);
+		CurrentUser = BankUserDatabase.Instance.GetUserFromId(CurrentUser.Id);
 	}
 }

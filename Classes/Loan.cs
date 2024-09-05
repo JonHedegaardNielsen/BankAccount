@@ -21,9 +21,12 @@ public class Loan
 	public DateTime PayDate { get; private set; } = DateTime.Now;
 	public string PayDateString => $"Next Pay Date: {PayDate.ToString("dd-MM-yyyy")}";
 
-	private decimal NextPaymentAmount = 100;
+	public bool LoanFinished =>
+		Debt <= 0;
+
 	public bool IsPayTime() =>
-		PayDate >= GetCurrentDate();
+		PayDate <= GetCurrentDate();
+
 
 	public Loan(string name, PaymentTypes paymentType , decimal initialValue, decimal interest, decimal costForEachPayment)
 	{
@@ -63,14 +66,22 @@ public class Loan
 
 	public bool PayLoan()
 	{
-		if (BankAccount.Balance >= NextPaymentAmount)
+		decimal nextPaymentAmount = CostForEachPayment;
+
+		if (Debt <= CostForEachPayment)
+			nextPaymentAmount = Debt;
+
+		if (BankAccount.Balance >= nextPaymentAmount)
 		{
-			BankAccount.Balance -= NextPaymentAmount;
-			Debt -= NextPaymentAmount;
+			BankAccount.Balance -= nextPaymentAmount;
+			Debt -= nextPaymentAmount;
 			ChangePayDate();
 			LoanDatabase.Instance.UpdateLoan(this);
 			return true;
 		}
+
+		if (LoanFinished)
+			LoanDatabase.Instance.Delete(Id);
 
 		AddInterest();
 		return false;

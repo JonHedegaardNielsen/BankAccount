@@ -13,16 +13,16 @@ public partial class MainPage : UserControl
 	public MainPage()
 	{
 		InitializeComponent();
-		comboBoxBankAccountTransferFrom.ItemsSource = User.CurrentUser.BankAccounts;
-		comboBoxBankAccountTransferTo.ItemsSource = User.CurrentUser.BankAccounts;
-		User.UpdateCurrentUser();
+		comboBoxBankAccountTransferFrom.ItemsSource = BankUser.CurrentUser.BankAccounts;
+		comboBoxBankAccountTransferTo.ItemsSource = BankUser.CurrentUser.BankAccounts;
+		BankUser.UpdateCurrentUser();
 	}
 
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
 	{
         int rowCounter = 0;
 		
-		foreach (var bankAccount in User.CurrentUser.BankAccounts)
+		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
 		{
 			var child = new BankAccountControl(bankAccount);
 			child.SetValue(Grid.RowProperty, rowCounter);
@@ -36,7 +36,7 @@ public partial class MainPage : UserControl
 		Grid grid = (Grid)sender;
 		int rowCounter = 0;
 		
-		foreach (var loan in User.CurrentUser.Loans)
+		foreach (var loan in BankUser.CurrentUser.Loans)
 		{
 			var child = new LoanControl(loan);
 			child.SetValue(Grid.RowProperty, rowCounter);
@@ -110,7 +110,7 @@ public partial class MainPage : UserControl
 
 	private void LogOut(object? sender, RoutedEventArgs e)
 	{
-		User.CurrentUser = null;
+		BankUser.CurrentUser = null;
 		Changepage(new LoginPage());
 	}
 }

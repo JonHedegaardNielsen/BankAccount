@@ -42,7 +42,7 @@ public partial class SignupPage : UserControl
 		SetFailTextVisibility(false, false);
 		try
 		{
-			UserDatabase.Instance.CreateUser(textBoxUsername.Text, textBoxPassword.Text);
+			BankUserDatabase.Instance.CreateUser(textBoxUsername.Text, textBoxPassword.Text);
 
 			textBoxUsername.Text = string.Empty;
 			textBoxPassword.Text = string.Empty;

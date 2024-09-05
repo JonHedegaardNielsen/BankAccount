@@ -15,7 +15,7 @@ public partial class CreateBankAccountPage : UserControl
 
     private void CreateBankAccount(object sender, RoutedEventArgs e)
     {
-        BankAccountDatabase.Instance.Insert(User.CurrentUser.Id, textBoxName.Text, 0);
+        BankAccountDatabase.Instance.Insert(BankUser.CurrentUser.Id, textBoxName.Text, 0);
     }
 
     private void GoBack(object sender, RoutedEventArgs e)

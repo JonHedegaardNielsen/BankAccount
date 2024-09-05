@@ -21,9 +21,9 @@ public partial class LoginPage : UserControl
 
     private void LoginToBankAccount(object sender, RoutedEventArgs e)
     {
-        if(UserDatabase.Instance.FindUser(textBoxUsername.Text, textBoxPassword.Text, out User? user))
+        if (BankUserDatabase.Instance.FindUser(textBoxUsername.Text, textBoxPassword.Text, out BankUser? user))
         {
-            User.CurrentUser = user;
+            BankUser.CurrentUser = user;
 			LabelFailText.IsVisible = false;
 
 			this.FindControl<ContentControl>("MainContent").Content = new MainPage();
@@ -36,4 +36,15 @@ public partial class LoginPage : UserControl
     {
 		this.FindControl<ContentControl>("MainContent").Content = new SignupPage();
     }
+
+	private void LoginShop(object? sender, RoutedEventArgs e)
+	{
+        if (ShopUser.Login(textBoxUsername.Text, textBoxPassword.Text))
+			this.FindControl<ContentControl>("MainContent").Content = new ShopMainPage();
+	}
+
+	private void ShopSignUp(object? sender, RoutedEventArgs e)
+	{
+
+	}
 }

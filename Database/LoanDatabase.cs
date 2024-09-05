@@ -27,4 +27,9 @@ namespace BankAccount;
 		ExecuteNonQuery($"INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name], payDate) VALUES({(int)loan.PaymentType}, {loan.InitialValue}, {userId}, {bankAccountId}, {loan.CostForEachPayment}, {FormatDecimal(loan.Interest)}, '{loan.Name}', '{loan.PayDate.ToString("yyyy-MM-dd")}')");
 		loan.BankAccount = BankAccountDatabase.Instance.GetSingleBankAccount(bankAccountId);
 	}
+
+	public void Delete(int loanId)
+	{
+		ExecuteNonQuery($"DELETE FROM loan WHERE loanId = {loanId}");
+	}
 }

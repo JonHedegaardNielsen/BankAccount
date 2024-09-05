@@ -7,12 +7,12 @@
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:BankAccount">
 	
-	<Border Width="300" Height="100" BorderBrush="green" BorderThickness="3" CornerRadius="20" Background="LightGreen">
-		<Grid Margin="0,0,0,0" x:Name="gridBankAccount" ColumnDefinitions="*, Auto" RowDefinitions="*,*,*">
+	<Border Width="300" Height="110" BorderBrush="green" BorderThickness="3" CornerRadius="20" Background="LightGreen">
+		<Grid Margin="15,0,0,0" x:Name="gridBankAccount" ColumnDefinitions="*, Auto" RowDefinitions="*,*,*">
 			<TextBlock x:Name="textBlockBankAccountTitle" Grid.Row="0" Grid.Column="0" FontSize="30" Text="{Binding Name}"></TextBlock>
-			<TextBlock x:Name="textBlockBankAccountBalance" Grid.Row="1" Grid.Column="0" FontSize="20" Text="{Binding Balance, StringFormat='{}{0:C}'}"></TextBlock>
+			<TextBlock x:Name="textBlockBankAccountBalance" Grid.Row="1" Grid.Column="0" FontSize="20" Text="{Binding Balance, Mode=TwoWay, StringFormat='{}{0:C}'}"></TextBlock>
 			<TextBlock Grid.Column="1" Width="55" FontSize="20" Text="{Binding Id, StringFormat='{}Id: {0}'}"></TextBlock>
-			<Button ></Button>
+			<Button Click="AddMoney" Grid.Row="2" Grid.Column="0">add Money</Button>
 		</Grid>
 	</Border>
 </UserControl>
