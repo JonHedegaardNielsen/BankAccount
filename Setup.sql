@@ -30,3 +30,5 @@ GO
 
 INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, Interest, [name], payDate) VALUES(2, 400, 1, 1, 500, 0.2, 'Quick loan', GETDATE()), (1, 400, 1, 2, 30, 0.5, 'Carloan', GETDATE())
 GO
+
+INSERT INTO shopUser(userName, [password], bankAccountId) VALUES('akselSmuk', 'test1234', 1)
