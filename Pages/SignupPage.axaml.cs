@@ -27,21 +27,13 @@ public partial class SignupPage : UserControl
 
 	private void CreatUser(object sender, RoutedEventArgs e)
 	{
-		bool CheckLength(string text)
-		{
-			try
-			{
-				return text.Length >= 8 && text.Length <= 32;
-			}
-			catch(NullReferenceException)
-			{
-				return false;
-			}
-		}
-
 		SetFailTextVisibility(false, false);
+
 		try
 		{
+			if (textBoxPassword.Text != textBoxReInsertPassword.Text)
+				throw new Exception();
+
 			BankUserDatabase.Instance.CreateUser(textBoxUsername.Text, textBoxPassword.Text);
 
 			textBoxUsername.Text = string.Empty;
@@ -50,12 +42,12 @@ public partial class SignupPage : UserControl
 		}
 		catch (Exception)
 		{
-			SetFailTextVisibility(!(CheckLength(textBoxPassword.Text) || CheckLength(textBoxReInsertPassword.Text) || CheckLength(textBoxUsername.Text)), textBoxPassword.Text != textBoxReInsertPassword.Text);
+			SetFailTextVisibility(!(Login.CheckLength(textBoxPassword.Text) || Login.CheckLength(textBoxReInsertPassword.Text) || Login.CheckLength(textBoxUsername.Text)), textBoxPassword.Text != textBoxReInsertPassword.Text);
 		}
 	}
 
 	private void GoToLogin(object sender, RoutedEventArgs e)
 	{
-		this.FindControl<ContentControl>("MainContent").Content = new LoginPage();
+		MainContent.Content = new LoginPage();
 	}
 }

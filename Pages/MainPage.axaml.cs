@@ -46,20 +46,15 @@ public partial class MainPage : UserControl
 		}
 	}
 
-	private void Changepage(UserControl page)
-	{
-		this.FindControl<ContentControl>("MainContent").Content = page;
-	}
-
 
 	private void CreateNewBankAccount(object sender, RoutedEventArgs e)
 	{
-		Changepage(new CreateBankAccountPage());
+		MainContent.Content = new CreateBankAccountPage();
 	}
 
 	private void CreateLoan(object sender, RoutedEventArgs e)
 	{
-		Changepage(new CreateLoanPage());
+		MainContent.Content = new CreateLoanPage();
 	}
 
 	private void ValidateNumber(object? sender, TextInputEventArgs e)
@@ -111,6 +106,6 @@ public partial class MainPage : UserControl
 	private void LogOut(object? sender, RoutedEventArgs e)
 	{
 		BankUser.CurrentUser = null;
-		Changepage(new LoginPage());
+		MainContent.Content = new LoginPage();
 	}
 }

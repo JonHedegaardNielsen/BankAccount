@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class ShopItem
+public class ShopItem
 {
 	public int Id { get; private set; }
 	public string Name { get; private set; }
@@ -20,6 +20,4 @@ class ShopItem
 		Description = description;
 		Price = price;
 	}
-
-
 }

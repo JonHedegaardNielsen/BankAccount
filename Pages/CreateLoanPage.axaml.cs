@@ -57,6 +57,6 @@ public partial class CreateLoanPage : UserControl
 
 	private void BackToMainPage(object sender, RoutedEventArgs e)
 	{
-		this.FindControl<ContentControl>("MainContent").Content = new MainPage();
+		MainContent.Content = new MainPage();
 	}
 }

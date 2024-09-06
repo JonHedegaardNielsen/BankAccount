@@ -13,7 +13,7 @@ public partial class ShopSignUpPage : UserControl
 
 	private void CreateAccount(object? sender, RoutedEventArgs e)
 	{
-        if 
-        ShopUserDatabase.Instance.CreateUser()
+        if (textBoxReInsertPassword.Text == textBoxPassword.Text && Login.CheckLength(textBoxUserName.Text) && Login.CheckLength(textBoxPassword.Text))
+            ShopUserDatabase.Instance.CreateUser(textBoxUserName.Text, textBoxPassword.Text);
 	}
 }

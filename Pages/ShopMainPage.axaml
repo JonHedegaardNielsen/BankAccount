@@ -3,5 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.ShopMainPage">
+             x:Class="BankAccount.ShopMainPage"
+			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
+			 >
+	
+	<ContentControl x:Name="MainContent" Loaded="LoadItems">
+		<local:ShopItemControl x:Name="ShopItem1">
+			
+		</local:ShopItemControl>
+	</ContentControl>
 </UserControl>
