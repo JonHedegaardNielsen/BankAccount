@@ -105,7 +105,7 @@ public partial class MainPage : UserControl
 
 	private void LogOut(object? sender, RoutedEventArgs e)
 	{
-		BankUser.CurrentUser = null;
+		BankUser.SignOut();
 		MainContent.Content = new LoginPage();
 	}
 }

@@ -6,7 +6,7 @@ CREATE DATABASE bankAccount
 GO
 use bankAccount;
 
-CREATE TABLE bankUser(userId INT IDENTITY(1,1), userName NVARCHAR(32) CHECK(LEN(userName) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), PRIMARY KEY(userId))
+CREATE TABLE bankUser(userId INT IDENTITY(1,1), userName NVARCHAR(32) UNIQUE CHECK(LEN(userName) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), PRIMARY KEY(userId))
 GO
 
 CREATE TABLE bankAccount(bankAccountId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, balance DECIMAL DEFAULT(0), userId INT ,PRIMARY KEY(bankAccountId), FOREIGN KEY (UserId) REFERENCES bankUser(UserId),
@@ -17,7 +17,7 @@ CREATE TABLE loan(loanId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, CostFo
 PRIMARY KEY(loanId), bankAccountId INT NOT NULL, FOREIGN KEY (bankAccountId) REFERENCES bankAccount(bankAccountId), FOREIGN KEY (UserId) REFERENCES bankUser(UserId))
 GO
 
-CREATE TABLE shopUser(userId INT IDENTITY(1,1), userName NVARCHAR(32) CHECK(LEN(userName) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), bankAccountId INT NOT NULL, PRIMARY KEY(userId), FOREIGN KEY (bankAccountId) REFERENCES bankAccount(bankAccountId))
+CREATE TABLE shopUser(userId INT IDENTITY(1,1), userName NVARCHAR(32) UNIQUE CHECK(LEN(userName) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), bankAccountId INT NOT NULL, PRIMARY KEY(userId), FOREIGN KEY (bankAccountId) REFERENCES bankAccount(bankAccountId))
 GO
 
 CREATE TABLE shopItem(itemId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, price DECIMAL NOT NULL, userId INT, PRIMARY KEY(itemId), FOREIGN KEY (userId) REFERENCES shopUser(userId))

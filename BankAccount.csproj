@@ -7,6 +7,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Pages\Shop\ShopItemImages\Milk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Shop\ShopItemImages\Milk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.1.0" />
@@ -22,9 +30,5 @@
     <Compile Update="Pages\LoginPage.axaml.cs">
       <DependentUpon>LoginPage.axaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\" />
   </ItemGroup>
 </Project>

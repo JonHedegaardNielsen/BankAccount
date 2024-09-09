@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
              x:Class="BankAccount.SignupPage">
 	<UserControl.Styles>
 		<Style Selector="Label.FailText">
@@ -15,6 +16,7 @@
 			<Setter Property="MaxLength" Value="32"/>
 			<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		</Style>
+		
 	</UserControl.Styles>
 	<ContentControl x:Name="MainContent">
 		<Border Background="LimeGreen" Width="370" Height="400" CornerRadius="10" Padding="15,0,15,15" BorderBrush="Black" BorderThickness="5">

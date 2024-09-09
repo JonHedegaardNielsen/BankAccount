@@ -17,7 +17,7 @@ namespace BankAccount
 
 		private void OnWindowLoaded(object sender, RoutedEventArgs e)
 		{
-			this.FindControl<ContentControl>("MainContent").Content = new LoginPage();
+			MainContent.Content = new LoginPage();
 		}
 
 	}

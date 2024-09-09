@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:uc="using:ShopItemControl"
+             x:Class="BankAccount.ShopItemControl">
+	<Border x:Name="borderShopItem" Width="200" Height="200" BorderBrush="Black" BorderThickness="2" Loaded="ItemLoaded">
+		<Grid RowDefinitions="200,*,*">
+			<Border Grid.Row="0" Padding="0,0,0,2">
+				<Image x:Name="imageShopItem"  Stretch="Fill"></Image>
+			</Border>
+			<StackPanel Grid.Row="1">
+				<Border BorderBrush="Black" BorderThickness="2">
+					<TextBlock x:Name="txtBlockShopItemName"/>
+					
+				</Border>
+			</StackPanel>
+			<StackPanel Grid.Row="2">
+				<TextBlock x:Name="txtBlockShopItemPrice"/>
+			</StackPanel>
+		</Grid>
+	</Border>
+</UserControl>

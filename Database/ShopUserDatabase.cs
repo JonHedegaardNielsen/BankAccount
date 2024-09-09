@@ -11,15 +11,15 @@ class ShopUserDatabase : Database<ShopUser>
 {
 	public static ShopUserDatabase Instance = new ShopUserDatabase();
 
-	public void CreateUser(string username, string password)
+	public void CreateUser(string? username, string? password, int bankAccountId)
 	{
-		ExecuteNonQuery($"INSERT INTO shopUser(userName, password) VALUES('{username}', '{password}')");
+		ExecuteNonQuery($"INSERT INTO shopUser(userName, password, bankAccountId) VALUES('{username}', '{password}', {bankAccountId})");
 	}
 
 	private ShopUser GetData(SqlDataReader sqlDataReader) =>
 		new(sqlDataReader.GetInt32(0), sqlDataReader.GetString(1), sqlDataReader.GetString(2), new(sqlDataReader.GetInt32(4), sqlDataReader.GetString(5), sqlDataReader.GetDecimal(6)));
-
-	public bool FindUser(string userName, string password, out ShopUser? shopUser)
+	
+	public bool FindUser(string? userName, string? password, out ShopUser? shopUser)
 	{
 		try
 		{

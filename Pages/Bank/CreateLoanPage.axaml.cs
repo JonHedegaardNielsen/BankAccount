@@ -41,7 +41,7 @@ public partial class CreateLoanPage : UserControl
 
 	private void CreateLoan(object sender, RoutedEventArgs e)
 	{
-		if (SelectedLoanType != null)
+		if (SelectedLoanType != null && comboBoxBankAccount.SelectedItem != null)
 		{
 			BankAccount bankAccount = (BankAccount)comboBoxBankAccount.SelectedItem;
 			SelectedLoanType.ChangePayDate();

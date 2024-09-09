@@ -23,7 +23,7 @@ class ShopUser
 		UserBankAccount = bankAccount;
 	}
 
-	public static bool Login(string userName, string password)
+	public static bool Login(string? userName, string? password)
 	{
 		if (ShopUserDatabase.Instance.FindUser(userName, password, out ShopUser? shopuser))
 			CurrentShopUser = shopuser;

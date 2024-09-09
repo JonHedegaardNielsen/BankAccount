@@ -9,7 +9,7 @@ namespace BankAccount;
 
 public class BankUser
 {
-	public static BankUser? CurrentUser { get; set; }
+	public static BankUser? CurrentUser { get; private set; }
 
 
 	public int Id { get; private set; }
@@ -27,6 +27,18 @@ public class BankUser
 		Username = username;
 		Password = password;
 		Loans = loans;
+	}
+
+	public static void SignOut()
+	{
+		CurrentUser = null;
+	}
+
+	public static bool Login(string userName, string password)
+	{
+		BankUserDatabase.Instance.FindUser(userName, password, out BankUser? bankUser);
+		CurrentUser = bankUser;
+		return CurrentUser != null;
 	}
 
 	public static void UpdateCurrentUser()

@@ -3,10 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.ShopItemControl">
-	<Border Loaded="ShopItemLoaded" Width="200" Height="150" BorderBrush="Black" BorderThickness="2">
-		<Grid RowDefinitions="auto,*,*">
-			<Image x:Name="imageShopItem"></Image>
-		</Grid>
-	</Border>
+             x:Class="BankAccount.ShopMainPage"
+			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
+			 >
+	
+	<ContentControl x:Name="MainContent" Loaded="LoadItems">
+		<local:ShopItemControl x:Name="ShopItem1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" Name="Milk"/>
+	</ContentControl>
 </UserControl>
