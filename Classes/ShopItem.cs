@@ -9,15 +9,20 @@ namespace BankAccount;
 public class ShopItem
 {
 	public int Id { get; private set; }
-	public string Name { get; private set; }
-	public string Description { get; private set; }
+	public string Name { get; private set; } = string.Empty;
 	public decimal Price { get; private set; }
 
-	public ShopItem(int id, string name, string description, decimal price)
+	public ShopItem(int id, string name, decimal price)
 	{
 		Id = id;
 		Name = name;
-		Description = description;
+		
 		Price = price;
+	}
+
+	public ShopItem(string name, decimal price)
+	{
+		Price = price;
+		Name = name;
 	}
 }

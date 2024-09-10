@@ -23,4 +23,9 @@ public partial class ShopSignUpPage : UserControl
 
 		}
 	}
+
+	private void GoToLogin(object? sender, RoutedEventArgs e)
+	{
+		MainContent.Content = new LoginPage();
+	}
 }

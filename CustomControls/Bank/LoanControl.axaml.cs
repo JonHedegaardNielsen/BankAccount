@@ -10,11 +10,6 @@ public partial class LoanControl : UserControl
 {
     private Loan Loan;
 
-    public LoanControl()
-    {
-        InitializeComponent();
-    }
-
     public LoanControl(Loan loan)
     {
         InitializeComponent();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankAccount.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ class ShopUser
 	public int Id { get; private set; }
 	public string UserName { get; private set; } = string.Empty;
 	public string Password { get; private set; } = string.Empty;
-	private BankAccount? UserBankAccount;
+	public BankAccount UserBankAccount { get; private set; }
 	public List<ShopItem> ShopItems = new();
 
 	public ShopUser(int id, string userName, string password, BankAccount bankAccount)
@@ -29,5 +30,15 @@ class ShopUser
 			CurrentShopUser = shopuser;
 		
 		return CurrentShopUser != null;
+	}
+
+	public void BuyItem(ShopItem item)
+	{
+		if (item.Price <= UserBankAccount.Balance)
+		{
+			UserBankAccount.Balance -= item.Price;
+			ShopItemDatabase.Instance.Insert(new(item.Name, item.Price), Id);
+			BankAccountDatabase.Instance.UpdateBalance(CurrentShopUser.UserBankAccount.Id, CurrentShopUser.UserBankAccount.Balance);
+		}
 	}
 }

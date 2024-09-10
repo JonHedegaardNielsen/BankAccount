@@ -10,14 +10,20 @@
 		<Style Selector="Label">
 			<Setter Property="FontSize" Value="16"/>
 			<Setter Property="Margin" Value="0,15,0,0"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		</Style>
+		<Style Selector="TextBox,ComboBox,Button">
+			<Setter Property="Margin" Value="5,0,5,0"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="Grid.Column" Value="0"/>
 		</Style>
 	</UserControl.Styles>
 
 	<ContentControl x:Name="MainContent">
 
-		<Border Background="LightBlue" CornerRadius="15" BorderBrush="DarkBlue" Padding="15,0,15,15" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
+		<Border Background="LightBlue" CornerRadius="15" BorderBrush="DarkBlue" Padding="15,0,15,15" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="450">
 
-			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto, auto" ColumnDefinitions="200">
+			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto" ColumnDefinitions="200">
 				<Label Grid.Row="0">Username</Label>
 				<TextBox x:Name="textBoxUserName" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
 				<Label Grid.Row="2">Password</Label>
@@ -33,7 +39,7 @@
 					</ComboBox.ItemTemplate>
 				</ComboBox>
 				<Button Click="CreateAccount" Grid.Row="8" Margin="0,30,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Create Account</Button>
-
+				<Button HorizontalAlignment="Stretch" Margin="0,30,0,0" Grid.Row="9" VerticalAlignment="Stretch" Click="GoToLogin">Go to login</Button>
 			</Grid>
 		</Border>
 	</ContentControl>

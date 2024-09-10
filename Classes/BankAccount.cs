@@ -11,7 +11,7 @@ public class BankAccount
 	public int Id { get; private set; }
 	public string Name { get; private set; }
 	public decimal Balance { get; set; }
-
+	public string BalanceString => $"{Balance.ToString()} kr.";
 	public BankAccount(int id, string name, decimal balance)
 	{
 		Name = name;

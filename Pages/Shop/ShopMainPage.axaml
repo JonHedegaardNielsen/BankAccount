@@ -3,11 +3,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:uc="using:BankAccount"
              x:Class="BankAccount.ShopMainPage"
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
 			 >
-	
-	<ContentControl x:Name="MainContent" Loaded="LoadItems">
-		<local:ShopItemControl x:Name="ShopItem1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" Name="Milk"/>
+	<UserControl.Styles>
+		
+	</UserControl.Styles>
+
+	<ContentControl x:Name="MainContent">
+		<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
+			<TextBlock Grid.Row="0" x:DataType="uc:BankAccount" Text="{Binding BalanceString}"></TextBlock>
+			
+			<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" ItemName="Milk"/>
+			<local:ShopItemControl Grid.Row="1" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Sugar.jpg" Price="100" ItemName="Milk"/>
+			<local:ShopItemControl Grid.Row="1" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Charger.jpg" Price="100" ItemName="Milk"/>
+			<local:ShopItemControl Grid.Row="2" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Battery.jpg" Price="100" ItemName="Milk"/>
+			<local:ShopItemControl Grid.Row="2" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Chair.jpg" Price="100" ItemName="Milk"/>
+			<local:ShopItemControl Grid.Row="2" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Car.jpg" Price="100" ItemName="Milk"/>
+
+		</Grid>
 	</ContentControl>
 </UserControl>

@@ -11,6 +11,8 @@ class ShopUserDatabase : Database<ShopUser>
 {
 	public static ShopUserDatabase Instance = new ShopUserDatabase();
 
+	private ShopUserDatabase() { }
+
 	public void CreateUser(string? username, string? password, int bankAccountId)
 	{
 		ExecuteNonQuery($"INSERT INTO shopUser(userName, password, bankAccountId) VALUES('{username}', '{password}', {bankAccountId})");

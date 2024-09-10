@@ -6,22 +6,22 @@ using Avalonia.Media.Imaging;
 using System.IO;
 using Avalonia.Controls.Shapes;
 using System;
+using BankAccount.Database;
 
 namespace BankAccount;
 
 public partial class ShopItemControl : UserControl
 {
-    private ShopItem CurrentShopItem;
 	public static readonly StyledProperty<string> ImageFilePath =
 	    AvaloniaProperty.Register<ShopItemControl, string>(nameof(ImageFilePath));
 
-	public static readonly StyledProperty<string> ShopPrice =
-		AvaloniaProperty.Register<ShopItemControl, string>(nameof(ShopPrice));
+	public static readonly StyledProperty<decimal> ShopPrice =
+		AvaloniaProperty.Register<ShopItemControl, decimal>(nameof(ShopPrice));
 
 	public static readonly StyledProperty<string>  ShopItemName =
 		AvaloniaProperty.Register<ShopItemControl, string>(nameof(ShopItemName));
-
-    public string Price
+    
+    public decimal Price
     {
         get => GetValue(ShopPrice);
         set => SetValue(ShopPrice, value);
@@ -33,7 +33,7 @@ public partial class ShopItemControl : UserControl
         set => SetValue(ShopItemName, value);
     }
 
-	private string FilePath
+	public string FilePath
     {
         get => GetValue(ImageFilePath);
         set => SetValue(ImageFilePath, value);
@@ -44,20 +44,19 @@ public partial class ShopItemControl : UserControl
         InitializeComponent();
 	}
 
-    public ShopItemControl(ShopItem shopItem)
-    {
-        InitializeComponent();
-        CurrentShopItem = shopItem;
-	}
-
     private void ItemLoaded(object sender, RoutedEventArgs e)
     {
-        string filePath = System.IO.Path.GetFullPath(@FilePath, AppContext.BaseDirectory);
+        string? filePath = System.IO.Path.GetFullPath(@FilePath, AppContext.BaseDirectory);
 
-		if (File.Exists(filePath))
-			imageShopItem.Source = new Bitmap(filePath);
+        if (File.Exists(filePath))
+            imageShopItem.Source = new Bitmap(filePath);
 
-		txtBlockShopItemName.Text = ItemName;
-		txtBlockShopItemPrice.Text = Price;
+        txtBlockShopItemName.Text = ItemName;
+		txtBlockShopItemPrice.Text = Price.ToString();
 	}
+
+    private void BuyItem(object sender, RoutedEventArgs e)
+    {
+        ShopUser.CurrentShopUser.BuyItem(new(ItemName, Price));
+    }
 }
