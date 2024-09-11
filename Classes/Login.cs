@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,4 +12,6 @@ namespace BankAccount
 		public static bool CheckLength(string? text) =>
 			text != null && text.Length >= 8 && text.Length <= 32;
 	}
+
+
 }

@@ -41,4 +41,9 @@ class ShopUser
 			BankAccountDatabase.Instance.UpdateBalance(CurrentShopUser.UserBankAccount.Id, CurrentShopUser.UserBankAccount.Balance);
 		}
 	}
+
+	public void LogOut()
+	{
+		CurrentShopUser = null;
+	}
 }

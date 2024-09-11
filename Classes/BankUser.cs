@@ -29,7 +29,7 @@ public class BankUser
 		Loans = loans;
 	}
 
-	public static void SignOut()
+	public static void LogOut()
 	{
 		CurrentUser = null;
 	}

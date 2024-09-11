@@ -52,7 +52,7 @@ public partial class ShopItemControl : UserControl
             imageShopItem.Source = new Bitmap(filePath);
 
         txtBlockShopItemName.Text = ItemName.ToString();
-		txtBlockShopItemPrice.Text = Price.ToString();
+		txtBlockShopItemPrice.Text = Price.ToString() + "kr.";
 	}
 
     private void BuyItem(object sender, RoutedEventArgs e)

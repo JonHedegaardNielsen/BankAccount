@@ -6,15 +6,16 @@
 			 xmlns:uc="using:BankAccount"
              x:Class="BankAccount.ShopMainPage"
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
-			 >
+			 x:DataType="uc:ShopMainViewModel"
+			 DataContext="{Binding ShopMainViewModel}">
 	
 	<ContentControl x:Name="MainContent">
 		<TabControl>
 			<TabItem Header="Shopping">
 				<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
-					<TextBlock Grid.Row="0" x:DataType="uc:BankAccount" Text="{Binding Balance, StringFormat={} {0:C}}"></TextBlock>
+					<TextBlock x:Name="textBlockBalance" Grid.Row="0" Text="{Binding Balance, StringFormat={} {0:C}}"></TextBlock>
 
-					<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" ItemName="Milk"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.jpg" Price="10" ItemName="Milk"/>
 					<local:ShopItemControl Grid.Row="1" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Sugar.jpg" Price="100" ItemName="Sugar"/>
 					<local:ShopItemControl Grid.Row="1" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Charger.jpg" Price="100" ItemName="Charger"/>
 					<local:ShopItemControl Grid.Row="2" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Battery.jpg" Price="100" ItemName="Battery"/>
@@ -32,6 +33,9 @@
 					<local:ShopItemAmountControl Grid.Row="4" x:Name="shopItemAmountControlChair" ItemName="Chair"/>
 					<local:ShopItemAmountControl Grid.Row="5" x:Name="shopItemAmountControlCar" ItemName="Car"/>
 				</Grid>
+			</TabItem>
+			<TabItem Header="Settings">
+				<Button Click="LogOut" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42">LogOut</Button>
 			</TabItem>
 		</TabControl>
 	</ContentControl>

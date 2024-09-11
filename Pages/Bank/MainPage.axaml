@@ -54,9 +54,7 @@
 				</Border>
 			</TabItem>
 			<TabItem Header="Settings">
-				<Grid>
-					<Button Click="LogOut" Background="Red">LogOut</Button>
-				</Grid>
+					<Button Click="LogOut" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42">LogOut</Button>
 			</TabItem>
 		</TabControl>
 	</ContentControl>
