@@ -42,7 +42,7 @@ public abstract class Database<T>
 		return values;
 	}
 
-	protected T RunSingleQuery(string query, Func<SqlDataReader, T> getValue)
+	protected T RunSingleQuery<T>(string query, Func<SqlDataReader, T> getValue)
 	{
 		using (SqlConnection connection = GetConnection())
 		{
@@ -58,6 +58,9 @@ public abstract class Database<T>
 			}
 		}
 	}
+
+	protected int GetCount(SqlDataReader sqlDataReader) =>
+		sqlDataReader.GetInt32(0);
 
 	protected string FormatDecimal(decimal num)
 	{

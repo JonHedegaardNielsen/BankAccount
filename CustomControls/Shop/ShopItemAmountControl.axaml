@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankAccount.ShopItemAmountControl"
+			 xmlns:uc="using:BankAccount"
+			 x:DataType="uc:ShopItem"
+			 Loaded="OnLoad">
+	
+	<UserControl.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBlock.Title">
+			<Setter Property="Grid.Row" Value="0"/>
+			<Setter Property="FontSize" Value="16"/>
+		</Style>
+		<Style Selector="TextBlock.Value">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="Grid.Row" Value="1"/>
+		</Style>
+		<Style Selector="Grid">
+			
+		</Style>
+		
+	</UserControl.Styles>
+	
+	<Border Background="LawnGreen" CornerRadius="15" Margin="15,0,15,0" MaxHeight="75" Padding="10,0,10,0" BorderBrush="DarkGreen" BorderThickness="4">
+		<Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*">
+			
+			<TextBlock Classes="Title" Grid.Column="0">Name</TextBlock>
+			<TextBlock Classes="Title" Grid.Column="1">Cost</TextBlock>
+			<TextBlock Classes="Title" Grid.Column="2">Amount bought</TextBlock>
+			<TextBlock Classes="Title" Grid.Column="3">Money Spent</TextBlock>
+			<TextBlock Classes="Title" Grid.Column="4">Categorie</TextBlock>
+			<TextBlock Classes="Value" Grid.Column="0" Text="{Binding Name}"/>
+			<TextBlock Classes="Value" Grid.Column="1" Text="{Binding Price, StringFormat={}{0:C}}"/>
+			<TextBlock Classes="Value" Grid.Column="2" Text="{Binding Amountbought}"/>
+			<TextBlock Classes="Value" Grid.Column="3" Text="{Binding TotalAmountSpent, StringFormat={}{0:C}}"/>
+			<TextBlock Classes="Value" Grid.Column="4" Text="{Binding Category}"/>
+		</Grid>
+	</Border>
+</UserControl>

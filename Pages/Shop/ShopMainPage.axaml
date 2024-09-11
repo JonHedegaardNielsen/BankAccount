@@ -7,21 +7,32 @@
              x:Class="BankAccount.ShopMainPage"
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
 			 >
-	<UserControl.Styles>
-		
-	</UserControl.Styles>
-
+	
 	<ContentControl x:Name="MainContent">
-		<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
-			<TextBlock Grid.Row="0" x:DataType="uc:BankAccount" Text="{Binding BalanceString}"></TextBlock>
-			
-			<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" ItemName="Milk"/>
-			<local:ShopItemControl Grid.Row="1" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Sugar.jpg" Price="100" ItemName="Milk"/>
-			<local:ShopItemControl Grid.Row="1" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Charger.jpg" Price="100" ItemName="Milk"/>
-			<local:ShopItemControl Grid.Row="2" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Battery.jpg" Price="100" ItemName="Milk"/>
-			<local:ShopItemControl Grid.Row="2" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Chair.jpg" Price="100" ItemName="Milk"/>
-			<local:ShopItemControl Grid.Row="2" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Car.jpg" Price="100" ItemName="Milk"/>
+		<TabControl>
+			<TabItem Header="Shopping">
+				<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
+					<TextBlock Grid.Row="0" x:DataType="uc:BankAccount" Text="{Binding Balance, StringFormat={} {0:C}}"></TextBlock>
 
-		</Grid>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.png" Price="10" ItemName="Milk"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Sugar.jpg" Price="100" ItemName="Sugar"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Charger.jpg" Price="100" ItemName="Charger"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Battery.jpg" Price="100" ItemName="Battery"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Chair.jpg" Price="100" ItemName="Chair"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Car.jpg" Price="100" ItemName="Car"/>
+				</Grid>
+			</TabItem>
+			
+			<TabItem Header="Your Items" Loaded="ShopItemAmountLoaded">
+				<Grid RowDefinitions="auto,auto,auto,auto,auto,auto" ColumnDefinitions="*">
+					<local:ShopItemAmountControl Grid.Row="0" x:Name="shopItemAmountControlMilk" ItemName="Milk"/>
+					<local:ShopItemAmountControl Grid.Row="1" x:Name="shopItemAmountControlSugar" ItemName="Sugar"/>
+					<local:ShopItemAmountControl Grid.Row="2" x:Name="shopItemAmountControlCharger" ItemName="Charger"/>
+					<local:ShopItemAmountControl Grid.Row="3" x:Name="shopItemAmountControlBattery" ItemName="Battery"/>
+					<local:ShopItemAmountControl Grid.Row="4" x:Name="shopItemAmountControlChair" ItemName="Chair"/>
+					<local:ShopItemAmountControl Grid.Row="5" x:Name="shopItemAmountControlCar" ItemName="Car"/>
+				</Grid>
+			</TabItem>
+		</TabControl>
 	</ContentControl>
 </UserControl>

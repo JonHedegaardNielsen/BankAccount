@@ -10,6 +10,9 @@ public partial class ShopMainPage : UserControl
     public ShopMainPage()
     {
         InitializeComponent();
-        DataContext = ShopUser.CurrentShopUser.UserBankAccount;
     }
+
+	private void ShopItemAmountLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+	{
+	}
 }

@@ -18,8 +18,8 @@ public partial class ShopItemControl : UserControl
 	public static readonly StyledProperty<decimal> ShopPrice =
 		AvaloniaProperty.Register<ShopItemControl, decimal>(nameof(ShopPrice));
 
-	public static readonly StyledProperty<string>  ShopItemName =
-		AvaloniaProperty.Register<ShopItemControl, string>(nameof(ShopItemName));
+	public static readonly StyledProperty<ShopItemType>  ShopItemName =
+		AvaloniaProperty.Register<ShopItemControl, ShopItemType>(nameof(ShopItemName));
     
     public decimal Price
     {
@@ -27,7 +27,7 @@ public partial class ShopItemControl : UserControl
         set => SetValue(ShopPrice, value);
     }
 
-    public string ItemName
+    public ShopItemType ItemName
     {
         get => GetValue(ShopItemName);
         set => SetValue(ShopItemName, value);
@@ -51,7 +51,7 @@ public partial class ShopItemControl : UserControl
         if (File.Exists(filePath))
             imageShopItem.Source = new Bitmap(filePath);
 
-        txtBlockShopItemName.Text = ItemName;
+        txtBlockShopItemName.Text = ItemName.ToString();
 		txtBlockShopItemPrice.Text = Price.ToString();
 	}
 

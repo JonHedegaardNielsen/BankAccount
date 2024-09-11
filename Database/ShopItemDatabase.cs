@@ -11,7 +11,7 @@ class ShopItemDatabase : Database<ShopItem>
 	private ShopItemDatabase() { }
 
 	public ShopItem GetData(SqlDataReader sqlDataReader) =>
-		new(sqlDataReader.GetInt32(0), sqlDataReader.GetString(1), sqlDataReader.GetDecimal(2));
+		new(sqlDataReader.GetInt32(0), (ShopItemType)sqlDataReader.GetValue(1), sqlDataReader.GetDecimal(2));
 
 	public List<ShopItem> GetShopItems(int userId) =>
 		RunQuery($"SELECT * FROM shopItem WHERE userId = {userId}", GetData);
@@ -20,4 +20,7 @@ class ShopItemDatabase : Database<ShopItem>
 	{
 		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId) VALUES('{shopItem.Name}', {shopItem.Price}, {userId})");
 	}
+
+	public int SelectCount(int userId, ShopItemType shopItemType) =>
+		RunSingleQuery<int>($"SELECT COUNT(*) FROM shopItem WHERE userId = {userId} AND [name] = '{shopItemType}'", GetCount);
 }
