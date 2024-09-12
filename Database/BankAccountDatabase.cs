@@ -29,6 +29,6 @@ public class BankAccountDatabase : Database<BankAccount>
 
 	public void UpdateBalance(int bankAccountId, decimal newBalance)
 	{
-		ExecuteNonQuery($"UPDATE bankAccount SET balance={newBalance} WHERE bankAccountId = {bankAccountId}");
+		ExecuteNonQuery($"UPDATE bankAccount SET balance={FormatDecimal(newBalance)} WHERE bankAccountId = {bankAccountId}");
 	}
 }

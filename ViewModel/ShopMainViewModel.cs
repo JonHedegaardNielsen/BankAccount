@@ -4,30 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
-
+using System.Windows.Input;
 namespace BankAccount;
 
-class ShopMainViewModel : INotifyPropertyChanged
+public class ShopMainViewModel : ViewModel
 {
-
-
-	public event PropertyChangedEventHandler PropertyChanged;
-
-	public decimal balance
+	private ShopItemType _itemType;
+	private decimal _itemPrice;
+	public decimal ItemPrice => _itemPrice;
+	public ShopItemType ItemType
 	{
-		get => ShopUser.CurrentShopUser.UserBankAccount.Balance;
+		private get => _itemType;
 		set
 		{
-			if(ShopUser.CurrentShopUser.UserBankAccount.Balance != value)
+			if (_itemType != value)
 			{
-				ShopUser.CurrentShopUser.UserBankAccount.Balance = value;
-				OnPropertyChanged(nameof(balance));
+				_itemType = value;
+				_itemPrice = ShopItem.ShopItemTypes[value].Price;
+				OnPropertyChanged(nameof(ItemPrice));
+				OnPropertyChanged(nameof(ItemType));
 			}
 		}
 	}
 
-	protected virtual void OnPropertyChanged(string propertyName)
+	public decimal Balance => ShopUser.CurrentShopUser.UserBankAccount.Balance;
+
+	public ICommand BuyItemCommand { get; }
+
+    public ShopMainViewModel()
+    {
+		BuyItemCommand = new RelayCommand(BuyItem);
+    }
+
+	public void BuyItem(object Parameter)
 	{
-		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		if (Parameter is string type)
+		{
+			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), type));
+			OnPropertyChanged(nameof(Balance));
+			((RelayCommand)BuyItemCommand).RaiseCanExecuteChanged();
+			
+		}
 	}
 }

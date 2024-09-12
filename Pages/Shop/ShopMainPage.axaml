@@ -7,7 +7,7 @@
              x:Class="BankAccount.ShopMainPage"
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
 			 x:DataType="uc:ShopMainViewModel"
-			 DataContext="{Binding ShopMainViewModel}">
+			 >
 	
 	<ContentControl x:Name="MainContent">
 		<TabControl>

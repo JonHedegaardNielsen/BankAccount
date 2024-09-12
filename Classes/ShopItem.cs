@@ -13,7 +13,7 @@ public class ShopItem
 	public int Id { get; private set; }
 	public ShopItemType Name { get; private set; }
 	public decimal Price { get; private set; }
-	public int Amountbought => ShopItemDatabase.Instance.SelectCount(ShopUser.CurrentShopUser.Id, Name);
+	public int Amountbought => ShopItemDatabase.Instance.SelectCountItemType(ShopUser.CurrentShopUser.Id, Name);
 	public decimal TotalAmountSpent => Amountbought * Price;
 	public ShopItemCategory Category { get; private set; }
 
@@ -33,6 +33,14 @@ public class ShopItem
 		Name = name;
 		SetCategory();
 		Price = price;
+	}
+
+	public ShopItem(int id, ShopItemType name, decimal price, ShopItemCategory category)
+	{
+		Id= id;
+		Name = name;
+		Price = price;
+		Category = category;
 	}
 
 	public ShopItem(ShopItemType name, decimal price)

@@ -16,6 +16,7 @@ public partial class MainPage : UserControl
 		comboBoxBankAccountTransferFrom.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		comboBoxBankAccountTransferTo.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		BankUser.UpdateCurrentUser();
+		DataContext = new BankMainPageViewModel();
 	}
 
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)

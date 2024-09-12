@@ -11,7 +11,7 @@ public partial class ShopMainPage : UserControl
     public ShopMainPage()
     {
         InitializeComponent();
-		DataContext = ShopUser.CurrentShopUser.UserBankAccount;
+		DataContext = new ShopMainViewModel();
     }
 
 	private void ShopItemAmountLoaded(object? sender, RoutedEventArgs e)

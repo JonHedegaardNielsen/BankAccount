@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:ShopItemControl"
+			 x:DataType="uc:ShopMainViewModel"
              x:Class="BankAccount.ShopItemControl">
 	<UserControl.Styles>
 		<Style Selector="TextBlock">
@@ -17,8 +17,8 @@
 					<Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" x:Name="imageShopItem" ></Image>
 
 				<TextBlock x:Name="txtBlockShopItemName" Grid.Row="1" VerticalAlignment="Bottom" />
-				<TextBlock x:Name="txtBlockShopItemPrice" Grid.Row="2" VerticalAlignment="Bottom" />
-				<Button Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="BuyItem">Buy item</Button>
+				<TextBlock x:Name="txtBlockShopItemPrice" Grid.Row="2" VerticalAlignment="Bottom"/>
+				<Button Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" CommandParameter="{Binding Text, ElementName=txtBlockShopItemName}" Command="{Binding BuyItem}">Buy item</Button>
 			</Grid>
 		</Border>
 	</Border>

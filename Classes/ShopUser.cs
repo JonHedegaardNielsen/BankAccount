@@ -32,8 +32,9 @@ class ShopUser
 		return CurrentShopUser != null;
 	}
 
-	public void BuyItem(ShopItem item)
+	public void BuyItem(ShopItemType itemType)
 	{
+		ShopItem item = ShopItem.ShopItemTypes[itemType];
 		if (item.Price <= UserBankAccount.Balance)
 		{
 			UserBankAccount.Balance -= item.Price;
