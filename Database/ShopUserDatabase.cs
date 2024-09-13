@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankAccount.Database;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,7 +21,16 @@ class ShopUserDatabase : Database<ShopUser>
 
 	private ShopUser GetData(SqlDataReader sqlDataReader) =>
 		new(sqlDataReader.GetInt32(0), sqlDataReader.GetString(1), sqlDataReader.GetString(2), new(sqlDataReader.GetInt32(4), sqlDataReader.GetString(5), sqlDataReader.GetDecimal(6)));
+
+	public int SelectUserId(int bankAccountId) =>
+		RunSingleQuery<int>($"SELECT userId FROM shopUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
 	
+	public void DeleteUserFromBankAccountId(int bankAccountId)
+	{
+		ShopItemDatabase.Instance.DeleteItemsFromUserId(SelectUserId(bankAccountId));
+		ExecuteNonQuery($"DELETE FROM shopUser WHERE bankAccountId = {bankAccountId}");
+	}
+
 	public bool FindUser(string? userName, string? password, out ShopUser? shopUser)
 	{
 		try

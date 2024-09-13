@@ -8,7 +8,7 @@ using Tmds.DBus.SourceGenerator;
 
 namespace BankAccount;
 
-public abstract class ViewModel
+public abstract class ViewModel : INotifyPropertyChanged
 {
 	public event PropertyChangedEventHandler PropertyChanged;
 

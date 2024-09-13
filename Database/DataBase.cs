@@ -51,9 +51,7 @@ public abstract class Database<T>
 				using (SqlDataReader reader = command.ExecuteReader())
 				{
 					reader.Read();
-
 					return getValue(reader);
-
 				}
 			}
 		}

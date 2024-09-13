@@ -22,6 +22,12 @@ public class BankAccountDatabase : Database<BankAccount>
 	public BankAccount GetSingleBankAccount(int bankAccountId) =>
 		RunSingleQuery($"SELECT TOP(1) * FROM bankaccount WHERE bankAccountId = {bankAccountId}", GetData);
 
+	public void DeleteBankAccount(int bankAccountId)
+	{
+		ShopUserDatabase.Instance.DeleteUserFromBankAccountId(bankAccountId);
+		ExecuteNonQuery($"DELETE FROM bankAccount WHERE bankAccountId = {bankAccountId}");
+	}
+
 	public void Insert(int userId, string name, decimal balance)
 	{
 		ExecuteNonQuery($"INSERT INTO bankAccount(userId, [name], balance) VALUES({userId}, '{name}', {FormatDecimal(balance)})");

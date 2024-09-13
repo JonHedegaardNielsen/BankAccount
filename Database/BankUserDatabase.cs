@@ -23,6 +23,16 @@ class BankUserDatabase : Database<BankUser>
 		return new BankUser(userId ,reader.GetString(1), reader.GetString(2), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
 	}
 
+	public void DeleteCurrentUser()
+	{
+		LoanDatabase.Instance.DeleteLoanFromUserId(BankUser.CurrentUser.Id);
+		
+		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
+			BankAccountDatabase.Instance.DeleteBankAccount(bankAccount.Id);
+
+		ExecuteNonQuery($"DELETE FROM bankUser WHERE userId = {BankUser.CurrentUser.Id}");
+	}
+
 	public bool FindUser(string username, string password, out BankUser? user)
 	{
 		try

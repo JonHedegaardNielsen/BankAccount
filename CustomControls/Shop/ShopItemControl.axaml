@@ -6,6 +6,7 @@
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:ShopMainViewModel"
              x:Class="BankAccount.ShopItemControl">
+	
 	<UserControl.Styles>
 		<Style Selector="TextBlock">
 			<Setter Property="FontSize" Value="16"/>

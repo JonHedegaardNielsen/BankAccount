@@ -1,5 +1,7 @@
 ﻿using BankAccount.Database;
 using System.Collections.ObjectModel;
+using System.Data.SqlTypes;
+using System.Windows.Input;
 
 namespace BankAccount;
 
@@ -7,34 +9,8 @@ public class BankMainPageViewModel : ViewModel
 {
 	public ObservableCollection<BankAccount> bankAccounts { get; }
 	private ShopItemCategory Category;
-
-	private int _amountBought;
-	public int AmountBought
-	{
-		get => _amountBought;
-		set
-		{
-			if (_amountBought != value)
-			{
-				_amountBought = value;
-				OnPropertyChanged(nameof(AmountBought));
-			}
-		}
-	}
-
-	private decimal _amountSpent;
-	public decimal AmountSpent
-	{
-		get => _amountBought;
-		set
-		{
-			if (-AmountSpent != value)
-			{
-				_amountSpent = value;
-				OnPropertyChanged(nameof(AmountBought));
-			}
-		}
-	}
+	public ICommand DeleteUserCommand { get; }
+	
 
 	public BankMainPageViewModel()
 	{
@@ -45,8 +21,12 @@ public class BankMainPageViewModel : ViewModel
 	{
 		Category = category;
 		bankAccounts = new(BankUser.CurrentUser.BankAccounts);
-		
+	}
 
+	public void DeleteUser()
+	{
+		BankUserDatabase.Instance.DeleteCurrentUser();
+		BankUser.LogOut();
 	}
 
 	private BankAccount? _selecteditem;
@@ -58,8 +38,7 @@ public class BankMainPageViewModel : ViewModel
 			if (_selecteditem != value)
 			{
 				_selecteditem = value;
-				_amountBought = ShopItemDatabase.Instance.SelectCountItemCategory(SelectItem.Id, Category);
-				_amountSpent = (decimal)ShopItemDatabase.Instance.GetTotalExpenses(SelectItem.Id);
+
 				OnPropertyChanged(nameof(SelectItem));
 			}
 		}

@@ -5,15 +5,17 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.SpendingCategoryControl"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:BankMainPageViewModel">
+			 x:DataType="uc:ShopItemCategoryViewModel"
+			 Loaded="CategoryLoaded">
+	
 	<Border Margin="10" Background="LightBlue" MaxHeight="75" Padding="5" CornerRadius="10" BorderBrush="DarkBlue" BorderThickness="6">
 		<Grid RowDefinitions="*,*" ColumnDefinitions="*,*,*">
 			<TextBlock Grid.Row="0" Grid.Column="0">Category</TextBlock>
 			<TextBlock Grid.Row="0" HorizontalAlignment="Center" Grid.Column="1">Amount bought</TextBlock>
 			<TextBlock Grid.Row="0" HorizontalAlignment="Right" Grid.Column="2">Amount Spent</TextBlock>
-			<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding SelectItem}"/>
-			<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding AmountBought}"/>
-			<TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding AmountSpent, StringFormat={}{0:C}}"/>
+			<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Category}"/>
+			<TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="{Binding AmountBought}"/>
+			<TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Text="{Binding AmountSpent}"/>
 		</Grid>
 	</Border>
 </UserControl>

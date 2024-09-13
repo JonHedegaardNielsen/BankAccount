@@ -109,4 +109,27 @@ public partial class MainPage : UserControl
 		BankUser.LogOut();
 		MainContent.Content = new LoginPage();
 	}
+
+	private void SelectBankAccount(object? sender, SelectionChangedEventArgs e)
+	{
+		int id = ((BankAccount)comboBoxBankAccount.SelectedValue).Id;
+		categoryFood.Update(id);
+		categoryElectricity.Update(id);
+		categoryCars.Update(id);
+		categoryInterior.Update(id);
+	}
+
+	private void DeleteUser(object? sender, RoutedEventArgs e)
+	{
+		((BankMainPageViewModel)DataContext).DeleteUser();
+		MainContent.Content = new LoginPage();
+	}
+
+	private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+	{
+	}
+
+	private void DeleteUserCommand_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+	{
+	}
 }

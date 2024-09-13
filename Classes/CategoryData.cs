@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BankAccount.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,17 @@ public class CategoryData
 	public int AmountBought { get; private set; }
 	public decimal AmountSpent { get; private set; }
 
-    public CategoryData(ShopItemType type, int amountBought, decimal amountSpent)
+    public CategoryData(ShopItemType type)
 	{
         Type = type;
-		AmountBought = amountBought;
-		AmountSpent = amountSpent;
+		
+	}
+
+	void UpdateData(BankAccount bankAccount)
+	{
+		//AmountBought = ShopItemDatabase.Instance.SelectCountItemType(ShopUserDatabase.Instance.SelectUserId(bankAccount.Id), Type);
+		//decimal? amountSpent = ShopItemDatabase.Instance.GetTotalExpensesofCategory(bankAccount.Id);
+		//if (amountSpent != null)
+		//	AmountSpent = (decimal)amountSpent;
 	}
 }

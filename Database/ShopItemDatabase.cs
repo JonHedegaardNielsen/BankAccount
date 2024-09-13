@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace BankAccount.Database;
 
@@ -18,19 +19,43 @@ class ShopItemDatabase : Database<ShopItem>
 
 	public void Insert(ShopItem shopItem, int userId)
 	{
-		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {userId}, {shopItem.Category})");
+		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {userId}, {(int)shopItem.Category})");
 	}
 
 	public int SelectCountItemType(int userId, ShopItemType shopItemType) =>
 		RunSingleQuery($"SELECT COUNT(*) FROM shopItem WHERE userId = {userId} AND [name] = '{shopItemType}'", GetCount);
 
-	public int GetUserId(int bankAccountId) =>
-		RunSingleQuery($"SELECT userId FROM shopUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
+	public void DeleteItemsFromUserId(int userId)
+	{
+		ExecuteNonQuery($"DELETE FROM shopItem WHERE userId = {userId}");
+	}
+
+	public int GetUserId(int bankAccountId)
+	{
+		try
+		{
+			return RunSingleQuery($"SELECT userId FROM shopUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
+		}
+		catch (InvalidOperationException)
+		{
+			return 0;
+		}
+
+	}
 
 	public int SelectCountItemCategory(int bankAccountId, ShopItemCategory category) =>
 		RunSingleQuery($"SELECT COUNT(*) FROM shopItem WHERE category = {(int)category} AND userId = {GetUserId(bankAccountId)}", GetCount);
 
-	public decimal? GetTotalExpenses(int bankAccountId) =>
-		RunSingleQuery<decimal?>($"SELECT SUM(price) FROM shopitem WHERE userId = {GetUserId(bankAccountId)}", r => r?.GetDecimal(0));
+	public decimal GetTotalExpensesofCategory(int bankAccountId, ShopItemCategory category)
+	{
+		try
+		{
+			return RunSingleQuery<decimal>($"SELECT SUM(price) FROM shopitem WHERE userId = {GetUserId(bankAccountId)} AND category = {(int)category}", r => r.GetDecimal(0));
+		}
+		catch (SqlNullValueException)
+		{
+			return 0;
+		}
+	}
 
 }

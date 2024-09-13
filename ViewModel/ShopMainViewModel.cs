@@ -43,7 +43,6 @@ public class ShopMainViewModel : ViewModel
 			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), type));
 			OnPropertyChanged(nameof(Balance));
 			((RelayCommand)BuyItemCommand).RaiseCanExecuteChanged();
-			
 		}
 	}
 }

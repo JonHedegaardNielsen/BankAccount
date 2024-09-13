@@ -28,6 +28,11 @@ namespace BankAccount;
 		loan.BankAccount = BankAccountDatabase.Instance.GetSingleBankAccount(bankAccountId);
 	}
 
+	public void DeleteLoanFromUserId(int userId)
+	{
+		ExecuteNonQuery($"DELETE FROM loan WHERE userId = {userId}");
+	}
+
 	public void Delete(int loanId)
 	{
 		ExecuteNonQuery($"DELETE FROM loan WHERE loanId = {loanId}");
