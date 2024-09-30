@@ -13,8 +13,8 @@ public class BankUser
 
 
 	public int Id { get; private set; }
-	public string Username { get; private set; } = string.Empty;
-	public string Password { get; private set; } = string.Empty;
+	private string Username = string.Empty;
+	private string Password = string.Empty;
 
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
 	public List<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();

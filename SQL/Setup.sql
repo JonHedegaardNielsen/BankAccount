@@ -21,6 +21,10 @@ CREATE TABLE shopUser(userId INT IDENTITY(1,1), userName NVARCHAR(32) UNIQUE CHE
 GO
 
 CREATE TABLE shopItem(itemId INT IDENTITY(1,1), [name] NVARCHAR(32) NOT NULL, price DECIMAL NOT NULL, userId INT, category INT NOT NULL, PRIMARY KEY(itemId), FOREIGN KEY (userId) REFERENCES shopUser(userId))
+GO
+
+CREATE TABLE casinoUser(userId INT IDENTITY(1,1), username NVARCHAR(32) CHECK(LEN(username) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), bankAccountId INT NOT NULL, PRIMARY KEY(userId), FOREIGN KEY(bankAccountId) REFERENCES bankAccount(bankAccountId))
+GO
 
 INSERT INTO bankUser(userName, [password]) VALUES('akselSmuk', 'test1234')
 GO
@@ -32,5 +36,9 @@ INSERT INTO loan(paymentTime, debt, userId, bankAccountId, CostForEachPayment, I
 GO
 
 INSERT INTO shopUser(userName, [password], bankAccountId) VALUES('akselSmuk', 'test1234', 1)
+GO
+
+INSERT INTO casinoUser(username, [password], bankAccountId) VALUES('akselSmuk', 'test1234', 1)
+GO
 
 

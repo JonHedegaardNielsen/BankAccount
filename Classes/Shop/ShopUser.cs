@@ -11,8 +11,8 @@ class ShopUser
 {
 	public static ShopUser? CurrentShopUser { get; private set; }
 	public int Id { get; private set; }
-	public string UserName { get; private set; } = string.Empty;
-	public string Password { get; private set; } = string.Empty;
+	private string UserName = string.Empty;
+	private string Password = string.Empty;
 	public BankAccount UserBankAccount { get; private set; }
 	public List<ShopItem> ShopItems = new();
 

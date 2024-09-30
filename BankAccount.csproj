@@ -29,7 +29,7 @@
 		<Compile Update="Pages\LoginPage.axaml.cs">
 			<DependentUpon>LoginPage.axaml</DependentUpon>
 		</Compile>
-		<Compile Remove="Setup.sql"/>
-		<Compile Remove="ResetData.sql"/>
+		<Compile Remove="Setup.sql" />
+		<Compile Remove="ResetData.sql" />
 	</ItemGroup>
 </Project>
