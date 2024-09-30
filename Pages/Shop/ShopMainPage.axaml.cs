@@ -8,10 +8,12 @@ namespace BankAccount;
 
 public partial class ShopMainPage : UserControl
 {
+	private ShopMainViewModel ShopViewModel;
     public ShopMainPage()
     {
         InitializeComponent();
-		DataContext = new ShopMainViewModel();
+		ShopViewModel = new ShopMainViewModel();
+		DataContext = ShopViewModel;
     }
 
 	private void ShopItemAmountLoaded(object? sender, RoutedEventArgs e)
@@ -24,4 +26,9 @@ public partial class ShopMainPage : UserControl
 		MainContent.Content = new LoginPage();
 	}
 
+	private void DeleteUser(object? sender, RoutedEventArgs e)
+	{
+		ShopViewModel.DeleteCurrentUser();
+		MainContent.Content = new LoginPage();
+	}
 }

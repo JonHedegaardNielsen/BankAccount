@@ -12,6 +12,7 @@ public class ShopMainViewModel : ViewModel
 	private ShopItemType _itemType;
 	private decimal _itemPrice;
 	public decimal ItemPrice => _itemPrice;
+	
 	public ShopItemType ItemType
 	{
 		private get => _itemType;
@@ -27,6 +28,7 @@ public class ShopMainViewModel : ViewModel
 		}
 	}
 
+
 	public decimal Balance => ShopUser.CurrentShopUser.UserBankAccount.Balance;
 
 	public ICommand BuyItemCommand { get; }
@@ -35,6 +37,12 @@ public class ShopMainViewModel : ViewModel
     {
 		BuyItemCommand = new RelayCommand(BuyItem);
     }
+
+	public void DeleteCurrentUser()
+	{
+		ShopUserDatabase.Instance.DeleteUserFromUserId(ShopUser.CurrentShopUser.Id);
+		ShopUser.CurrentShopUser.LogOut();
+	}
 
 	public void BuyItem(object Parameter)
 	{

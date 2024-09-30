@@ -10,13 +10,15 @@ namespace BankAccount;
 
 public partial class MainPage : UserControl
 {
+	BankMainPageViewModel BankViewModel;
 	public MainPage()
 	{
 		InitializeComponent();
 		comboBoxBankAccountTransferFrom.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		comboBoxBankAccountTransferTo.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		BankUser.UpdateCurrentUser();
-		DataContext = new BankMainPageViewModel();
+		BankViewModel = new BankMainPageViewModel();
+		DataContext = BankViewModel;
 	}
 
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
@@ -121,15 +123,7 @@ public partial class MainPage : UserControl
 
 	private void DeleteUser(object? sender, RoutedEventArgs e)
 	{
-		((BankMainPageViewModel)DataContext).DeleteUser();
+		BankViewModel.DeleteUser();
 		MainContent.Content = new LoginPage();
-	}
-
-	private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-	{
-	}
-
-	private void DeleteUserCommand_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-	{
 	}
 }

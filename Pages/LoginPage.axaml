@@ -8,11 +8,11 @@
 	<ContentControl x:Name="MainContent">
 		<TabControl>
 			<TabItem Header="BankAccount">
-					
-					
-						<local:BankLoginPage x:Name="bankLogin">
 
-						</local:BankLoginPage>
+
+				<local:BankLoginPage x:Name="bankLogin">
+
+				</local:BankLoginPage>
 			</TabItem>
 			<TabItem Header="Shop">
 				<Border Padding="30,0,0,0" Background="Gold" CornerRadius="50" BorderBrush="DarkGoldenrod" BorderThickness="3" Width="400" Height="400">
@@ -28,7 +28,9 @@
 				</Border>
 			</TabItem>
 			<TabItem Header="Casino">
-				
+				<Border>
+					
+				</Border>
 			</TabItem>
 		</TabControl>
 	</ContentControl>

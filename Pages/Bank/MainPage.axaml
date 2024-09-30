@@ -7,6 +7,7 @@
 			 xmlns:uc ="using:BankAccount"
 			 x:DataType="uc:BankMainPageViewModel"
 			 >
+	
 
 	<ContentControl x:Name="MainContent">
 		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"  Background="">
@@ -73,8 +74,8 @@
 			</TabItem>
 			<TabItem Header="Settings">
 				<StackPanel>
-					<Button Click="LogOut" Background="Red" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="42">LogOut</Button>
-					<Button Click="DeleteUser" HorizontalAlignment="Left" FontSize="42" Background="Red">Delete user</Button>
+					<Button Click="LogOut" Classes="DangerousButton">LogOut</Button>
+					<Button Click="DeleteUser" Classes="DangerousButton">Delete user</Button>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

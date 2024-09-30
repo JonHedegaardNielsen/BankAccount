@@ -8,7 +8,7 @@
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
 			 x:DataType="uc:ShopMainViewModel"
 			 >
-	
+
 	<ContentControl x:Name="MainContent">
 		<TabControl>
 			<TabItem Header="Shopping">
@@ -23,7 +23,7 @@
 					<local:ShopItemControl Grid.Row="2" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Car.jpg" Price="100" ItemName="Car"/>
 				</Grid>
 			</TabItem>
-			
+
 			<TabItem Header="Your Items" Loaded="ShopItemAmountLoaded">
 				<Grid RowDefinitions="auto,auto,auto,auto,auto,auto" ColumnDefinitions="*">
 					<local:ShopItemAmountControl Grid.Row="0" x:Name="shopItemAmountControlMilk" ItemName="Milk"/>
@@ -35,7 +35,10 @@
 				</Grid>
 			</TabItem>
 			<TabItem Header="Settings">
-				<Button Click="LogOut" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42">LogOut</Button>
+				<StackPanel>
+					<Button Click="LogOut" Classes="DangerousButton" >LogOut</Button>
+					<Button Click="DeleteUser" Classes="DangerousButton" >Delete User</Button>
+				</StackPanel>
 			</TabItem>
 		</TabControl>
 	</ContentControl>
