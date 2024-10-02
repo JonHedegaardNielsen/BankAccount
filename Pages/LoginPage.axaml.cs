@@ -11,7 +11,7 @@ using Tmds.DBus.Protocol;
 
 public partial class LoginPage : UserControl
 {
-    private UserControl NextPage;
+	private UserControl NextPage;
     
     public LoginPage()
     {
@@ -35,5 +35,15 @@ public partial class LoginPage : UserControl
 	private void ShopSignUp(object? sender, RoutedEventArgs e)
 	{
         MainContent.Content = new BankLoginPage(() => new ShopSignUpPage(), MainContent);
+	}
+
+	private void PageLoaded(object? sender, RoutedEventArgs e)
+	{
+		void SignUp()
+		{
+			MainContent.Content = new BankLoginPage(() => new CasinSignUpPage(), MainContent);
+		}
+
+		casinoLogin.OnSignUp = SignUp;
 	}
 }

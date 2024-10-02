@@ -35,7 +35,7 @@ public class ShopMainViewModel : ViewModel
 
     public ShopMainViewModel()
     {
-		BuyItemCommand = new RelayCommand(BuyItem);
+		BuyItemCommand = new Command1Param<string>(BuyItem);
     }
 
 	public void DeleteCurrentUser()
@@ -44,13 +44,10 @@ public class ShopMainViewModel : ViewModel
 		ShopUser.CurrentShopUser.LogOut();
 	}
 
-	public void BuyItem(object Parameter)
+	public void BuyItem(string Parameter)
 	{
-		if (Parameter is string type)
-		{
-			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), type));
-			OnPropertyChanged(nameof(Balance));
-			((RelayCommand)BuyItemCommand).RaiseCanExecuteChanged();
-		}
+		ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), Parameter));
+		OnPropertyChanged(nameof(Balance));
+		((Command1Param<string>)BuyItemCommand).RaiseCanExecuteChanged();
 	}
 }

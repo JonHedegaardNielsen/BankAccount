@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.CasinoLogin">
+             x:Class="BankAccount.CasinoLogin"
+			 xmlns:uc="using:BankAccount"
+			 x:DataType="uc:CasinoLoginViewmodel">
 	<ContentControl x:Name="MainContent">
 		<Border Background="Yellow" Padding="20,0,0,0" CornerRadius="50" BorderBrush="DarkRed" BorderThickness="3" Width="400" Height="400">
 			<Grid  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="320,60">
@@ -11,8 +13,8 @@
 				<TextBox x:Name="textBoxUsername" Margin="10,10,0,0" Grid.Row="1" Grid.Column="0">akselSmuk</TextBox>
 				<Label Margin="10,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
 				<TextBox PasswordChar="*" x:Name="textBoxPassword" Margin="10,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
-				<Button Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
-				<Button x:Name="btnSignUp" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
+				<Button x:Name="btnLogin" Command="{Binding Login}" Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
+				<Button x:Name="btnSignUp" Click="SignUp" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
 				<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" Foreground="Red" IsVisible="false">Invalid username or password</Label>
 			</Grid>
 		</Border>

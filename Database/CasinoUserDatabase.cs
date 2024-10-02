@@ -7,23 +7,33 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class CasinoUserDatabase : Database<CasinoUser?>
+class CasinoUserDatabase : Database<CasinoUser>
 {
 	public static CasinoUserDatabase Instance = new CasinoUserDatabase();
 
-	private CasinoUser? GetData(SqlDataReader reader) =>
-		new(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), new(reader.GetInt32(4), reader.GetString(5), reader.GetDecimal(6)));
+	private CasinoUser? GetData(SqlDataReader reader)
+	{
+		try
+		{
+			return new(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), new(reader.GetInt32(4), reader.GetString(5), reader.GetDecimal(6)));
+		}
+		catch 
+		{ 
+			return null; 
+		}
+	}
 
 	public CasinoUser? FindUser(string username, string password) =>
-		RunSingleQuery($"SELECT TOP(1) * FROM casinoUser u JOIN bankAccount b ON u.bankAccountId = b.bankAccountId WHERE u.username COLLATE Latin1_General_BIN = {username} AND u.[password] COLLATE Latin1_General_BIN = {password}", GetData);
+		RunSingleQuery($"SELECT TOP(1) * FROM casinoUser u JOIN bankAccount b ON u.bankAccountId = b.bankAccountId WHERE u.username COLLATE Latin1_General_BIN = '{username}' AND u.[password] COLLATE Latin1_General_BIN = '{password}'", GetData);
 
 	public bool CreateUser(string username, string password)
 	{
 		try
 		{
-			ExecuteNonQuery("INSERT INTO casinoUser(username, [password], bankAccountId) VALUES()")
+			ExecuteNonQuery("INSERT INTO casinoUser(username, [password], bankAccountId) VALUES()");
+			return true;
 		}
-		catch(InvalidOperationException ex)
+		catch(InvalidOperationException)
 		{
 			return false;
 		}

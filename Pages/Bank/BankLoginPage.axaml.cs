@@ -16,6 +16,7 @@ public partial class BankLoginPage : UserControl
 
 	}
 
+	// For when you need to refernce a bank account on another login
 	public BankLoginPage(Func<UserControl> getNextPage, ContentControl currentPage)
 	{
 		InitializeComponent();
