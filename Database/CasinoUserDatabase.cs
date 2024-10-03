@@ -26,11 +26,11 @@ class CasinoUserDatabase : Database<CasinoUser>
 	public CasinoUser? FindUser(string username, string password) =>
 		RunSingleQuery($"SELECT TOP(1) * FROM casinoUser u JOIN bankAccount b ON u.bankAccountId = b.bankAccountId WHERE u.username COLLATE Latin1_General_BIN = '{username}' AND u.[password] COLLATE Latin1_General_BIN = '{password}'", GetData);
 
-	public bool CreateUser(string username, string password)
+	public bool CreateUser(string username, string password, int bankAccountId)
 	{
 		try
 		{
-			ExecuteNonQuery("INSERT INTO casinoUser(username, [password], bankAccountId) VALUES()");
+			ExecuteNonQuery($"INSERT INTO casinoUser(username, [password], bankAccountId) VALUES('{username}', '{password}', {bankAccountId})");
 			return true;
 		}
 		catch(InvalidOperationException)

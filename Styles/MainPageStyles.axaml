@@ -14,4 +14,8 @@
 		<Setter Property="Margin" Value="0,0,0,20"/>
 	</Style>
 
+	<Style Selector="Label.LoginTitle">
+		<Setter Property="FontSize" Value="16"/>
+	</Style>
+
 </Styles>

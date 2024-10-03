@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="BankAccount.CasinoSignUpPage"
+			 xmlns:uc="using:BankAccount"
+			 x:DataType="uc:CasinoSignUpViewModel">
+
+	<ContentControl x:Name="MainContent">
+		<Border Background="Coral" BorderBrush="Black" BorderThickness="5" CornerRadius="30" Width="350" Height="400" Padding="10">
+			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
+				<Label Grid.Row="0">Username</Label>
+				<TextBox Grid.Row="1"></TextBox>
+				<Label Grid.Row="2">Password</Label>
+				<TextBox x:Name="textBoxPassword" PasswordChar="*" Grid.Row="3"></TextBox>
+				<Label Grid.Row="4">Re-insert Password</Label>
+				<TextBox x:Name="textBoxReInsertPassword" PasswordChar="*" Grid.Row="5"></TextBox>
+				<Label Classes="LoginTitle" Grid.Row="6">BankAccount</Label>
+				<ComboBox x:Name="comboBoxBankAccount" Grid.Row="6" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedBankAccount}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
+				<Button Command="{Binding CreateUserCommand}" Grid.Row="7">Create Account</Button>
+				<Label x:Name="labelPasswordMatchingFailText" Grid.Row="8" Classes="FailText" IsVisible="False">The passwords do not match</Label>
+				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="9" Classes="FailText" IsVisible="False">The password have to be between 8 and 32 charecters</Label>
+			</Grid>
+		</Border>
+	</ContentControl>
+
+</UserControl>

@@ -41,7 +41,7 @@ public partial class LoginPage : UserControl
 	{
 		void SignUp()
 		{
-			MainContent.Content = new BankLoginPage(() => new CasinSignUpPage(), MainContent);
+			MainContent.Content = new BankLoginPage(() => new CasinoSignUpPage(), MainContent);
 		}
 
 		casinoLogin.OnSignUp = SignUp;
