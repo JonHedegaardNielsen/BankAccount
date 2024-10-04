@@ -10,38 +10,87 @@ using ReactiveUI;
 using System.Reactive;
 using Avalonia.Controls;
 using Avalonia.Threading;
+using System.Security.Cryptography.X509Certificates;
+using System.Reactive.Linq;
+using System.Windows.Input;
 
 namespace BankAccount;
 
 public class CasinoSignUpViewModel : ReactiveObject
 {
-	public ReactiveCommand<BankAccount, Tuple<bool, bool>> CreateUserCommand { get; }
+	
+	public ReactiveCommand<Unit, Unit> CreateUserCommand { get; }
+	private bool CurrentPageStartup = true;
+
+	private object _currentPage;
+	public object CurrentPage
+	{
+		get => _currentPage;
+		set 
+		{
+			this.RaiseAndSetIfChanged(ref _currentPage, value);
+		}
+	}
 
 	private BankAccount _selectedBankAccount;
-
 	public BankAccount SelectedBankAccount
 	{
 		get => _selectedBankAccount;
 		set => this.RaiseAndSetIfChanged(ref _selectedBankAccount, value);
 	}
 
-	public CasinoSignUpViewModel(TextBox password, TextBox reInsertPassword)
+	private bool _failTextMatchingIsVisible = false;
+	public bool FailTextMatchingIsVisible
 	{
-		CreateUserCommand = ReactiveCommand.Create((BankAccount bankAccount) =>
-		{
-			Tuple<bool, bool> fails = null;
+		get => _failTextMatchingIsVisible;
+		set => this.RaiseAndSetIfChanged(ref _failTextMatchingIsVisible, value);
+	}
 
-			Dispatcher.UIThread.Post(() =>
-			{
-				fails = new Tuple<bool, bool>(password.Text == reInsertPassword.Text, Login.CheckLength(password.Text));
+	private bool _failTextLengthIsVisible = false;
+	public bool FailtextLengthIsVisible
+	{
+		get => _failTextLengthIsVisible;
+		set => this.RaiseAndSetIfChanged(ref _failTextLengthIsVisible, value);
+	}
 
-				if (fails.Item1 && fails.Item2)
-					CasinoUserDatabase.Instance.CreateUser(password.Text, reInsertPassword.Text, SelectedBankAccount.Id);
-			});
-			return fails;
+	private string _username = string.Empty;
+	public string Username
+	{
+		get => _username;
+		set => this.RaiseAndSetIfChanged(ref _username, value);
+	}
 
-		});
+	private string _password = string.Empty;
+	public string Password
+	{
+		get => _password;
+		set => this.RaiseAndSetIfChanged(ref _password, value);
+	}
 
+	private string _reInsertPassword = string.Empty;
+	public string ReInsertPassword
+	{
+		get => _password;
+		set => this.RaiseAndSetIfChanged(ref _reInsertPassword, value);
+	}
 
+	public CasinoSignUpViewModel(object? currentPage)
+	{
+		CurrentPage = currentPage;
+		
+		CreateUserCommand = ReactiveCommand.Create(CreateUser);
+
+	}
+
+	private void CreateUser()
+	{
+		//FailtextLengthIsVisible = !Login.CheckLength(Password) && !Login.CheckLength(Username);
+		//FailTextMatchingIsVisible = Password != ReInsertPassword;
+
+		//if (!FailTextMatchingIsVisible || !FailtextLengthIsVisible && SelectedBankAccount != null)
+		//{
+		//	CasinoUserDatabase.Instance.CreateUser(Username, Password, SelectedBankAccount.Id);
+		//	CurrentPage = new LoginPage();
+		//}
 	}
 }

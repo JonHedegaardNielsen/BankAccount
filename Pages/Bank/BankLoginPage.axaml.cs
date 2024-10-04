@@ -10,6 +10,7 @@ public partial class BankLoginPage : UserControl
 {
 	private Func<UserControl>? GetNextPage;
 	public ContentControl CurrentPage { private get; set; }
+	
 	public BankLoginPage()
 	{
 		InitializeComponent();
