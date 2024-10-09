@@ -26,10 +26,7 @@ public class CasinoSignUpViewModel : ReactiveObject
 	public object CurrentPage
 	{
 		get => _currentPage;
-		set 
-		{
-			this.RaiseAndSetIfChanged(ref _currentPage, value);
-		}
+		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
 	}
 
 	private BankAccount _selectedBankAccount;
@@ -84,13 +81,13 @@ public class CasinoSignUpViewModel : ReactiveObject
 
 	private void CreateUser()
 	{
-		//FailtextLengthIsVisible = !Login.CheckLength(Password) && !Login.CheckLength(Username);
-		//FailTextMatchingIsVisible = Password != ReInsertPassword;
+		FailtextLengthIsVisible = !Login.CheckLength(Password) && !Login.CheckLength(Username);
+		FailTextMatchingIsVisible = Password != ReInsertPassword;
 
-		//if (!FailTextMatchingIsVisible || !FailtextLengthIsVisible && SelectedBankAccount != null)
-		//{
-		//	CasinoUserDatabase.Instance.CreateUser(Username, Password, SelectedBankAccount.Id);
-		//	CurrentPage = new LoginPage();
-		//}
+		if (!FailTextMatchingIsVisible || !FailtextLengthIsVisible && SelectedBankAccount != null)
+		{
+			CasinoUserDatabase.Instance.CreateUser(Username, Password, SelectedBankAccount.Id);
+			CurrentPage = new LoginPage();
+		}
 	}
 }

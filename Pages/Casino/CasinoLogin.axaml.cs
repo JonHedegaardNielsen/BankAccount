@@ -10,11 +10,11 @@ namespace BankAccount;
 public partial class CasinoLogin : UserControl
 {
     public Action OnSignUp;
-
+    public ContentControl MainContent;
     public CasinoLogin()
     {
         InitializeComponent();
-		DataContext = new CasinoLoginViewmodel(LoginSucces, LoginFailed, OnLogin);
+		DataContext = new CasinoLoginViewmodel(LoginSucces, LoginFailed, OnLogin, MainContent);
 	}
 
 	private void LoginSucces()

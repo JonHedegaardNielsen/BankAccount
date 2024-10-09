@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,10 @@ public class CasinoLoginViewmodel : ViewModel
 	private Action OnLoginSucces;
 	private Action OnLoginFailed;
 	private Func<Tuple<string, string>> OnLoginSetParam;
-
-    public CasinoLoginViewmodel(Action onLoginSucces, Action onLoginFailed, Func<Tuple<string, string>> onLoginSetParam)
+	private ContentControl MainContent;
+    public CasinoLoginViewmodel(Action onLoginSucces, Action onLoginFailed, Func<Tuple<string, string>> onLoginSetParam, ContentControl mainContent)
     {
+		MainContent = mainContent;
 		LoginCommand = new Command1Param<Tuple<string, string>>(Login);
 		OnLoginSucces = onLoginSucces;
 		OnLoginFailed = onLoginFailed;
@@ -30,5 +32,6 @@ public class CasinoLoginViewmodel : ViewModel
 			OnLoginSucces();
 		else
 			OnLoginFailed();
+		
 	}
 }

@@ -15,12 +15,12 @@
 				<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
 					<TextBlock x:Name="textBlockBalance" Grid.Row="0" Text="{Binding Balance, StringFormat={} {0:C}}"></TextBlock>
 
-					<local:ShopItemControl Grid.Row="1" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Milk.jpg" Price="10" ItemName="Milk"/>
-					<local:ShopItemControl Grid.Row="1" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Sugar.jpg" Price="100" ItemName="Sugar"/>
-					<local:ShopItemControl Grid.Row="1" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Charger.jpg" Price="100" ItemName="Charger"/>
-					<local:ShopItemControl Grid.Row="2" Grid.Column="0" FilePath="..\..\..\Pages\Shop\ShopItemImages\Battery.jpg" Price="100" ItemName="Battery"/>
-					<local:ShopItemControl Grid.Row="2" Grid.Column="1" FilePath="..\..\..\Pages\Shop\ShopItemImages\Chair.jpg" Price="100" ItemName="Chair"/>
-					<local:ShopItemControl Grid.Row="2" Grid.Column="2" FilePath="..\..\..\Pages\Shop\ShopItemImages\Car.jpg" Price="100" ItemName="Car"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="0" Image="Milk" Price="10" ItemName="Milk"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="1" Image="Suger" Price="100" ItemName="Sugar"/>
+					<local:ShopItemControl Grid.Row="1" Grid.Column="2" Image="Charger" Price="100" ItemName="Charger"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="0" Image="Battery" Price="100" ItemName="Battery"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="1" Image="Chair" Price="100" ItemName="Chair"/>
+					<local:ShopItemControl Grid.Row="2" Grid.Column="2" Image="Car" Price="100" ItemName="Car"/>
 				</Grid>
 			</TabItem>
 

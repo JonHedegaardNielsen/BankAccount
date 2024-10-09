@@ -15,9 +15,9 @@
 	<Border Padding="" Margin="20,20,0,0">
 		<Border x:Name="borderShopItem"  BorderBrush="Black" BorderThickness="2" Loaded="ItemLoaded">
 			<Grid RowDefinitions="*,auto,auto,auto" ColumnDefinitions="*" ShowGridLines="True">
-					<Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" x:Name="imageShopItem" ></Image>
+				<Image Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" x:Name="imageShopItem"/>
 
-				<TextBlock x:Name="txtBlockShopItemName" Grid.Row="1" VerticalAlignment="Bottom" />
+				<TextBlock x:Name="txtBlockShopItemName" Grid.Row="1" VerticalAlignment="Bottom"/>
 				<TextBlock x:Name="txtBlockShopItemPrice" Grid.Row="2" VerticalAlignment="Bottom"/>
 				<Button Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" CommandParameter="{Binding Text, ElementName=txtBlockShopItemName}" Command="{Binding BuyItem}">Buy item</Button>
 			</Grid>

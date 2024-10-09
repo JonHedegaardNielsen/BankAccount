@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.ReactiveUI;
 using System;
 
 namespace BankAccount
@@ -17,6 +18,7 @@ namespace BankAccount
 			=> AppBuilder.Configure<App>()
 				.UsePlatformDetect()
 				.WithInterFont()
-				.LogToTrace();
+				.LogToTrace()
+				.UseReactiveUI();
 	}
 }

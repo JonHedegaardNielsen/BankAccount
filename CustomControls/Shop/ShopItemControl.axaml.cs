@@ -12,8 +12,8 @@ namespace BankAccount;
 
 public partial class ShopItemControl : UserControl
 {
-	public static readonly StyledProperty<string> ImageFilePath =
-	    AvaloniaProperty.Register<ShopItemControl, string>(nameof(ImageFilePath));
+	public static readonly StyledProperty<Images> ImageName =
+	    AvaloniaProperty.Register<ShopItemControl, Images>(nameof(Image));
 
 	public static readonly StyledProperty<decimal> ShopPrice =
 		AvaloniaProperty.Register<ShopItemControl, decimal>(nameof(ShopPrice));
@@ -33,10 +33,10 @@ public partial class ShopItemControl : UserControl
         set => SetValue(ShopItemName, value);
     }
 
-	public string FilePath
+	public Images Image
     {
-        get => GetValue(ImageFilePath);
-        set => SetValue(ImageFilePath, value);
+        get => GetValue(ImageName);
+        set => SetValue(ImageName, value);
     }
 
 	public ShopItemControl()
@@ -46,10 +46,7 @@ public partial class ShopItemControl : UserControl
 
     private void ItemLoaded(object sender, RoutedEventArgs e)
     {
-        string? filePath = System.IO.Path.GetFullPath(@FilePath, AppContext.BaseDirectory);
-
-        if (File.Exists(filePath))
-            imageShopItem.Source = new Bitmap(filePath);
+        imageShopItem.Source = new Bitmap(Files.ImageFiles[Image]);
 
         txtBlockShopItemName.Text = ItemName.ToString();
 		txtBlockShopItemPrice.Text = $"{ShopItem.ShopItemTypes[ItemName].Price} kr.";

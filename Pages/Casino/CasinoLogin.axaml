@@ -6,7 +6,7 @@
              x:Class="BankAccount.CasinoLogin"
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:CasinoLoginViewmodel">
-	<ContentControl x:Name="MainContent">
+	<ContentControl>
 		<Border Background="Yellow" Padding="20,0,0,0" CornerRadius="50" BorderBrush="DarkRed" BorderThickness="3" Width="400" Height="400">
 			<Grid  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="320,60">
 				<Label Margin="10,10,0,0" Grid.Row="0" FontSize="16" Grid.Column="0">Username</Label>

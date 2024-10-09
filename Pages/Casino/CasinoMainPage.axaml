@@ -3,10 +3,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.CasinoMainPage">
+             x:Class="BankAccount.CasinoMainPage"
+			 xmlns:uc="using:BankAccount"
+			 x:DataType="uc:CasinoViewModel">
 	<TabControl>
-		<TabItem>
-			
+		<TabItem Header="Slots">
+			<Grid ColumnDefinitions="auto,auto,auto" HorizontalAlignment="Center">
+				<uc:SlotMachineItem  Grid.Column="0" ImageSource=""/>
+				<uc:SlotMachineItem  Margin="20,0,0,0" Grid.Column="1" ImageSource=""/>
+				<uc:SlotMachineItem  Margin="20,0,0,0" Grid.Column="2" ImageSource=""/>
+			</Grid>
+		</TabItem>
+		<TabItem Header="Settings">
+			<Grid>
+				
+			</Grid>
 		</TabItem>
 	</TabControl>
 </UserControl>

@@ -17,6 +17,7 @@ public partial class LoginPage : UserControl
     {
         InitializeComponent();
 		bankLogin.CurrentPage = MainContent;
+		casinoLogin.MainContent = MainContent;
 	}
 
 	public LoginPage(UserControl nextPage)
