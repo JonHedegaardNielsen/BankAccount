@@ -15,7 +15,7 @@ class CasinoUser
 	private string UserName = string.Empty;
 	private string Password = string.Empty;
 
-	BankAccount BankAccount;
+	public BankAccount BankAccount { get; }
 
     public CasinoUser(int id, string username, string password, BankAccount bankAccount)
     {

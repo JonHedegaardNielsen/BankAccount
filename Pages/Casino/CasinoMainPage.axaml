@@ -6,17 +6,45 @@
              x:Class="BankAccount.CasinoMainPage"
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:CasinoViewModel">
+	<UserControl.Styles>
+		<Style Selector="Border.SlotSpace">
+			<Setter Property="MaxHeight" Value="300"/>
+			<Setter Property="MinWidth" Value="200"/>
+			<Setter Property="MinHeight" Value="200"/>
+			<Setter Property="MaxWidth" Value="300"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="BorderThickness" Value="4"/>
+			<Setter Property="Margin" Value="10,0,10,0"/>
+		</Style>
+	</UserControl.Styles>
 	<TabControl>
 		<TabItem Header="Slots">
-			<Grid ColumnDefinitions="auto,auto,auto" HorizontalAlignment="Center">
-				<uc:SlotMachineItem  Grid.Column="0" ImageSource=""/>
-				<uc:SlotMachineItem  Margin="20,0,0,0" Grid.Column="1" ImageSource=""/>
-				<uc:SlotMachineItem  Margin="20,0,0,0" Grid.Column="2" ImageSource=""/>
-			</Grid>
+			<StackPanel Margin="0,30,0,0">
+				<Label Content="{Binding Balance, StringFormat={}Balance {0:C}}"/>
+				<Label Content="{Binding Cost, StringFormat={}Cost to play {0:C}}"/>
+				
+				<Grid ColumnDefinitions="*,*,*" ShowGridLines="True">
+					<Border Classes="SlotSpace" IsVisible="True">
+						<Image x:Name="imageSymbol1" Grid.Column="0" Source="{Binding UrlSource1}"/>
+					</Border>
+
+					<Border Classes="SlotSpace" Grid.Column="1">
+						<Image x:Name="imageSymbol2" Source="{Binding UrlSource2}"/>
+					</Border>
+
+					<Border Classes="SlotSpace" Grid.Column="2">
+						<Image x:Name="imageSymbol3" Source="{Binding UrlSource3}"/>
+					</Border>
+				</Grid>
+				
+				<Button HorizontalAlignment="Center" Margin="0,30,0,0" Command="{Binding PlaySlotsCommand}">Play</Button>
+				<Label HorizontalAlignment="Center" Margin="0,30,0,0" Content="{Binding Reward, StringFormat={}Reward {0:C}}"></Label>
+				<Label HorizontalAlignment="Center" Margin="0,20,0,0" IsVisible="{Binding FailTextVisible}" Classes="FailText">You don't have enough money take a loan</Label>
+			</StackPanel>
 		</TabItem>
 		<TabItem Header="Settings">
 			<Grid>
-				
+
 			</Grid>
 		</TabItem>
 	</TabControl>

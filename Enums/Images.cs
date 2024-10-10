@@ -13,4 +13,5 @@ public enum Images
 	Grapes,
 	Orange,
 	Seven,
+	Bell
 }
