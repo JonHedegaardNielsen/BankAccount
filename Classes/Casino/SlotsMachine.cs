@@ -15,27 +15,30 @@ public class SlotsMachine
 		Images.Cherry,
 		Images.Grapes,
 		Images.Orange,
-		Images.Seven
+		Images.Seven,
+		Images.Bell,
 	};
 
 	Random rand = new Random();
-	private static Dictionary<Images, Decimal> Rewards = new()
+	public static Dictionary<Images, Decimal> Rewards = new()
 	{
-		{Images.Cherry, 100},
-		{Images.Grapes, 100},
-		{Images.Orange, 100},
-		{Images.Seven, 100},
+		{Images.Cherry, 100m},
+		{Images.Grapes, 100m},
+		{Images.Orange, 300m},
+		{Images.Seven, 200m},
+		{Images.Bell, 500m },
 	};
 
 	private Images GetRandElement() =>
 			Options[rand.Next(Options.Length)];
 
 	public Images[] GetRandCompination() =>
-		new Images[3] { GetRandElement(), GetRandElement(), GetRandElement() };
+		[ GetRandElement(), GetRandElement(), GetRandElement() ];
 
 	private Images[] GetRandCombinationUnique()
 	{
 		Images[] result;
+
 		do
 		{
 			result = GetRandCompination();

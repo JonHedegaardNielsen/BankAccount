@@ -26,6 +26,9 @@ GO
 CREATE TABLE casinoUser(userId INT IDENTITY(1,1), username NVARCHAR(32) CHECK(LEN(username) >= 8), [password] NVARCHAR(32) CHECK(LEN([password]) >= 8), bankAccountId INT NOT NULL, PRIMARY KEY(userId), FOREIGN KEY(bankAccountId) REFERENCES bankAccount(bankAccountId))
 GO
 
+CREATE TABLE casinoWins(winId INT IDENTITY(1,1), reward DECIMAL NOT NULL, userId INT NOT NULL, PRIMARY KEY(winId), FOREIGN KEY(userId) REFERENCES casinoUser(userId))
+GO
+
 INSERT INTO bankUser(userName, [password]) VALUES('akselSmuk', 'test1234')
 GO
 

@@ -15,14 +15,11 @@ public class CasinoViewModel : ReactiveObject
 
 	private SlotsMachine SlotsMachine;
 
-	public ReactiveCommand<Unit, Unit> PlaySlotsCommand { get; }
-
-	public CasinoViewModel()
-	{
-		SlotsMachine = new SlotsMachine();
-		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
-		
-	}
+	public decimal CherryReward => SlotsMachine.Rewards[Images.Cherry];
+	public decimal BellReward => SlotsMachine.Rewards[Images.Bell];
+	public decimal GrapesReward => SlotsMachine.Rewards[Images.Grapes];
+	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
+	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
 
 	private decimal _reward;
 	public decimal Reward
@@ -68,7 +65,16 @@ public class CasinoViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _urlSource3, value);
 	}
 
-	private bool isPlaying; 
+	private bool isPlaying;
+
+	public ReactiveCommand<Unit, Unit> PlaySlotsCommand { get; }
+
+	public CasinoViewModel()
+	{
+		SlotsMachine = new SlotsMachine();
+		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
+		
+	}
 
 	private void SetSymbols(Bitmap[] bitmaps)
 	{
@@ -118,4 +124,6 @@ public class CasinoViewModel : ReactiveObject
 
 		thread.Start();
 	}
+
+
 }
