@@ -60,6 +60,13 @@
 				</Border>
 			</StackPanel>
 		</TabItem>
+		<TabItem Header="Info">
+			<StackPanel>
+				<Border>
+					<Label Content="{Binding RewardTotal, StringFormat={}Total Earnings {0:C}}"/>
+				</Border>
+			</StackPanel>
+		</TabItem>
 		<TabItem Header="Settings">
 
 		</TabItem>

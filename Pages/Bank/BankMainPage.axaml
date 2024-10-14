@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.MainPage"
+             x:Class="BankAccount.BankMainPage"
 			 xmlns:uc ="using:BankAccount"
 			 x:DataType="uc:BankMainPageViewModel"
 			 >
@@ -57,7 +57,7 @@
 				</Border>
 			</TabItem>
 			<TabItem Header="Expenses">
-				<Grid RowDefinitions="auto,auto,auto,auto,auto">
+				<Grid RowDefinitions="auto,auto,auto,auto,auto, auto">
 					<ComboBox x:Name="comboBoxBankAccount" ItemsSource="{Binding bankAccounts}" SelectionChanged="SelectBankAccount" Grid.Row="0" SelectedItem="{Binding SelectItem, Mode=TwoWay}">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
@@ -70,6 +70,7 @@
 					<uc:SpendingCategoryControl x:Name="categoryElectricity" Category="Electricity" Grid.Row="2"/>
 					<uc:SpendingCategoryControl x:Name="categoryInterior" Category="Interior" Grid.Row="3"/>
 					<uc:SpendingCategoryControl x:Name="categoryCars" Category="Cars" Grid.Row="4"/>
+					<uc:SpendingCategoryControl Category="Gambling" Grid.Row="5"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Settings">

@@ -35,7 +35,7 @@ public partial class BankLoginPage : UserControl
 			if (GetNextPage != null)
 				CurrentPage.Content = GetNextPage();
 			else
-				CurrentPage.Content = new MainPage();
+				CurrentPage.Content = new BankMainPage();
 		}
 		else
 			LabelFailText.IsVisible = true;
@@ -43,7 +43,7 @@ public partial class BankLoginPage : UserControl
 
 	private void Signup(object? sender, RoutedEventArgs e)
 	{
-		CurrentPage.Content = new SignupPage();
+		CurrentPage.Content = new BankSignupPage();
 	}
 
 }

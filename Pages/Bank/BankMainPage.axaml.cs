@@ -8,10 +8,10 @@ using System.Collections.Generic;
 
 namespace BankAccount;
 
-public partial class MainPage : UserControl
+public partial class BankMainPage : UserControl
 {
 	BankMainPageViewModel BankViewModel;
-	public MainPage()
+	public BankMainPage()
 	{
 		InitializeComponent();
 		comboBoxBankAccountTransferFrom.ItemsSource = BankUser.CurrentUser.BankAccounts;

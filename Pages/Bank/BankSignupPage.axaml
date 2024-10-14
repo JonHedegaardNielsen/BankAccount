@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
-             x:Class="BankAccount.SignupPage">
+             x:Class="BankAccount.BankSignupPage">
 	<UserControl.Styles>
 		<Style Selector="TextBox">
 			<Setter Property="MaxLength" Value="32"/>

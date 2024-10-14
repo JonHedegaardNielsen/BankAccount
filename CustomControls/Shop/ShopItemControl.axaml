@@ -19,7 +19,7 @@
 
 				<TextBlock x:Name="txtBlockShopItemName" Grid.Row="1" VerticalAlignment="Bottom"/>
 				<TextBlock x:Name="txtBlockShopItemPrice" Grid.Row="2" VerticalAlignment="Bottom"/>
-				<Button Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" CommandParameter="{Binding Text, ElementName=txtBlockShopItemName}" Command="{Binding BuyItem}">Buy item</Button>
+				<Button Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" CommandParameter="{Binding Text, ElementName=txtBlockShopItemName}" Command="{Binding BuyItemCommand}">Buy item</Button>
 			</Grid>
 		</Border>
 	</Border>

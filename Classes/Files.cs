@@ -1,15 +1,16 @@
 ﻿using Avalonia.Media.Imaging;
 using System;
-using System.Collections;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BankAccount;
 
 public class Files
 {
+	private readonly static string AppSettingsFilePath = "../../../JSON/AppSettings.json";
+
 	public static Dictionary<Images, string> ImageFiles = new Dictionary<Images, string>()
 	{
 		{ Images.Milk, "../../../Images/Milk.jpg"},
@@ -32,4 +33,15 @@ public class Files
 		new(ImageFiles[images[1]]),
 		new(ImageFiles[images[2]])
 	];
+
+	private static JToken ReadJson<TKey, Type>(TKey key, string filePath)
+		where Type : notnull
+	{
+		var jsonContent = File.ReadAllText(filePath);
+		JObject keys = (JObject)JsonConvert.DeserializeObject(jsonContent);
+		return keys[key];
+	}
+
+	public static string GetConnectionString() =>
+		ReadJson<string, string>("ConnectionString", AppSettingsFilePath).Value<string>();
 }

@@ -12,6 +12,4 @@ public partial class CasinoMainPage : UserControl
         InitializeComponent();
         DataContext = new CasinoViewModel();
     }
-
-    
 }

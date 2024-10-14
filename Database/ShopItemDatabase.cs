@@ -12,7 +12,7 @@ class ShopItemDatabase : Database<ShopItem>
 	private ShopItemDatabase() { }
 
 	public ShopItem GetData(SqlDataReader sqlDataReader) =>
-		new(sqlDataReader.GetInt32(0), (ShopItemType)sqlDataReader.GetValue(1), sqlDataReader.GetDecimal(2), (ShopItemCategory)sqlDataReader.GetValue(4));
+		new(sqlDataReader.GetInt32(0), (ShopItemType)sqlDataReader.GetValue(1), sqlDataReader.GetDecimal(2), (SpendingCategory)sqlDataReader.GetValue(4));
 
 	public List<ShopItem> GetShopItems(int userId) =>
 		RunQuery($"SELECT * FROM shopItem WHERE userId = {userId}", GetData);
@@ -20,6 +20,7 @@ class ShopItemDatabase : Database<ShopItem>
 	public void Insert(ShopItem shopItem, int userId)
 	{
 		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {userId}, {(int)shopItem.Category})");
+		TransactionDatabase.Instance.Insert(shopItem, userId);
 	}
 
 	public int SelectCountItemType(int userId, ShopItemType shopItemType) =>
@@ -43,19 +44,18 @@ class ShopItemDatabase : Database<ShopItem>
 
 	}
 
-	public int SelectCountItemCategory(int bankAccountId, ShopItemCategory category) =>
+	public int SelectCountItemCategory(int bankAccountId, SpendingCategory category) =>
 		RunSingleQuery($"SELECT COUNT(*) FROM shopItem WHERE category = {(int)category} AND userId = {GetUserId(bankAccountId)}", GetCount);
 
-	public decimal GetTotalExpensesofCategory(int bankAccountId, ShopItemCategory category)
+	public decimal GetTotalExpensesofCategory(int bankAccountId, SpendingCategory category)
 	{
 		try
 		{
-			return RunSingleQuery<decimal>($"SELECT SUM(price) FROM shopitem WHERE userId = {GetUserId(bankAccountId)} AND category = {(int)category}", r => r.GetDecimal(0));
+			return RunSingleQuery($"SELECT SUM(price) FROM shopitem WHERE userId = {GetUserId(bankAccountId)} AND category = {(int)category}", r => r.GetDecimal(0));
 		}
 		catch (SqlNullValueException)
 		{
 			return 0;
 		}
 	}
-
 }

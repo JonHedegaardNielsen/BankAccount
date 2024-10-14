@@ -15,7 +15,7 @@ public class ShopItem
 	public decimal Price { get; private set; }
 	public int Amountbought => ShopItemDatabase.Instance.SelectCountItemType(ShopUser.CurrentShopUser.Id, Name);
 	public decimal TotalAmountSpent => Amountbought * Price;
-	public ShopItemCategory Category { get; private set; }
+	public SpendingCategory Category { get; private set; }
 
 	public static Dictionary<ShopItemType, ShopItem> ShopItemTypes = new()
 	{
@@ -35,7 +35,7 @@ public class ShopItem
 		Price = price;
 	}
 
-	public ShopItem(int id, ShopItemType name, decimal price, ShopItemCategory category)
+	public ShopItem(int id, ShopItemType name, decimal price, SpendingCategory category)
 	{
 		Id= id;
 		Name = name;
@@ -55,16 +55,16 @@ public class ShopItem
 		switch (Name)
 		{
 			case ShopItemType.Milk or ShopItemType.Sugar:
-				Category = ShopItemCategory.Food;
+				Category = SpendingCategory.Food;
 				break;
 			case ShopItemType.Battery or ShopItemType.Charger:
-				Category = ShopItemCategory.Electricity;
+				Category = SpendingCategory.Electricity;
 				break;
 			case ShopItemType.Chair:
-				Category = ShopItemCategory.Interior;
+				Category = SpendingCategory.Interior;
 				break;
 			case ShopItemType.Car:
-				Category = ShopItemCategory.Cars;
+				Category = SpendingCategory.Cars;
 				break;
 		}
 	}

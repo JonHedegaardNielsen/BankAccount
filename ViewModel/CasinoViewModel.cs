@@ -28,6 +28,14 @@ public class CasinoViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _reward, value);
 	}
 
+	private decimal _rewardTotal = CasinoWinsDatabase.Instance.GetTotalRewards(CasinoUser.CurrentUser.Id);
+	public decimal RewardTotal
+	{
+		get => _rewardTotal;
+		set => this.RaiseAndSetIfChanged(ref _rewardTotal, value);
+	}
+
+
 	private bool _failTextVisible = false;
 	public bool FailTextVisible
 	{
@@ -105,12 +113,14 @@ public class CasinoViewModel : ReactiveObject
 			for (int i = 0; i <= 10; i++)
 			{
 				SetSymbols(SlotsMachine.GetRandCombinationAsBitmap());
-				Thread.Sleep(300);
+				Thread.Sleep(200);
 			}
 
 			if (win)
 			{
 				CasinoUser.CurrentUser.BankAccount.Balance += reward;
+				CasinoWinsDatabase.Instance.Insert(reward, CasinoUser.CurrentUser.Id);
+				RewardTotal += reward;
 			}
 			
 			Reward = reward;
@@ -119,7 +129,6 @@ public class CasinoViewModel : ReactiveObject
 			SetSymbols(Files.ImagesToBitmaps(images));
 
 			isPlaying = false;
-
 		});
 
 		thread.Start();

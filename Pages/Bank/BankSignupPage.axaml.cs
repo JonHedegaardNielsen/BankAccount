@@ -8,9 +8,9 @@ using System;
 
 namespace BankAccount;
 
-public partial class SignupPage : UserControl
+public partial class BankSignupPage : UserControl
 {
-	public SignupPage()
+	public BankSignupPage()
 	{
 		InitializeComponent();
 	}

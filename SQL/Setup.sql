@@ -29,6 +29,9 @@ GO
 CREATE TABLE casinoWins(winId INT IDENTITY(1,1), reward DECIMAL NOT NULL, userId INT NOT NULL, PRIMARY KEY(winId), FOREIGN KEY(userId) REFERENCES casinoUser(userId))
 GO
 
+CREATE TABLE transactions(transactionId INT IDENTITY(1,1), category INT NOT NULL, price DECIMAL NOT NULL, userId INT NOT NULL, PRIMARY KEY(transactionId), FOREIGN KEY(userId) REFERENCES BankUser(userId))
+GO
+
 INSERT INTO bankUser(userName, [password]) VALUES('akselSmuk', 'test1234')
 GO
 
@@ -43,5 +46,4 @@ GO
 
 INSERT INTO casinoUser(username, [password], bankAccountId) VALUES('akselSmuk', 'test1234', 1)
 GO
-
 

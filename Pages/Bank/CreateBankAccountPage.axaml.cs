@@ -20,6 +20,6 @@ public partial class CreateBankAccountPage : UserControl
 
     private void GoBack(object sender, RoutedEventArgs e)
     {
-		MainContent.Content = new MainPage();
+		MainContent.Content = new BankMainPage();
 	}
 }

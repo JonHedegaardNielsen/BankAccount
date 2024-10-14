@@ -8,16 +8,16 @@ namespace BankAccount;
 public class BankMainPageViewModel : ViewModel
 {
 	public ObservableCollection<BankAccount> bankAccounts { get; }
-	private ShopItemCategory Category;
+	private SpendingCategory Category;
 	public ICommand DeleteUserCommand { get; }
 	
-
+	public SpendingCategory CarCategory => SpendingCategory.Cars;
 	public BankMainPageViewModel()
 	{
 		bankAccounts = new(BankUser.CurrentUser.BankAccounts);
 	}
 
-	public BankMainPageViewModel(ShopItemCategory category)
+	public BankMainPageViewModel(SpendingCategory category)
 	{
 		Category = category;
 		bankAccounts = new(BankUser.CurrentUser.BankAccounts);

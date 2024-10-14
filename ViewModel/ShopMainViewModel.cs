@@ -5,49 +5,50 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Input;
+using ReactiveUI;
+using System.Reactive;
+using System.Reflection.Metadata;
 namespace BankAccount;
 
-public class ShopMainViewModel : ViewModel
+public class ShopMainViewModel : ReactiveObject
 {
 	private ShopItemType _itemType;
 	private decimal _itemPrice;
-	public decimal ItemPrice => _itemPrice;
-	
+	public decimal ItemPrice
+	{
+		get => _itemPrice;
+		set => this.RaiseAndSetIfChanged(ref _itemPrice, value);
+	}
+
 	public ShopItemType ItemType
 	{
-		private get => _itemType;
+		get => _itemType;
 		set
 		{
-			if (_itemType != value)
-			{
-				_itemType = value;
-				_itemPrice = ShopItem.ShopItemTypes[value].Price;
-				OnPropertyChanged(nameof(ItemPrice));
-				OnPropertyChanged(nameof(ItemType));
-			}
+			this.RaiseAndSetIfChanged(ref _itemType, value);
+			ItemPrice = ShopItem.ShopItemTypes[value].Price;
 		}
 	}
 
+	private decimal _balance = ShopUser.CurrentShopUser.UserBankAccount.Balance;
+	public decimal Balance
+	{
+		get => ShopUser.CurrentShopUser.UserBankAccount.Balance;
+		set => this.RaiseAndSetIfChanged(ref _balance, value);
+	}
+	public ReactiveCommand<string,Unit> BuyItemCommand { get; }
 
-	public decimal Balance => ShopUser.CurrentShopUser.UserBankAccount.Balance;
-
-	public ICommand BuyItemCommand { get; }
-
-    public ShopMainViewModel()
-    {
-		BuyItemCommand = new Command1Param<string>(BuyItem);
-    }
+	public ShopMainViewModel()
+	{
+		BuyItemCommand = ReactiveCommand.Create<string>(parameter =>
+		{
+			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), parameter));
+		});
+	}
 
 	public void DeleteCurrentUser()
 	{
 		ShopUserDatabase.Instance.DeleteUserFromUserId(ShopUser.CurrentShopUser.Id);
 		ShopUser.CurrentShopUser.LogOut();
-	}
-
-	public void BuyItem(string Parameter)
-	{
-		ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), Parameter));
-		OnPropertyChanged(nameof(Balance));
-		((Command1Param<string>)BuyItemCommand).RaiseCanExecuteChanged();
 	}
 }

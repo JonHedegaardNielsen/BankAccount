@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Globalization;
 
@@ -7,7 +8,7 @@ namespace BankAccount;
 
 public abstract class Database<T>
 {
-	private string ConnectionString = "Server=JON;Database=bankAccount;Trusted_Connection=True;";
+	private string ConnectionString = Files.GetConnectionString();
 
 	protected SqlConnection GetConnection()
 	{

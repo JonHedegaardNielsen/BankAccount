@@ -3,15 +3,16 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System.Data;
 using Avalonia.Interactivity;
+using Avalonia.Data;
 
 namespace BankAccount;
 
 public partial class SpendingCategoryControl : UserControl
 {
-	public static readonly StyledProperty<ShopItemCategory> ShopItemCategory =
-		AvaloniaProperty.Register<ShopItemControl, ShopItemCategory>(nameof(ShopItemCategory));
+	public static readonly StyledProperty<SpendingCategory> ShopItemCategory =
+		AvaloniaProperty.Register<ShopItemControl, SpendingCategory>(nameof(ShopItemCategory), default, false, BindingMode.TwoWay);
 
-	public ShopItemCategory Category
+	public SpendingCategory Category
 	{
 		get => GetValue(ShopItemCategory);
 		set => SetValue(ShopItemCategory, value);

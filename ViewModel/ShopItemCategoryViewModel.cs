@@ -1,53 +1,36 @@
 ﻿using BankAccount.Database;
+using ReactiveUI;
 using System;
 using System.ComponentModel;
+using System.Reactive;
 namespace BankAccount;
 
-public class ShopItemCategoryViewModel : ViewModel
+public class ShopItemCategoryViewModel : ReactiveObject
 {
-	private ShopItemCategory _category;
-	public ShopItemCategory Category
+	public ReactiveCommand<int, Unit> UpdateDataCommand;
+
+	private SpendingCategory _category;
+	public SpendingCategory Category
 	{
 		get => _category;
-		set
-		{
-			if (value != _category)
-			{
-				_category = value;
-				OnPropertyChanged(nameof(Category));
-			}
-		}
+		set => this.RaiseAndSetIfChanged(ref _category, value);
 	}
 
 	private int _amountBought;
 	public int AmountBought
 	{
 		get => _amountBought;
-		set
-		{
-			if (_amountBought != value)
-			{
-				_amountBought = value;
-				OnPropertyChanged(nameof(AmountBought));
-			}
-		}
+		set => this.RaiseAndSetIfChanged(ref _amountBought, value);
 	}
 
 	private decimal _amountSpent;
 	public decimal AmountSpent
 	{
 		get => _amountSpent;
-		set
-		{
-			if (_amountSpent != value)
-			{
-				_amountSpent = value;
-				OnPropertyChanged(nameof(AmountSpent));
-			}
-		}
+		set => this.RaiseAndSetIfChanged(ref _amountSpent, value);
 	}
 
-    public ShopItemCategoryViewModel(ShopItemCategory category)
+    public ShopItemCategoryViewModel(SpendingCategory category)
     {
         Category = category;
     }
