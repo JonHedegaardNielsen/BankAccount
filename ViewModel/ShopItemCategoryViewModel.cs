@@ -37,8 +37,7 @@ public class ShopItemCategoryViewModel : ReactiveObject
 
 	public void UpdateData(int bankAccountId)
 	{
-		AmountBought = ShopItemDatabase.Instance.SelectCountItemCategory(bankAccountId, Category);
-		AmountSpent = ShopItemDatabase.Instance.GetTotalExpensesofCategory(bankAccountId, Category);
+		AmountBought = TransactionDatabase.Instance.GetCategoryCount(Category, bankAccountId);
+		AmountSpent = TransactionDatabase.Instance.GetUserExpensesOfCategory(Category, bankAccountId);
 	}
-
 }

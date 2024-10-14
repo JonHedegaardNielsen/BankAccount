@@ -1,9 +1,9 @@
 ﻿namespace BankAccount;
 public enum SpendingCategory
 {
-	Food,
-	Electricity,
-	Interior,
-	Cars,
-	Gambling
+	Food = 1,
+	Electricity = 2,
+	Interior = 3,
+	Cars = 4,
+	Gambling = 5
 }

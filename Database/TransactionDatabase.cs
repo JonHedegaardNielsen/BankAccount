@@ -14,14 +14,14 @@ class TransactionDatabase : Database<decimal>
 
 	private TransactionDatabase() { }
 
-	public void Insert(ShopItem shopItem, int userId) =>
-		ExecuteNonQuery($"INSERT INTO transactions(category, price, userId) VALUES({(int)shopItem.Category}, {shopItem.Price}, {userId})");
+	public void Insert(decimal price, SpendingCategory category, int userId) =>
+		ExecuteNonQuery($"INSERT INTO transactions(category, price, userId) VALUES({(int)category}, {FormatDecimal(price)}, {userId})");
 
-	public decimal GetTotalExpensesOfCategory(SpendingCategory category)
+	public decimal GetUserExpensesOfCategory(SpendingCategory category, int userId)
 	{
 		try
 		{
-			return RunSingleQuery($"SELECT SUM(price) FROM transactions WHERE category = {category}", r => r.GetDecimal(0));
+			return RunSingleQuery($"SELECT TOP(1) SUM(price) FROM transactions WHERE category = {(int)category} AND userId = {userId}", r => r.GetDecimal(0));
 		}
 		catch (SqlNullValueException)
 		{
@@ -29,5 +29,20 @@ class TransactionDatabase : Database<decimal>
 		}
 	}
 
+	
 
+	public void DeleteFromUserId(int userId) =>
+		ExecuteNonQuery($"DELETE transactions WHERE userId = {userId}");
+
+	public int GetCategoryCount(SpendingCategory category, int userId)
+	{
+		try
+		{
+			return RunSingleQuery($"SELECT TOP(1) COUNT(*) FROM transactions WHERE category = {(int)category} AND userId = {userId}", r => r.GetInt32(0));
+		}
+		catch (SqlNullValueException)
+		{
+			return 0;
+		}
+	}
 }

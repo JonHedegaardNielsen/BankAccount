@@ -70,7 +70,7 @@
 					<uc:SpendingCategoryControl x:Name="categoryElectricity" Category="Electricity" Grid.Row="2"/>
 					<uc:SpendingCategoryControl x:Name="categoryInterior" Category="Interior" Grid.Row="3"/>
 					<uc:SpendingCategoryControl x:Name="categoryCars" Category="Cars" Grid.Row="4"/>
-					<uc:SpendingCategoryControl Category="Gambling" Grid.Row="5"/>
+					<uc:SpendingCategoryControl x:Name="categoryGambling" Category="Gambling" Grid.Row="5"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Settings">

@@ -20,7 +20,7 @@ class ShopItemDatabase : Database<ShopItem>
 	public void Insert(ShopItem shopItem, int userId)
 	{
 		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {userId}, {(int)shopItem.Category})");
-		TransactionDatabase.Instance.Insert(shopItem, userId);
+		TransactionDatabase.Instance.Insert(shopItem.Price, shopItem.Category, userId);
 	}
 
 	public int SelectCountItemType(int userId, ShopItemType shopItemType) =>

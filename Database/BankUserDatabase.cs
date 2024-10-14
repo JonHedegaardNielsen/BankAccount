@@ -33,6 +33,11 @@ class BankUserDatabase : Database<BankUser>
 		ExecuteNonQuery($"DELETE FROM bankUser WHERE userId = {BankUser.CurrentUser.Id}");
 	}
 
+
+
+	public int GetUserIdFromBankAccountId(int bankAccountId) =>
+		RunSingleQuery($"SELECT TOP(1) userId FROM bankUser WHERE (SELECT TOP(1) userId FROM bankAccount WHERE bankAccountId = {bankAccountId})", r => r.GetInt32(0));
+
 	public bool FindUser(string username, string password, out BankUser? user)
 	{
 		try

@@ -23,8 +23,8 @@ public partial class BankMainPage : UserControl
 
 	private void BankAccountLoaded(object sender, RoutedEventArgs e)
 	{
-        int rowCounter = 0;
-		
+		int rowCounter = 0;
+
 		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
 		{
 			var child = new BankAccountControl(bankAccount);
@@ -33,12 +33,12 @@ public partial class BankMainPage : UserControl
 			rowCounter++;
 		}
 	}
-	
+
 	private void LoadLoan(object sender, RoutedEventArgs e)
 	{
 		Grid grid = (Grid)sender;
 		int rowCounter = 0;
-		
+
 		foreach (var loan in BankUser.CurrentUser.Loans)
 		{
 			var child = new LoanControl(loan);
@@ -63,7 +63,7 @@ public partial class BankMainPage : UserControl
 	private void ValidateNumber(object? sender, TextInputEventArgs e)
 	{
 		TextBox textBox = (TextBox)sender;
-		
+
 		if (!int.TryParse(e.Text, out _) || e.Text == "," || e.Text == ".")
 		{
 			e.Handled = true;
@@ -77,10 +77,10 @@ public partial class BankMainPage : UserControl
 
 	private void Transfer(object? sender, RoutedEventArgs e)
 	{
-		if(decimal.TryParse(textBoxAmountToTransfer.Text, out _)&& int.TryParse(textBoxBankAcconutIdTransferTo.Text, out int bankAccountId) && comboBoxBankAccountTransferFrom.SelectedValue != comboBoxBankAccountTransferTo.SelectedValue)
+		if (decimal.TryParse(textBoxAmountToTransfer.Text, out _)&& int.TryParse(textBoxBankAcconutIdTransferTo.Text, out int bankAccountId) && comboBoxBankAccountTransferFrom.SelectedValue != comboBoxBankAccountTransferTo.SelectedValue)
 		{
 			decimal amount = decimal.Parse(textBoxAmountToTransfer.Text);
-			
+
 			if ((bool)checkBoxTransferToOtherUser.IsChecked)
 			{
 				BankAccount bankAccountTransferTo = BankAccountDatabase.Instance.GetSingleBankAccount(bankAccountId);
@@ -114,11 +114,15 @@ public partial class BankMainPage : UserControl
 
 	private void SelectBankAccount(object? sender, SelectionChangedEventArgs e)
 	{
-		int id = ((BankAccount)comboBoxBankAccount.SelectedValue).Id;
-		categoryFood.Update(id);
-		categoryElectricity.Update(id);
-		categoryCars.Update(id);
-		categoryInterior.Update(id);
+		if (comboBoxBankAccount.SelectedValue != null)
+		{
+			int id = ((BankAccount)comboBoxBankAccount.SelectedValue).Id;
+			categoryFood.Update(id);
+			categoryElectricity.Update(id);
+			categoryCars.Update(id);
+			categoryInterior.Update(id);
+			categoryGambling.Update(id);
+		}
 	}
 
 	private void DeleteUser(object? sender, RoutedEventArgs e)

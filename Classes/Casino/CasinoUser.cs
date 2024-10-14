@@ -14,15 +14,17 @@ class CasinoUser
 	public int Id { get; set; }
 	private string UserName = string.Empty;
 	private string Password = string.Empty;
+	public decimal AmountToWinBack { get; set; }
 
 	public BankAccount BankAccount { get; }
 
-    public CasinoUser(int id, string username, string password, BankAccount bankAccount)
+    public CasinoUser(int id, string username, string password, BankAccount bankAccount, decimal amountToWinBack)
     {
         Id = id;
 		UserName = username;
 		Password = password;
 		BankAccount = bankAccount;
+		AmountToWinBack = amountToWinBack;
     }
 
 	public bool Login(string username, string password)

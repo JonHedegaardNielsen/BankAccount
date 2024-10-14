@@ -21,6 +21,13 @@ public class CasinoViewModel : ReactiveObject
 	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
 	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
 
+	private decimal _amountToWinBack = CasinoUserDatabase.Instance.GetTotalProfit(CasinoUser.CurrentUser);
+	public decimal AmountToWinBack
+	{
+		get => _amountToWinBack = CasinoUser.CurrentUser.AmountToWinBack;
+		set => this.RaiseAndSetIfChanged(ref _amountToWinBack, value);
+	}
+
 	private decimal _reward;
 	public decimal Reward
 	{
@@ -32,7 +39,11 @@ public class CasinoViewModel : ReactiveObject
 	public decimal RewardTotal
 	{
 		get => _rewardTotal;
-		set => this.RaiseAndSetIfChanged(ref _rewardTotal, value);
+		set
+		{
+			if (value < 0)
+				this.RaiseAndSetIfChanged(ref _rewardTotal, value);
+		}
 	}
 
 
@@ -81,7 +92,6 @@ public class CasinoViewModel : ReactiveObject
 	{
 		SlotsMachine = new SlotsMachine();
 		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
-		
 	}
 
 	private void SetSymbols(Bitmap[] bitmaps)
@@ -107,8 +117,12 @@ public class CasinoViewModel : ReactiveObject
 			}
 
 			CasinoUser.CurrentUser.BankAccount.Balance -= Cost;
+			TransactionDatabase.Instance.Insert(Cost, SpendingCategory.Gambling, CasinoUser.CurrentUser.Id);
 
 			bool win = SlotsMachine.Play(out Images[] images, out decimal reward);
+
+			AmountToWinBack += Cost - reward;
+			CasinoUserDatabase.Instance.UpdateAmountToWinBack(AmountToWinBack, CasinoUser.CurrentUser.Id);
 
 			for (int i = 0; i <= 10; i++)
 			{
