@@ -15,7 +15,7 @@ class CasinoUserDatabase : Database<CasinoUser>
 	{
 		try
 		{
-			return new(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), new(reader.GetInt32(4), reader.GetString(5), reader.GetDecimal(6)), reader.GetDecimal(7));
+			return new CasinoUser(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), new BankAccount(reader.GetInt32(5), reader.GetString(6), reader.GetDecimal(7)), reader.GetDecimal(4));
 		}
 		catch 
 		{ 
@@ -23,7 +23,7 @@ class CasinoUserDatabase : Database<CasinoUser>
 		}
 	}
 
-	public decimal GetTotalProfit(CasinoUser casinoUser)
+	public decimal GetAmountToWinBack(CasinoUser casinoUser)
 	{
 		int userId = BankUserDatabase.Instance.GetUserIdFromBankAccountId(casinoUser.BankAccount.Id);
 		return CasinoWinsDatabase.Instance.GetTotalRewards(userId) - TransactionDatabase.Instance.GetUserExpensesOfCategory(SpendingCategory.Gambling, userId);

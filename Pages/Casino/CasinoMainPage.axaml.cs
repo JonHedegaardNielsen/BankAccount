@@ -10,6 +10,12 @@ public partial class CasinoMainPage : UserControl
     public CasinoMainPage()
     {
         InitializeComponent();
-        DataContext = new CasinoViewModel();
-    }
+		var dataContext = new CasinoViewModel();
+		dataContext.LogOutCommand.
+		DataContext = dataContext;
+	}
+
+	private void Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+	{
+	}
 }

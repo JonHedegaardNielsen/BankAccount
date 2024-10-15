@@ -112,19 +112,6 @@ public partial class BankMainPage : UserControl
 		MainContent.Content = new LoginPage();
 	}
 
-	private void SelectBankAccount(object? sender, SelectionChangedEventArgs e)
-	{
-		if (comboBoxBankAccount.SelectedValue != null)
-		{
-			int id = ((BankAccount)comboBoxBankAccount.SelectedValue).Id;
-			categoryFood.Update(id);
-			categoryElectricity.Update(id);
-			categoryCars.Update(id);
-			categoryInterior.Update(id);
-			categoryGambling.Update(id);
-		}
-	}
-
 	private void DeleteUser(object? sender, RoutedEventArgs e)
 	{
 		BankViewModel.DeleteUser();

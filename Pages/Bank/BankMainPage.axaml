@@ -58,19 +58,10 @@
 			</TabItem>
 			<TabItem Header="Expenses">
 				<Grid RowDefinitions="auto,auto,auto,auto,auto, auto">
-					<ComboBox x:Name="comboBoxBankAccount" ItemsSource="{Binding bankAccounts}" SelectionChanged="SelectBankAccount" Grid.Row="0" SelectedItem="{Binding SelectItem, Mode=TwoWay}">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Name}"/>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
-
 					<uc:SpendingCategoryControl x:Name="categoryFood" Category="Food" Grid.Row="1"/>
 					<uc:SpendingCategoryControl x:Name="categoryElectricity" Category="Electricity" Grid.Row="2"/>
 					<uc:SpendingCategoryControl x:Name="categoryInterior" Category="Interior" Grid.Row="3"/>
 					<uc:SpendingCategoryControl x:Name="categoryCars" Category="Cars" Grid.Row="4"/>
-					<uc:SpendingCategoryControl x:Name="categoryGambling" Category="Gambling" Grid.Row="5"/>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Settings">

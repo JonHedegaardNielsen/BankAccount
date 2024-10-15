@@ -1,15 +1,17 @@
 ﻿using BankAccount.Database;
+using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Data.SqlTypes;
+using System.Reactive;
 using System.Windows.Input;
 
 namespace BankAccount;
 
-public class BankMainPageViewModel : ViewModel
+public class BankMainPageViewModel : ReactiveObject
 {
 	public ObservableCollection<BankAccount> bankAccounts { get; }
 	private SpendingCategory Category;
-	public ICommand DeleteUserCommand { get; }
+	public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
 	
 	public SpendingCategory CarCategory => SpendingCategory.Cars;
 	public BankMainPageViewModel()
@@ -33,14 +35,6 @@ public class BankMainPageViewModel : ViewModel
 	public BankAccount? SelectItem
 	{
 		get => _selecteditem;
-		set
-		{
-			if (_selecteditem != value)
-			{
-				_selecteditem = value;
-
-				OnPropertyChanged(nameof(SelectItem));
-			}
-		}
+		set => this.RaiseAndSetIfChanged(ref _selecteditem, value);
 	}
 }

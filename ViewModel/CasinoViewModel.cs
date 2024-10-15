@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ReactiveUI;
 namespace BankAccount;
@@ -21,11 +22,18 @@ public class CasinoViewModel : ReactiveObject
 	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
 	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
 
-	private decimal _amountToWinBack = CasinoUserDatabase.Instance.GetTotalProfit(CasinoUser.CurrentUser);
+	private UserControl _mainContent;
+	public UserControl MainContent
+	{
+		get => _mainContent;
+		set => this.RaiseAndSetIfChanged(ref _mainContent, value);
+	}
+
+
 	public decimal AmountToWinBack
 	{
-		get => _amountToWinBack = CasinoUser.CurrentUser.AmountToWinBack;
-		set => this.RaiseAndSetIfChanged(ref _amountToWinBack, value);
+		get => CasinoUser.CurrentUser.AmountToWinBack > 0 ? CasinoUser.CurrentUser.AmountToWinBack : 0m;
+		set => this.RaisePropertyChanged();
 	}
 
 	private decimal _reward;
@@ -39,13 +47,10 @@ public class CasinoViewModel : ReactiveObject
 	public decimal RewardTotal
 	{
 		get => _rewardTotal;
-		set
-		{
-			if (value < 0)
-				this.RaiseAndSetIfChanged(ref _rewardTotal, value);
-		}
+		set => this.RaiseAndSetIfChanged(ref _rewardTotal, value);
 	}
 
+	
 
 	private bool _failTextVisible = false;
 	public bool FailTextVisible
@@ -87,11 +92,19 @@ public class CasinoViewModel : ReactiveObject
 	private bool isPlaying;
 
 	public ReactiveCommand<Unit, Unit> PlaySlotsCommand { get; }
+	public ReactiveCommand<Unit, Unit> LogOutCommand { get; }
+	public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
 
 	public CasinoViewModel()
 	{
 		SlotsMachine = new SlotsMachine();
 		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
+		MainContent = mainContent; 
+	}
+
+	private void Logout()
+	{
+		CasinoUser.CurrentUser = null;
 	}
 
 	private void SetSymbols(Bitmap[] bitmaps)
@@ -99,6 +112,11 @@ public class CasinoViewModel : ReactiveObject
 		UrlSource1 = bitmaps[0];
 		UrlSource2 = bitmaps[1];
 		UrlSource3 = bitmaps[2];
+	}
+
+	private void LogoutCommand()
+	{
+
 	}
 
 	private void PlaySlots()
@@ -121,7 +139,9 @@ public class CasinoViewModel : ReactiveObject
 
 			bool win = SlotsMachine.Play(out Images[] images, out decimal reward);
 
-			AmountToWinBack += Cost - reward;
+			CasinoUser.CurrentUser.AmountToWinBack += Cost - reward;
+			this.RaisePropertyChanged(nameof(AmountToWinBack));
+
 			CasinoUserDatabase.Instance.UpdateAmountToWinBack(AmountToWinBack, CasinoUser.CurrentUser.Id);
 
 			for (int i = 0; i <= 10; i++)

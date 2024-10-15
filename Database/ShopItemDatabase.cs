@@ -44,14 +44,14 @@ class ShopItemDatabase : Database<ShopItem>
 
 	}
 
-	public int SelectCountItemCategory(int bankAccountId, SpendingCategory category) =>
-		RunSingleQuery($"SELECT COUNT(*) FROM shopItem WHERE category = {(int)category} AND userId = {GetUserId(bankAccountId)}", GetCount);
+	public int SelectCountItemCategory(int userId, SpendingCategory category) =>
+		RunSingleQuery($"SELECT COUNT(*) FROM shopItem WHERE category = {(int)category} AND userId = {userId}", GetCount);
 
-	public decimal GetTotalExpensesofCategory(int bankAccountId, SpendingCategory category)
+	public decimal GetTotalExpensesofCategory(int userId, SpendingCategory category)
 	{
 		try
 		{
-			return RunSingleQuery($"SELECT SUM(price) FROM shopitem WHERE userId = {GetUserId(bankAccountId)} AND category = {(int)category}", r => r.GetDecimal(0));
+			return RunSingleQuery($"SELECT SUM(price) FROM shopitem WHERE userId = {userId} AND category = {(int)category}", r => r.GetDecimal(0));
 		}
 		catch (SqlNullValueException)
 		{

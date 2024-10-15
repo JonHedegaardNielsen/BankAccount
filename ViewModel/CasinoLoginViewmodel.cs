@@ -1,15 +1,17 @@
 ﻿using Avalonia.Controls;
+using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BankAccount;
 
-public class CasinoLoginViewmodel : ViewModel
+public class CasinoLoginViewmodel : ReactiveObject
 {
-	public Command1Param<Tuple<string, string>> LoginCommand { get; set; }
+	public ReactiveCommand<Tuple<string, string>, Unit> LoginCommand { get; set; }
 	private Action OnLoginSucces;
 	private Action OnLoginFailed;
 	private Func<Tuple<string, string>> OnLoginSetParam;
@@ -17,7 +19,7 @@ public class CasinoLoginViewmodel : ViewModel
     public CasinoLoginViewmodel(Action onLoginSucces, Action onLoginFailed, Func<Tuple<string, string>> onLoginSetParam, ContentControl mainContent)
     {
 		MainContent = mainContent;
-		LoginCommand = new Command1Param<Tuple<string, string>>(Login);
+		LoginCommand = ReactiveCommand.Create<Tuple<string, string>>(Login);
 		OnLoginSucces = onLoginSucces;
 		OnLoginFailed = onLoginFailed;
 		OnLoginSetParam = onLoginSetParam;

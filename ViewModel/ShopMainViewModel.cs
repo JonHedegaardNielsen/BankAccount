@@ -36,6 +36,7 @@ public class ShopMainViewModel : ReactiveObject
 		get => ShopUser.CurrentShopUser.UserBankAccount.Balance;
 		set => this.RaiseAndSetIfChanged(ref _balance, value);
 	}
+
 	public ReactiveCommand<string,Unit> BuyItemCommand { get; }
 
 	public ShopMainViewModel()
@@ -43,6 +44,7 @@ public class ShopMainViewModel : ReactiveObject
 		BuyItemCommand = ReactiveCommand.Create<string>(parameter =>
 		{
 			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), parameter));
+			Balance -= ItemPrice;
 		});
 	}
 

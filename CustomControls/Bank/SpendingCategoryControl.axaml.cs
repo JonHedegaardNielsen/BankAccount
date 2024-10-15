@@ -21,11 +21,6 @@ public partial class SpendingCategoryControl : UserControl
 	public SpendingCategoryControl()
     {
         InitializeComponent();
-    }
-
-	public void Update(int bankAccountId)
-	{
-		((ShopItemCategoryViewModel)DataContext).UpdateData(bankAccountId);
 	}
 
 	private void CategoryLoaded(object? sender, RoutedEventArgs e)

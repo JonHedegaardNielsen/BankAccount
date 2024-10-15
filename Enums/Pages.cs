@@ -1,6 +1,6 @@
 ﻿public enum Pages
 {
-	BankAccount,
-	Shop,
-	Gambling
+	BankAccount = 1,
+	Shop = 2,
+	Gambling = 3
 }

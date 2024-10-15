@@ -17,27 +17,12 @@ public class ShopItemCategoryViewModel : ReactiveObject
 	}
 
 	private int _amountBought;
-	public int AmountBought
-	{
-		get => _amountBought;
-		set => this.RaiseAndSetIfChanged(ref _amountBought, value);
-	}
+	public int AmountBought => TransactionDatabase.Instance.GetCategoryCount(Category, BankUser.CurrentUser.Id);
 
-	private decimal _amountSpent;
-	public decimal AmountSpent
-	{
-		get => _amountSpent;
-		set => this.RaiseAndSetIfChanged(ref _amountSpent, value);
-	}
+	public decimal AmountSpent => TransactionDatabase.Instance.GetUserExpensesOfCategory(Category, BankUser.CurrentUser.Id);
 
     public ShopItemCategoryViewModel(SpendingCategory category)
     {
         Category = category;
     }
-
-	public void UpdateData(int bankAccountId)
-	{
-		AmountBought = TransactionDatabase.Instance.GetCategoryCount(Category, bankAccountId);
-		AmountSpent = TransactionDatabase.Instance.GetUserExpensesOfCategory(Category, bankAccountId);
-	}
 }

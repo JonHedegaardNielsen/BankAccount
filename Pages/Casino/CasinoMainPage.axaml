@@ -20,57 +20,70 @@
 			<Setter Property="FontSize" Value="24"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
 		</Style>
+		<Style Selector="Label.GamblingInfo">
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Margin" Value="0,10,0,0"/>
+		</Style>
 	</UserControl.Styles>
-	<TabControl>
-		<TabItem Header="Slots">
-			<StackPanel Margin="0,30,0,0">
-				<Label Content="{Binding Balance, StringFormat={}Balance: {0:C}}"/>
-				<Label Content="{Binding Cost, StringFormat={}Cost to play: {0:C}}"/>
-				<Label Content="{Binding AmountToWinBack, StringFormat={}Amount to win back: {0:C}}"/>
+	
+	
+	<ContentControl Content="{Binding MainContent}" Loaded="Loaded">
+		<TabControl>
+			<TabItem Header="Slots">
+				<StackPanel Margin="0,30,0,0">
+					<Label Classes="GamblingInfo" Content="{Binding Balance, StringFormat={}Balance: {0:C}}"/>
+					<Label Classes="GamblingInfo" Content="{Binding Cost, StringFormat={}Cost to play: {0:C}}"/>
+					<Label Classes="GamblingInfo" Content="{Binding AmountToWinBack, StringFormat={}Amount to win back: {0:C}}"/>
+					<Label Classes="GamblingInfo" Content="{Binding RewardTotal, StringFormat={}Total amount won:{0:C}}"/>
 
-				<Grid ColumnDefinitions="*,*,*" ShowGridLines="True">
-					<Border Classes="SlotSpace" IsVisible="True">
-						<Image x:Name="imageSymbol1" Grid.Column="0" Source="{Binding UrlSource1}"/>
-					</Border>
+					<Grid ColumnDefinitions="*,*,*" ShowGridLines="True">
+						<Border Classes="SlotSpace" IsVisible="True">
+							<Image x:Name="imageSymbol1" Grid.Column="0" Source="{Binding UrlSource1}"/>
+						</Border>
 
-					<Border Classes="SlotSpace" Grid.Column="1">
-						<Image x:Name="imageSymbol2" Source="{Binding UrlSource2}"/>
-					</Border>
+						<Border Classes="SlotSpace" Grid.Column="1">
+							<Image x:Name="imageSymbol2" Source="{Binding UrlSource2}"/>
+						</Border>
 
-					<Border Classes="SlotSpace" Grid.Column="2">
-						<Image x:Name="imageSymbol3" Source="{Binding UrlSource3}"/>
-					</Border>
-				</Grid>
-
-				<Button HorizontalAlignment="Center" Margin="0,30,0,0" Command="{Binding PlaySlotsCommand}">Play</Button>
-				
-				<Label HorizontalAlignment="Center" Margin="0,30,0,0" Content="{Binding Reward, StringFormat={}Reward {0:C}}"></Label>
-				<Label HorizontalAlignment="Center" Margin="0,20,0,0" IsVisible="{Binding FailTextVisible}" Classes="FailText">You don't have enough money take a loan</Label>
-			</StackPanel>
-		</TabItem>
-		<TabItem Header="Rewards">
-			<StackPanel>
-				<Label HorizontalAlignment="Center" FontSize="48">Possible Rewards</Label>
-				<Border MinHeight="200" BorderBrush="Black" BorderThickness="5">
-					<Grid RowDefinitions="*,*,*,*,*">
-						<Label Classes="RewardInfo" Grid.Row="0" Content="{Binding CherryReward, StringFormat={}Cherry - {0:C}}"></Label>
-						<Label Classes="RewardInfo" Grid.Row="1" Content="{Binding OrangeReward, StringFormat={}Orange - {0:C}}"></Label>
-						<Label Classes="RewardInfo" Grid.Row="2" Content="{Binding GrapesReward, StringFormat={}Grapes - {0:C}}"></Label>
-						<Label Classes="RewardInfo" Grid.Row="3" Content="{Binding SevenReward, StringFormat={}Seven - {0:C}}"> </Label>
-						<Label Classes="RewardInfo" Grid.Row="4" Content="{Binding BellReward, StringFormat={}Bell - {0:C}}"></Label>
+						<Border Classes="SlotSpace" Grid.Column="2">
+							<Image x:Name="imageSymbol3" Source="{Binding UrlSource3}"/>
+						</Border>
 					</Grid>
-				</Border>
-			</StackPanel>
-		</TabItem>
-		<TabItem Header="Info">
-			<StackPanel>
-				<Border>
-					<Label Content="{Binding RewardTotal, StringFormat={}Total Earnings {0:C}}"/>
-				</Border>
-			</StackPanel>
-		</TabItem>
-		<TabItem Header="Settings">
 
-		</TabItem>
-	</TabControl>
+					<Button HorizontalAlignment="Center" Margin="0,30,0,0" Command="{Binding PlaySlotsCommand}">Play</Button>
+
+					<Label HorizontalAlignment="Center" Margin="0,30,0,0" Content="{Binding Reward, StringFormat={}Reward {0:C}}"></Label>
+					<Label HorizontalAlignment="Center" Margin="0,20,0,0" IsVisible="{Binding FailTextVisible}" Classes="FailText">You don't have enough money take a loan</Label>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Rewards">
+				<StackPanel>
+					<Label HorizontalAlignment="Center" FontSize="48">Possible Rewards</Label>
+					<Border MinHeight="200" BorderBrush="Black" BorderThickness="5">
+						<Grid RowDefinitions="*,*,*,*,*">
+							<Label Classes="RewardInfo" Grid.Row="0" Content="{Binding CherryReward, StringFormat={}Cherry - {0:C}}"/>
+							<Label Classes="RewardInfo" Grid.Row="1" Content="{Binding OrangeReward, StringFormat={}Orange - {0:C}}"/>
+							<Label Classes="RewardInfo" Grid.Row="2" Content="{Binding GrapesReward, StringFormat={}Grapes - {0:C}}"/>
+							<Label Classes="RewardInfo" Grid.Row="3" Content="{Binding SevenReward, StringFormat={}Seven - {0:C}}"/>
+							<Label Classes="RewardInfo" Grid.Row="4" Content="{Binding BellReward, StringFormat={}Bell - {0:C}}"/>
+						</Grid>
+					</Border>
+					<Label />
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Info">
+				<StackPanel>
+					<Border>
+						<Label Content="{Binding RewardTotal, StringFormat={}Total Earnings {0:C}}"/>
+					</Border>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="Settings">
+				<StackPanel>
+					<Button Classes="DangerousButton">Log out</Button>
+					<Button Classes="DangerousButton">Delete account</Button>
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+	</ContentControl>
 </UserControl>

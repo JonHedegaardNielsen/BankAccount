@@ -4,7 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 		xmlns:local="using:BankAccount"
-        x:Class="BankAccount.LoginPage">
+        x:Class="BankAccount.LoginPage"
+		x:DataType="local:">
 	<ContentControl x:Name="MainContent" Loaded="PageLoaded">
 		<TabControl>
 			<TabItem Header="BankAccount">
