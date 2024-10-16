@@ -7,25 +7,17 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-public class BankUser
+public class BankUser : User
 {
 	public static BankUser? CurrentUser { get; private set; }
-
-
-	public int Id { get; private set; }
-	private string Username = string.Empty;
-	private string Password = string.Empty;
 
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
 	public List<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
 
 	
-	public BankUser(int id, string username, string password, List<BankAccount> bankAccounts, List<Loan> loans)
+	public BankUser(int id, string username, string password, List<BankAccount> bankAccounts, List<Loan> loans) : base(id, username, password)
 	{
 		BankAccounts = bankAccounts;
-		Id = id;
-		Username = username;
-		Password = password;
 		Loans = loans;
 	}
 
@@ -36,8 +28,8 @@ public class BankUser
 
 	public static bool Login(string userName, string password)
 	{
-		BankUserDatabase.Instance.FindUser(userName, password, out BankUser? bankUser);
-		CurrentUser = bankUser;
+		BankUserDatabase.Instance.FindUser(userName, password, out User? bankUser);
+		CurrentUser = (BankUser)bankUser;
 		return CurrentUser != null;
 	}
 

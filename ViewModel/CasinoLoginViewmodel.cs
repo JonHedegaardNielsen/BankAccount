@@ -15,25 +15,23 @@ public class CasinoLoginViewmodel : ReactiveObject
 	private Action OnLoginSucces;
 	private Action OnLoginFailed;
 	private Func<Tuple<string, string>> OnLoginSetParam;
-	private ContentControl MainContent;
-    public CasinoLoginViewmodel(Action onLoginSucces, Action onLoginFailed, Func<Tuple<string, string>> onLoginSetParam, ContentControl mainContent)
+	private object CurrentPage;
+
+    public CasinoLoginViewmodel( object currentPage)
     {
-		MainContent = mainContent;
+		CurrentPage = currentPage;
 		LoginCommand = ReactiveCommand.Create<Tuple<string, string>>(Login);
-		OnLoginSucces = onLoginSucces;
-		OnLoginFailed = onLoginFailed;
-		OnLoginSetParam = onLoginSetParam;
     }
 
     public void Login(Tuple<string, string> parameter)
 	{
-		parameter = OnLoginSetParam();
+		//parameter = OnLoginSetParam();
 
-		CasinoUser.CurrentUser = CasinoUserDatabase.Instance.FindUser(parameter.Item1, parameter.Item2);
-		if (CasinoUser.CurrentUser != null)
-			OnLoginSucces();
-		else
-			OnLoginFailed();
+		//CasinoUser.CurrentUser = CasinoUserDatabase.Instance.FindUser(parameter.Item1, parameter.Item2);
+		//if (CasinoUser.CurrentUser != null)
+		//	OnLoginSucces();
+		//else
+		//	OnLoginFailed();
 		
 	}
 }

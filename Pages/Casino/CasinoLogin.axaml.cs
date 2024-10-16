@@ -14,7 +14,7 @@ public partial class CasinoLogin : UserControl
     public CasinoLogin()
     {
         InitializeComponent();
-		DataContext = new CasinoLoginViewmodel(LoginSucces, LoginFailed, OnLogin, MainContent);
+        
 	}
 
 	private void LoginSucces()

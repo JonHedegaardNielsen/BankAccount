@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class BankUserDatabase : Database<BankUser>
+class BankUserDatabase : Database<BankUser>, ILoginDatabase
 {
 	private BankUserDatabase() { }
 	public static BankUserDatabase Instance = new BankUserDatabase();
@@ -20,13 +20,13 @@ class BankUserDatabase : Database<BankUser>
 	private BankUser GetData(SqlDataReader reader)
 	{
 		int userId = reader.GetInt32(0);
-		return new BankUser(userId ,reader.GetString(1), reader.GetString(2), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
+		return new BankUser(userId, reader.GetString(1), reader.GetString(2), BankAccountDatabase.Instance.GetBankAccounts(userId), LoanDatabase.Instance.SelectLoan(userId));
 	}
 
 	public void DeleteCurrentUser()
 	{
 		LoanDatabase.Instance.DeleteLoanFromUserId(BankUser.CurrentUser.Id);
-		
+
 		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
 			BankAccountDatabase.Instance.DeleteBankAccount(bankAccount.Id);
 
@@ -38,7 +38,7 @@ class BankUserDatabase : Database<BankUser>
 	public int GetUserIdFromBankAccountId(int bankAccountId) =>
 		RunSingleQuery($"SELECT TOP(1) userId FROM bankUser WHERE (SELECT TOP(1) userId FROM bankAccount WHERE bankAccountId = {bankAccountId})", r => r.GetInt32(0));
 
-	public bool FindUser(string username, string password, out BankUser? user)
+	public bool FindUser(string username, string password, out User? user)
 	{
 		try
 		{

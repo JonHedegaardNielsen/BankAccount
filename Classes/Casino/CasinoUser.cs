@@ -7,29 +7,17 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class CasinoUser
+class CasinoUser : User
 {
 	public static CasinoUser? CurrentUser;
 
-	public int Id { get; set; }
-	private string UserName = string.Empty;
-	private string Password = string.Empty;
 	public decimal AmountToWinBack { get; set; }
 
 	public BankAccount BankAccount { get; }
 
-    public CasinoUser(int id, string username, string password, BankAccount bankAccount, decimal amountToWinBack)
+    public CasinoUser(int id, string username, string password, BankAccount bankAccount, decimal amountToWinBack) : base(id, username, password)
     {
-        Id = id;
-		UserName = username;
-		Password = password;
 		BankAccount = bankAccount;
 		AmountToWinBack = amountToWinBack;
     }
-
-	public bool Login(string username, string password)
-	{
-		CurrentUser = CasinoUserDatabase.Instance.FindUser(username, password);
-		return CurrentUser != null;
-	}
 }

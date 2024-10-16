@@ -1,5 +1,4 @@
-﻿using BankAccount.ViewModel;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,26 +10,26 @@ namespace BankAccount;
 
 public class MainViewModel : ReactiveObject
 {
-	private ReactiveObject _currentViewModel;
-	public ReactiveObject CurrentViewModel
-	{
-		get => _currentViewModel;
-		set => this.RaiseAndSetIfChanged(ref _currentViewModel, value);
-	}
+	//private ReactiveObject _currentViewModel;
+	//public ReactiveObject CurrentViewModel
+	//{
+	//	get => _currentViewModel;
+	//	set => this.RaiseAndSetIfChanged(ref _currentViewModel, value);
+	//}
 
-	public ReactiveCommand<Unit, Unit> ShowLoginPageCommand { get; set; }
+	//public ReactiveCommand<Unit, Unit> ShowLoginPageCommand { get; set; }
 
 
-	public MainViewModel()
-    {
-        var loginPageViewModel = new LoginPageViewmodel();
+	//public MainViewModel()
+ //   {
+ //       var loginPageViewModel = new LoginPageViewmodel();
 
-		Unit ChangePageToLogin()
-		{
-			CurrentViewModel = loginPageViewModel;
-			return Unit.Default;
-		}
+	//	Unit ChangePageToLogin()
+	//	{
+	//		CurrentViewModel = loginPageViewModel;
+	//		return Unit.Default;
+	//	}
 
-		ShowLoginPageCommand = ReactiveCommand.Create(ChangePageToLogin);
-    }
+	//	ShowLoginPageCommand = ReactiveCommand.Create(ChangePageToLogin);
+ //   }
 }

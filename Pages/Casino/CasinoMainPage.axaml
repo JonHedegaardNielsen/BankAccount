@@ -27,7 +27,7 @@
 	</UserControl.Styles>
 	
 	
-	<ContentControl Content="{Binding MainContent}" Loaded="Loaded">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}" Loaded="Loaded">
 		<TabControl>
 			<TabItem Header="Slots">
 				<StackPanel Margin="0,30,0,0">
@@ -80,8 +80,8 @@
 			</TabItem>
 			<TabItem Header="Settings">
 				<StackPanel>
-					<Button Classes="DangerousButton">Log out</Button>
-					<Button Classes="DangerousButton">Delete account</Button>
+					<Button Classes="DangerousButton" Command="{Binding LogOutCommand}">Log out</Button>
+					<Button Classes="DangerousButton" Command="{Binding DeleteUserCommand}">Delete account</Button>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

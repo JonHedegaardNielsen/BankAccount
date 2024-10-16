@@ -7,20 +7,14 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class ShopUser
+class ShopUser : User
 {
 	public static ShopUser? CurrentShopUser { get; private set; }
-	public int Id { get; private set; }
-	private string UserName = string.Empty;
-	private string Password = string.Empty;
 	public BankAccount UserBankAccount { get; private set; }
 	public List<ShopItem> ShopItems = new();
 
-	public ShopUser(int id, string userName, string password, BankAccount bankAccount)
+	public ShopUser(int id, string userName, string password, BankAccount bankAccount) : base(id, userName, password)
 	{
-		Id = id;
-		UserName = userName;
-		Password = password;
 		UserBankAccount = bankAccount;
 	}
 

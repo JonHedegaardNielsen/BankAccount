@@ -22,13 +22,12 @@ public class CasinoViewModel : ReactiveObject
 	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
 	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
 
-	private UserControl _mainContent;
-	public UserControl MainContent
+	private object _currentPage;
+	public object CurrentPage
 	{
-		get => _mainContent;
-		set => this.RaiseAndSetIfChanged(ref _mainContent, value);
+		get => _currentPage;
+		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
 	}
-
 
 	public decimal AmountToWinBack
 	{
@@ -49,8 +48,6 @@ public class CasinoViewModel : ReactiveObject
 		get => _rewardTotal;
 		set => this.RaiseAndSetIfChanged(ref _rewardTotal, value);
 	}
-
-	
 
 	private bool _failTextVisible = false;
 	public bool FailTextVisible
@@ -95,16 +92,27 @@ public class CasinoViewModel : ReactiveObject
 	public ReactiveCommand<Unit, Unit> LogOutCommand { get; }
 	public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
 
-	public CasinoViewModel()
+	public CasinoViewModel(object? currenPage)
 	{
 		SlotsMachine = new SlotsMachine();
+		
 		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
-		MainContent = mainContent; 
+		LogOutCommand = ReactiveCommand.Create(Logout);
+		DeleteUserCommand = ReactiveCommand.Create(DeleteUser);
+
+		CurrentPage = currenPage; 
 	}
 
 	private void Logout()
 	{
 		CasinoUser.CurrentUser = null;
+		CurrentPage = new LoginPage();
+	}
+
+	private void DeleteUser()
+	{
+		CasinoUserDatabase.Instance.DeleteUser(CasinoUser.CurrentUser.Id);
+		Logout();
 	}
 
 	private void SetSymbols(Bitmap[] bitmaps)
@@ -112,11 +120,6 @@ public class CasinoViewModel : ReactiveObject
 		UrlSource1 = bitmaps[0];
 		UrlSource2 = bitmaps[1];
 		UrlSource3 = bitmaps[2];
-	}
-
-	private void LogoutCommand()
-	{
-
 	}
 
 	private void PlaySlots()
@@ -135,7 +138,9 @@ public class CasinoViewModel : ReactiveObject
 			}
 
 			CasinoUser.CurrentUser.BankAccount.Balance -= Cost;
-			TransactionDatabase.Instance.Insert(Cost, SpendingCategory.Gambling, CasinoUser.CurrentUser.Id);
+
+			int bankUserId = BankUserDatabase.Instance.GetUserIdFromBankAccountId(CasinoUser.CurrentUser.BankAccount.Id);
+			TransactionDatabase.Instance.Insert(Cost, SpendingCategory.Gambling, bankUserId);
 
 			bool win = SlotsMachine.Play(out Images[] images, out decimal reward);
 

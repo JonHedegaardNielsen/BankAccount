@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class CasinoUserDatabase : Database<CasinoUser>
+class CasinoUserDatabase : Database<CasinoUser>, ILoginDatabase
 {
 	public static CasinoUserDatabase Instance = new CasinoUserDatabase();
 
@@ -29,11 +29,28 @@ class CasinoUserDatabase : Database<CasinoUser>
 		return CasinoWinsDatabase.Instance.GetTotalRewards(userId) - TransactionDatabase.Instance.GetUserExpensesOfCategory(SpendingCategory.Gambling, userId);
 	}
 
-	public CasinoUser? FindUser(string username, string password) =>
-		RunSingleQuery($"SELECT TOP(1) * FROM casinoUser u JOIN bankAccount b ON u.bankAccountId = b.bankAccountId WHERE u.username COLLATE Latin1_General_BIN = '{username}' AND u.[password] COLLATE Latin1_General_BIN = '{password}'", GetData);
+	public bool FindUser(string username, string password, out User? user)
+	{
+		try
+		{
+			user = RunSingleQuery($"SELECT TOP(1) * FROM casinoUser u JOIN bankAccount b ON u.bankAccountId = b.bankAccountId WHERE u.username COLLATE Latin1_General_BIN = '{username}' AND u.[password] COLLATE Latin1_General_BIN = '{password}'", GetData);
+		}
+		catch (InvalidOperationException)
+		{
+			user = null;
+		}
+
+		return user != null;
+	}
 
 	public void UpdateAmountToWinBack(decimal amount, int userId) =>
 		ExecuteNonQuery($"UPDATE casinoUser SET amountToWinBack={FormatDecimal(amount)} WHERE userId = {userId}");
+
+	public void DeleteUser(int userId)
+	{
+		CasinoWinsDatabase.Instance.DeleteFromUserId(userId);
+		ExecuteNonQuery($"DELETE casinoUser WHERE userId = {userId}");
+	}
 
 	public bool CreateUser(string username, string password, int bankAccountId)
 	{

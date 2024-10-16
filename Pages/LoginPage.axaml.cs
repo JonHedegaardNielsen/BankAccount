@@ -16,8 +16,8 @@ public partial class LoginPage : UserControl
     public LoginPage()
     {
         InitializeComponent();
+		DataContext = new LoginPageViewmodel(MainContent.Content);
 		bankLogin.CurrentPage = MainContent;
-		casinoLogin.MainContent = MainContent;
 	}
 
 	public LoginPage(UserControl nextPage)
@@ -44,7 +44,5 @@ public partial class LoginPage : UserControl
 		{
 			MainContent.Content = new BankLoginPage(() => new CasinoSignUpPage(), MainContent);
 		}
-
-		casinoLogin.OnSignUp = SignUp;
 	}
 }

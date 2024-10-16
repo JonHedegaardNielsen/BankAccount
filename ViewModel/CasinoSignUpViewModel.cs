@@ -20,7 +20,6 @@ public class CasinoSignUpViewModel : ReactiveObject
 {
 	
 	public ReactiveCommand<Unit, Unit> CreateUserCommand { get; }
-	private bool CurrentPageStartup = true;
 
 	private object _currentPage;
 	public object CurrentPage
