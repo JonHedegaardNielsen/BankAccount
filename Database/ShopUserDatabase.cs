@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BankAccount;
 
-class ShopUserDatabase : Database<ShopUser>
+class ShopUserDatabase : Database<ShopUser>, ILoginDatabase
 {
 	public static ShopUserDatabase Instance = new ShopUserDatabase();
 
@@ -48,7 +48,7 @@ class ShopUserDatabase : Database<ShopUser>
 		ExecuteNonQuery($"DELETE FROM shopUser WHERE bankAccountId = {bankAccountId}");
 	}
 
-	public bool FindUser(string? userName, string? password, out ShopUser? shopUser)
+	public bool FindUser(string? userName, string? password, out User? shopUser)
 	{
 		try
 		{

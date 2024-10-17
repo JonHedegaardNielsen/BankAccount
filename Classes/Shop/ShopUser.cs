@@ -9,7 +9,7 @@ namespace BankAccount;
 
 class ShopUser : User
 {
-	public static ShopUser? CurrentShopUser { get; private set; }
+	public static ShopUser? CurrentShopUser { get; set; }
 	public BankAccount UserBankAccount { get; private set; }
 	public List<ShopItem> ShopItems = new();
 
@@ -20,8 +20,8 @@ class ShopUser : User
 
 	public static bool Login(string? userName, string? password)
 	{
-		if (ShopUserDatabase.Instance.FindUser(userName, password, out ShopUser? shopuser))
-			CurrentShopUser = shopuser;
+		//if (ShopUserDatabase.Instance.FindUser(userName, password, out ShopUser? shopuser))
+		//	CurrentShopUser = shopuser;
 		
 		return CurrentShopUser != null;
 	}

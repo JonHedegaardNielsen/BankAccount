@@ -16,7 +16,7 @@ public partial class LoginPage : UserControl
     public LoginPage()
     {
         InitializeComponent();
-		DataContext = new LoginPageViewmodel(MainContent.Content);
+		DataContext = new LoginPageViewmodel(MainContent.Content, bankLogin.MainContent.Content);
 		bankLogin.CurrentPage = MainContent;
 	}
 

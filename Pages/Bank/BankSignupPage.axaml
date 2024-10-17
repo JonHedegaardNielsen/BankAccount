@@ -3,8 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:local="clr-namespace:BankAccount;assembly=BankAccount"
-             x:Class="BankAccount.BankSignupPage">
+			 xmlns:uc="using:BankAccount"
+             x:Class="BankAccount.BankSignupPage"
+			 x:DataType="uc:BankSignupPageViewModel">
 	<UserControl.Styles>
 		<Style Selector="TextBox">
 			<Setter Property="MaxLength" Value="32"/>
@@ -12,20 +13,20 @@
 		</Style>
 
 	</UserControl.Styles>
-	<ContentControl x:Name="MainContent">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<Border Background="LimeGreen" Width="370" Height="400" CornerRadius="10" Padding="15,0,15,15" BorderBrush="Black" BorderThickness="5">
 			<Grid  VerticalAlignment="Center" RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto, auto" ColumnDefinitions="300">
 				<Label Grid.Row="0" Margin="5,5,0,0">Username</Label>
-				<TextBox Grid.Column="0" Grid.Row="1" Margin="5,5,0,0" x:Name="textBoxUsername" />
+				<TextBox Grid.Column="0" Grid.Row="1" Margin="5,5,0,0" x:Name="textBoxUsername" Text="{Binding UserName}"/>
 				<Label Grid.Row="2" Margin="5,20,0,0">Password</Label>
-				<TextBox PasswordChar="*" Grid.Column="0" Grid.Row="3" x:Name="textBoxPassword" Margin="5,5,0,0" />
+				<TextBox PasswordChar="*" Grid.Column="0" Grid.Row="3" Text="{Binding Password}" x:Name="textBoxPassword" Margin="5,5,0,0" />
 				<Label Grid.Row="4" Margin="5,20,0,0">Re-insert password</Label>
-				<TextBox x:Name="textBoxReInsertPassword" PasswordChar="*" Grid.Column="0" Grid.Row="5" Margin="5,5,0,0"></TextBox>
-				<Button Click="CreatUser" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,20">Create Account</Button>
-				<Button  Click="GoToLogin" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" Margin="5,0,0,20">Login</Button>
-				<Label Classes="FailText" x:Name="textBoxFailText1" Grid.Row="8" VerticalAlignment="Bottom">Password and Username has to be </Label>
-				<Label Classes="FailText" x:Name="textBoxFailText2" Grid.Row="9" VerticalAlignment="Bottom">between 8 and 32 charecters</Label>
-				<Label Classes="FailText" x:Name="textBoxPasswordMatchFail" Grid.Row="10" >Passwords does not match</Label>
+				<TextBox x:Name="textBoxReInsertPassword" Text="{Binding ReInsertPassword}" PasswordChar="*" Grid.Column="0" Grid.Row="5" Margin="5,5,0,0"></TextBox>
+				<Button Command="{Binding SignUpCommand}" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Center" Margin="0,20,0,20">Create Account</Button>
+				<Button Command="{Binding GoBackCommand}" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Center" Margin="5,0,0,20">Login</Button>
+				<Label Classes="FailText" x:Name="textBoxFailText1" Grid.Row="8" IsTabStop="{Binding FailTextLengthIsVisible}" VerticalAlignment="Bottom">Password and Username has to be </Label>
+				<Label Classes="FailText" x:Name="textBoxFailText2" Grid.Row="9" IsVisible="{Binding FailTextLengthIsVisible}" VerticalAlignment="Bottom">between 8 and 32 charecters</Label>
+				<Label Classes="FailText" x:Name="textBoxPasswordMatchFail" IsVisible="{Binding FailTextMatchingIsVisible}" Grid.Row="10" >Passwords does not match</Label>
 			</Grid>
 		</Border>
 	</ContentControl>

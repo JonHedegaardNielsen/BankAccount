@@ -6,35 +6,52 @@
 		xmlns:local="using:BankAccount"
         x:Class="BankAccount.LoginPage"
 		x:DataType="local:LoginPageViewmodel">
-	<ContentControl x:Name="MainContent" Loaded="PageLoaded">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}" Loaded="PageLoaded">
 		<TabControl>
 			<TabItem Header="BankAccount">
 				<local:BankLoginPage x:Name="bankLogin"/>
 			</TabItem>
+			
 			<TabItem Header="Shop">
-				<Border Padding="30,0,0,0" Background="Gold" CornerRadius="50" BorderBrush="DarkGoldenrod" BorderThickness="3" Width="400" Height="400">
+				<Border Padding="30,0,0,0" Background="Gold" CornerRadius="50" BorderBrush="DarkGoldenrod" 
+						BorderThickness="3" Width="400" Height="400">
 					<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto," ColumnDefinitions="310,60">
 						<Label Margin="0,10,0,0" Grid.Row="0" FontSize="16" Grid.Column="0">Username</Label>
-						<TextBox x:Name="textBoxShopUsername" Text="{Binding ShopUsername}" Margin="0,10,0,0" Grid.Row="1" Grid.Column="0">akselSmuk</TextBox>
+						<TextBox x:Name="textBoxShopUsername" Text="{Binding ShopUsername}" Margin="0,10,0,0" 
+								 Grid.Row="1" Grid.Column="0">akselSmuk</TextBox>
 						<Label Margin="0,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
-						<TextBox x:Name="textBoxShopPassword" Text="{Binding ShopPassword}" PasswordChar="*" Margin="0,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
-						<Button Click="LoginShop" Margin="0,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
-						<Button Margin="0,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Click="ShopSignUp" Grid.Row="6">Signup</Button>
-						<Label Margin="0,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" Foreground="Red" IsVisible="{Binding ShopFailTextIsVisible}">Invalid username or password</Label>
+						<TextBox x:Name="textBoxShopPassword" Text="{Binding ShopPassword}" PasswordChar="*" 
+								 Margin="0,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
+						<Button Command="{Binding ShopLoginCommand}" Margin="0,30,0,0" VerticalAlignment="Bottom" 
+								HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
+						<Button Margin="0,60,0,0" Command="{Binding ShopSignUpCommand}" VerticalAlignment="Bottom" 
+								HorizontalAlignment="Center" FontSize="20"
+								Grid.Row="6">Signup</Button>
+						<Label Margin="0,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" Foreground="Red" 
+							   IsVisible="{Binding ShopFailTextIsVisible}">Invalid username or password</Label>
 					</Grid>
 				</Border>
 			</TabItem>
+			
 			<TabItem Header="Casino">
 				<ContentControl>
-					<Border Background="Yellow" Padding="20,0,0,0" CornerRadius="50" BorderBrush="DarkRed" BorderThickness="3" Width="400" Height="400">
+					<Border Background="Yellow" Padding="20,0,0,0" CornerRadius="50" BorderBrush="DarkRed" 
+							BorderThickness="3" Width="400" Height="400">
 						<Grid  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="320,60">
 							<Label Margin="10,10,0,0" Grid.Row="0" FontSize="16" Grid.Column="0">Username</Label>
-							<TextBox x:Name="textBoxUsername" Margin="10,10,0,0" Text="{Binding CasinoUsername}" Grid.Row="1" Grid.Column="0">akselSmuk</TextBox>
+							<TextBox x:Name="textBoxUsername" Margin="10,10,0,0" Text="{Binding CasinoUsername}" 
+									 Grid.Row="1" Grid.Column="0">akselSmuk</TextBox>
 							<Label Margin="10,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
-							<TextBox PasswordChar="*" x:Name="textBoxPassword" Text="{Binding CasinoPassword}" Margin="10,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
-							<Button x:Name="btnLogin" Command="{Binding CasinoLoginCommand}" Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
-							<Button x:Name="btnSignUp" Click="" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
-							<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" Foreground="Red" IsVisible="{Binding CasinoFailTextIsVisible}">Invalid username or password</Label>
+							<TextBox PasswordChar="*" x:Name="textBoxPassword" Text="{Binding CasinoPassword}" 
+									 Margin="10,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
+							<Button x:Name="btnLogin" Command="{Binding CasinoLoginCommand}" Margin="10,30,0,0" 
+									VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" 
+									Grid.Row="5">Login</Button>
+							<Button x:Name="btnSignUp" Command="{Binding CasinoSignUpCommand}" Margin="10,60,0,0" VerticalAlignment="Bottom"
+									HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
+							<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" 
+								   Foreground="Red" 
+								   IsVisible="{Binding CasinoFailTextIsVisible}">Invalid username or password</Label>
 						</Grid>
 					</Border>
 				</ContentControl>

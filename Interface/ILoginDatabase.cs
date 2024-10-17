@@ -8,5 +8,5 @@ namespace BankAccount;
 
 public interface ILoginDatabase
 {
-	public bool FindUser(string username, string password, out User? user); 
+	public bool FindUser(string username, string password, out User? user);
 }

@@ -75,7 +75,6 @@ public class CasinoSignUpViewModel : ReactiveObject
 		CurrentPage = currentPage;
 		
 		CreateUserCommand = ReactiveCommand.Create(CreateUser);
-
 	}
 
 	private void CreateUser()

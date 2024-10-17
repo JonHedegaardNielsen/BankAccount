@@ -9,7 +9,7 @@ namespace BankAccount;
 
 public class BankUser : User
 {
-	public static BankUser? CurrentUser { get; private set; }
+	public static BankUser? CurrentUser { get; set; }
 
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
 	public List<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
