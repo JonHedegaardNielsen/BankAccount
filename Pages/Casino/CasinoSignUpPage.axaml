@@ -7,7 +7,7 @@
 			 xmlns:uc="using:BankAccount"
 			 x:DataType="uc:CasinoSignUpViewModel">
 
-	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage,Mode=TwoWay}">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<Border Background="Coral" BorderBrush="Black" BorderThickness="5" CornerRadius="30" Width="350" Height="400" Padding="10">
 			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
 				<Label Grid.Row="0">Username</Label>
@@ -17,16 +17,18 @@
 				<Label Grid.Row="4">Re-insert Password</Label>
 				<TextBox x:Name="textBoxReInsertPassword" Text="{Binding ReInsertPassword}" PasswordChar="*" Grid.Row="5"></TextBox>
 				<Label Classes="LoginTitle" Grid.Row="6">BankAccount</Label>
-				<ComboBox x:Name="comboBoxBankAccount" Grid.Row="6" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedBankAccount}">
+				<ComboBox x:Name="comboBoxBankAccount" Grid.Row="7" HorizontalAlignment="Stretch" SelectedItem="{Binding SelectedBankAccount}">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
-				<Button Command="{Binding CreateUserCommand}" Grid.Row="7">Create Account</Button>
-				<Label x:Name="labelPasswordMatchingFailText" Grid.Row="8" Classes="FailText" IsVisible="{Binding FailTextMatchingIsVisible}">The passwords do not match</Label>
-				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="9" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">The password have to be between 8 and 32 charecters</Label>
+				<Button Command="{Binding CreateUserCommand}" HorizontalAlignment="Center" Grid.Row="8">Create Account</Button>
+				<Button Command="{Binding GoToLoginCommand}" HorizontalAlignment="Center" Grid.Row="9">Login</Button>
+				<Label x:Name="labelPasswordMatchingFailText" Grid.Row="10" Classes="FailText" IsVisible="{Binding FailTextMatchingIsVisible}">The passwords do not match</Label>
+				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">The password have to be between</Label>
+				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">8 and 32 charecters</Label>
 			</Grid>
 		</Border>
 	</ContentControl>

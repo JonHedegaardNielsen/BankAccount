@@ -5,41 +5,47 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.ShopSignUpPage"
 			 xmlns:uc="using:BankAccount"
-			 >
+			 x:DataType="uc:ShopSignUpViewModel">
 	<UserControl.Styles>
-		<Style Selector="Label">
+		<Style Selector="Label.Title">
 			<Setter Property="FontSize" Value="16"/>
 			<Setter Property="Margin" Value="0,15,0,0"/>
 			<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		</Style>
-		<Style Selector="TextBox,ComboBox,Button">
+		
+		<Style Selector="TextBox,ComboBox">
 			<Setter Property="Margin" Value="5,0,5,0"/>
 			<Setter Property="HorizontalAlignment" Value="Stretch"/>
 			<Setter Property="Grid.Column" Value="0"/>
 		</Style>
 	</UserControl.Styles>
 
-	<ContentControl x:Name="MainContent">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 
-		<Border Background="LightBlue" CornerRadius="15" BorderBrush="DarkBlue" Padding="15,0,15,15" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="450">
+		<Border Background="LightBlue" CornerRadius="15" BorderBrush="DarkBlue" Padding="15,0,25,15" BorderThickness="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="550">
 
-			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto" ColumnDefinitions="200">
-				<Label Grid.Row="0">Username</Label>
-				<TextBox x:Name="textBoxUserName" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-				<Label Grid.Row="2">Password</Label>
-				<TextBox x:Name="textBoxPassword" Grid.Column="0" PasswordChar="*" Grid.Row="3"/>
-				<Label Grid.Row="4">Reinsert password</Label>
-				<TextBox x:Name="textBoxReInsertPassword" Grid.Column="0" PasswordChar="*" Grid.Row="5"></TextBox>
-				<Label Grid.Row="6">BankAcccount</Label>
-				<ComboBox x:Name="comboBoxChosenBankAccount" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,0,0">
+			<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto, auto, auto, auto, auto">
+				<Label Classes="Title" Grid.Row="0">Username</Label>
+				<TextBox x:Name="textBoxUserName" Text="{Binding Username}" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+				<Label Classes="Title" Grid.Row="2">Password</Label>
+				<TextBox x:Name="textBoxPassword" Grid.Column="0" Text="{Binding Password}" PasswordChar="*" Grid.Row="3"/>
+				<Label Classes="Title" Grid.Row="4">Reinsert password</Label>
+				<TextBox x:Name="textBoxReInsertPassword" Text="{Binding ReInsertPassword}" Grid.Column="0" PasswordChar="*" Grid.Row="5"></TextBox>
+				<Label Classes="Title" Grid.Row="6">BankAcccount</Label>
+				
+				<ComboBox x:Name="comboBoxChosenBankAccount" Grid.Row="7" Grid.Column="0" SelectedItem="{Binding SelectedBankAccount}" HorizontalAlignment="Stretch" Margin="0,0,0,0">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
 							<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
 						</DataTemplate>
 					</ComboBox.ItemTemplate>
 				</ComboBox>
-				<Button Click="CreateAccount" Grid.Row="8" Margin="0,30,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Create Account</Button>
-				<Button HorizontalAlignment="Stretch" Margin="0,30,0,0" Grid.Row="9" VerticalAlignment="Stretch" Click="GoToLogin">Go to login</Button>
+				
+				<Button Command="{Binding CreateUserCommand}" Grid.Row="8" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Stretch">Create Account</Button>
+				<Button Command="{Binding GoToLoginCommand}" HorizontalAlignment="Center" Margin="0,30,0,0" Grid.Row="9" VerticalAlignment="Stretch">Go to login</Button>
+				<Label Grid.Row="10" Classes="FailText" Margin="0,10,0,10" IsVisible="{Binding FailTextMatchingIsVisible}">The passwords do not match</Label>
+				<Label Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">The password have to be between</Label>
+				<Label Grid.Row="12" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">8 and 32 charecters</Label>
 			</Grid>
 		</Border>
 	</ContentControl>
