@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Avalonia.Controls.Platform;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,9 +19,9 @@ class CasinoUserDatabase : Database<CasinoUser>, ILoginDatabase
 		{
 			return new CasinoUser(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), new BankAccount(reader.GetInt32(5), reader.GetString(6), reader.GetDecimal(7)), reader.GetDecimal(4));
 		}
-		catch 
-		{ 
-			return null; 
+		catch
+		{
+			return null;
 		}
 	}
 
@@ -28,6 +30,29 @@ class CasinoUserDatabase : Database<CasinoUser>, ILoginDatabase
 		int userId = BankUserDatabase.Instance.GetUserIdFromBankAccountId(casinoUser.BankAccount.Id);
 		return CasinoWinsDatabase.Instance.GetTotalRewards(userId) - TransactionDatabase.Instance.GetUserExpensesOfCategory(SpendingCategory.Gambling, userId);
 	}
+
+	private int GetUserIdFromBankAccountId(int bankAccountId)
+	{
+		try
+		{
+			return RunSingleQuery($"SELECT TOP(1) userId FROM casinoUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
+		}
+		catch (InvalidOperationException)
+		{
+			return 0;
+		}
+	}
+
+	public void DeleteUserFromBankAccountId(int bankAccountId)
+	{
+		int userId = GetUserIdFromBankAccountId(bankAccountId);
+
+		if (userId == 0)
+			CasinoWinsDatabase.Instance.DeleteFromUserId(userId);
+
+		ExecuteNonQuery($"DELETE casinoUser WHERE bankAccountId = {bankAccountId}");
+	}
+
 
 	public bool FindUser(string username, string password, out User? user)
 	{
@@ -59,7 +84,7 @@ class CasinoUserDatabase : Database<CasinoUser>, ILoginDatabase
 			ExecuteNonQuery($"INSERT INTO casinoUser(username, [password], bankAccountId) VALUES('{username}', '{password}', {bankAccountId})");
 			return true;
 		}
-		catch(InvalidOperationException)
+		catch (InvalidOperationException)
 		{
 			return false;
 		}

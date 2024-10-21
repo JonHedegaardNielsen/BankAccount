@@ -58,9 +58,7 @@ public abstract class Database<T>
 
 	protected string FormatDecimal(decimal num)
 	{
-		CultureInfo culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-		culture.NumberFormat.NumberDecimalSeparator = ".";
-		return num.ToString("F2", culture);
+		return num.ToString().Replace(",", ".");
 	}
 
 	protected void ExecuteNonQuery(string query)

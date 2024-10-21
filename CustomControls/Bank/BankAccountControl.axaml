@@ -5,14 +5,14 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.BankAccountControl"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:BankAccount">
+			 x:DataType="uc:BankAccountViewModel">
 	
 	<Border Width="300" Height="110" BorderBrush="green" VerticalAlignment="Center"  BorderThickness="3" CornerRadius="20" Background="LightGreen">
 		<Grid Margin="15,0,0,0" x:Name="gridBankAccount" ColumnDefinitions="*, Auto" RowDefinitions="*,*,*">
-			<TextBlock x:Name="textBlockBankAccountTitle" Grid.Row="0" Grid.Column="0" FontSize="30" Text="{Binding Name}"></TextBlock>
-			<TextBlock x:Name="textBlockBankAccountBalance" Grid.Row="1" Grid.Column="0" FontSize="20" Text="{Binding Balance, Mode=TwoWay, StringFormat='{}{0:C}'}"></TextBlock>
+			<TextBlock Grid.Row="0" Grid.Column="0" FontSize="30" Text="{Binding Name}"></TextBlock>
+			<TextBlock Grid.Row="1" Grid.Column="0" FontSize="20" Text="{Binding Balance, Mode=TwoWay, StringFormat='{}{0:C}'}"></TextBlock>
 			<TextBlock Grid.Column="1" Width="55" FontSize="20" Text="{Binding Id, StringFormat='{}Id: {0}'}"></TextBlock>
-			<Button Click="AddMoney" Grid.Row="2" Grid.Column="0">add Money</Button>
+			<Button Command="{Binding AddMoneyCommand}" Grid.Row="2" Grid.Column="0">add Money</Button>
 		</Grid>
 	</Border>
 </UserControl>

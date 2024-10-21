@@ -12,8 +12,4 @@ public partial class CasinoMainPage : UserControl
         InitializeComponent();
 		DataContext = new CasinoViewModel(MainContent.Content);
 	}
-
-	private void Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-	{
-	}
 }

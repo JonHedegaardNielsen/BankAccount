@@ -9,13 +9,28 @@ namespace BankAccount;
 
 class CasinoUser : User
 {
-	public static CasinoUser? CurrentUser;
+	private static CasinoUser? _currentUser;
+	public static CasinoUser CurrentUser
+	{
+		get => (CasinoUser)ValidateGetUser(_currentUser);
+	}
 
 	public decimal AmountToWinBack { get; set; }
 
 	public BankAccount BankAccount { get; }
 
-    public CasinoUser(int id, string username, string password, BankAccount bankAccount, decimal amountToWinBack) : base(id, username, password)
+	public static bool Login(string? userName, string? password)
+	{
+		if (ShopUserDatabase.Instance.FindUser(userName, password, out User? shopuser))
+			_currentUser = (CasinoUser?)shopuser;
+
+		return _currentUser != null;
+	}
+
+	public static void Logout() =>
+		_currentUser = null;
+
+	public CasinoUser(int id, string username, string password, BankAccount bankAccount, decimal amountToWinBack) : base(id, username, password)
     {
 		BankAccount = bankAccount;
 		AmountToWinBack = amountToWinBack;

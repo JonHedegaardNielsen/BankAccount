@@ -30,10 +30,10 @@ public class ShopMainViewModel : ReactiveObject
 		}
 	}
 
-	private decimal _balance = ShopUser.CurrentShopUser.UserBankAccount.Balance;
+	private decimal _balance = ShopUser.CurrentUser.UserBankAccount.Balance;
 	public decimal Balance
 	{
-		get => ShopUser.CurrentShopUser.UserBankAccount.Balance;
+		get => ShopUser.CurrentUser.UserBankAccount.Balance;
 		set => this.RaiseAndSetIfChanged(ref _balance, value);
 	}
 
@@ -43,14 +43,14 @@ public class ShopMainViewModel : ReactiveObject
 	{
 		BuyItemCommand = ReactiveCommand.Create<string>(parameter =>
 		{
-			ShopUser.CurrentShopUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), parameter));
+			ShopUser.CurrentUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), parameter));
 			Balance -= ItemPrice;
 		});
 	}
 
 	public void DeleteCurrentUser()
 	{
-		ShopUserDatabase.Instance.DeleteUserFromUserId(ShopUser.CurrentShopUser.Id);
-		ShopUser.CurrentShopUser.LogOut();
+		ShopUserDatabase.Instance.DeleteUserFromUserId(ShopUser.CurrentUser.Id);
+		ShopUser.CurrentUser.LogOut();
 	}
 }

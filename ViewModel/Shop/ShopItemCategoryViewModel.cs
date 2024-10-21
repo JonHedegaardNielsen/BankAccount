@@ -7,8 +7,6 @@ namespace BankAccount;
 
 public class ShopItemCategoryViewModel : ReactiveObject
 {
-	public ReactiveCommand<int, Unit> UpdateDataCommand;
-
 	private SpendingCategory _category;
 	public SpendingCategory Category
 	{

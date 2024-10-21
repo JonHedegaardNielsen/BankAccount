@@ -14,14 +14,6 @@ public partial class BankAccountControl : UserControl
     public BankAccountControl(BankAccount bankAccount)
     {
         InitializeComponent();
-        DataContext = bankAccount;
-        BankAccount = bankAccount;
-	}
-
-	private void AddMoney(object? sender, RoutedEventArgs e)
-	{
-        BankAccount.Balance += 10;
-        textBlockBankAccountBalance.Text = BankAccount.Balance.ToString();
-        BankAccountDatabase.Instance.UpdateBalance(BankAccount.Id, BankAccount.Balance);
+        DataContext = new BankAccountViewModel(bankAccount);
 	}
 }

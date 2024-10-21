@@ -9,7 +9,7 @@
 			 >
 	
 
-	<ContentControl x:Name="MainContent">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"  Background="">
 			<TabItem Header="BankAccounts">
 				<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded" ColumnDefinitions="300,auto" RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto">
@@ -66,8 +66,8 @@
 			</TabItem>
 			<TabItem Header="Settings">
 				<StackPanel>
-					<Button Click="LogOut" Classes="DangerousButton">LogOut</Button>
-					<Button Click="DeleteUser" Classes="DangerousButton">Delete user</Button>
+					<Button Command="{Binding LogOutCommand}" Classes="DangerousButton">LogOut</Button>
+					<Button Command="{Binding DeleteUserCommand}" Classes="DangerousButton">Delete user</Button>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

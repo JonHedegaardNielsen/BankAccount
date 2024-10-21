@@ -22,7 +22,7 @@ public partial class ShopMainPage : UserControl
 
 	private void LogOut(object? sender, RoutedEventArgs e)
 	{
-		ShopUser.CurrentShopUser.LogOut();
+		ShopUser.CurrentUser.LogOut();
 		MainContent.Content = new LoginPage();
 	}
 

@@ -71,7 +71,7 @@ public class Loan
 		if (Debt <= CostForEachPayment)
 			nextPaymentAmount = Debt;
 
-		if (BankAccount.Balance >= nextPaymentAmount)
+		if (BankAccount != null && BankAccount.Balance >= nextPaymentAmount)
 		{
 			BankAccount.Balance -= nextPaymentAmount;
 			Debt -= nextPaymentAmount;

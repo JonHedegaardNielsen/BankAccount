@@ -9,7 +9,13 @@ namespace BankAccount;
 
 public class BankUser : User
 {
-	public static BankUser? CurrentUser { get; set; }
+	private static BankUser? _currentuser;
+	public static BankUser CurrentUser 
+	{
+		get => (BankUser)ValidateGetUser(_currentuser);
+	}
+
+	public static bool IsLoggedIn => _currentuser != null;
 
 	public List<Loan> Loans { get; private set; } = new List<Loan>();
 	public List<BankAccount> BankAccounts { get; set; } = new List<BankAccount>();
@@ -23,18 +29,18 @@ public class BankUser : User
 
 	public static void LogOut()
 	{
-		CurrentUser = null;
+		_currentuser = null;
 	}
 
 	public static bool Login(string userName, string password)
 	{
 		BankUserDatabase.Instance.FindUser(userName, password, out User? bankUser);
-		CurrentUser = (BankUser)bankUser;
-		return CurrentUser != null;
+			_currentuser = (BankUser?)bankUser;
+		return IsLoggedIn;
 	}
 
 	public static void UpdateCurrentUser()
 	{
-		CurrentUser = BankUserDatabase.Instance.GetUserFromId(CurrentUser.Id);
+		_currentuser = BankUserDatabase.Instance.GetUserFromId(CurrentUser.Id);
 	}
 }

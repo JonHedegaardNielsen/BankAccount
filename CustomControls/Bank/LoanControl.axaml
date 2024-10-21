@@ -5,10 +5,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.LoanControl"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:Loan"
-			 >
+			 x:DataType="uc:BankLoanViewModel"
+			 IsEnabled="{Binding IsEnabled}"
+			 IsVisible="{Binding IsVisible}">
+	
 	<ContentControl x:Name="MainContent">
-		<Border CornerRadius="30" Width="300" Height="150" Background="LimeGreen" BorderBrush="Black" BorderThickness="7" HorizontalAlignment="Left">
+		<Border CornerRadius="30" Width="300" Height="150" Background="LimeGreen" BorderBrush="Black" BorderThickness="7" 
+				HorizontalAlignment="Left">
 			<Grid RowDefinitions="*,*,*,*,30" ColumnDefinitions="*">
 				<TextBlock Margin="10,0,0,0" FontSize="16" Grid.Column="0" Grid.Row="0">
 					<TextBlock.Text>
@@ -18,10 +21,14 @@
 						</MultiBinding>
 					</TextBlock.Text>
 				</TextBlock>
-				<TextBlock x:Name="textBoxDebt" Margin="10,0,0,0" Text="{Binding DebtString}" FontSize="16" Grid.Column="0" Grid.Row="1"/>
-				<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" Grid.Column="0" Grid.Row="2"/>
-				<TextBlock x:Name="textBoxPayDate" Margin="10,0,0,0" Text="{Binding PayDateString}'" FontSize="16" Grid.Column="0" Grid.Row="3"/>
-				<Button x:Name="btnPayDebt" Click="PayOffLoan" Margin="10,0,0,0" Grid.Row="4" IsVisible="{Binding IsPayTime}">Pay Loan</Button>
+				<TextBlock x:Name="textBoxDebt" Margin="10,0,0,0" Text="{Binding Debt}" FontSize="16" Grid.Column="0" 
+						   Grid.Row="1"/>
+				<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" 
+						   Grid.Column="0" Grid.Row="2"/>
+				<TextBlock x:Name="textBoxPayDate" Margin="10,0,0,0" Text="{Binding PayDate}" FontSize="16" Grid.Column="0" 
+						   Grid.Row="3"/>
+				<Button x:Name="btnPayDebt" Command="{Binding PayOffLoan}" Margin="10,0,0,0" Grid.Row="4" 
+						IsEnabled="{Binding IsPayTime}" IsVisible="{Binding IsPayTime}">Pay Loan</Button>
 			</Grid>
 		</Border>
 	</ContentControl>

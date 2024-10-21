@@ -17,7 +17,7 @@ public class LoginPageViewmodel : ReactiveObject
 	public ReactiveCommand<Unit, Unit> ShopSignUpCommand { get; private set; }
 	public ReactiveCommand<Unit, Unit> CasinoSignUpCommand { get; private set; }
 	public ReactiveCommand<Unit, Unit> BankSignUpCommand { get; private set; }
-	private Func<UserControl> GetNextPageForBank;
+	private Func<UserControl>? GetNextPageForBank;
 
 	private bool _signUpBankIsVisible = true;
 	public bool SignUpBankIsVisible => _signUpBankIsVisible;
@@ -50,55 +50,59 @@ public class LoginPageViewmodel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _bankFailTextIsVisible, value);
 	}
 
-	private string _bankPassword;
+	private string _bankPassword = string.Empty;
 	public string BankPassword
 	{
 		get => _bankPassword;
 		set => this.RaiseAndSetIfChanged(ref _bankPassword, value);
 	}
 
-	private string _bankUsername;
+	private string _bankUsername = string.Empty;
 	public string BankUsername
 	{
 		get => _bankUsername;
 		set => this.RaiseAndSetIfChanged(ref _bankUsername, value);
 	}
-	private string _shopPassword;
+	private string _shopPassword = string.Empty;
 	public string ShopPassword
 	{
 		get => _shopPassword;
 		set => this.RaiseAndSetIfChanged(ref _shopPassword, value);
 	}
 
-	private string _shopUsername;
+	private string _shopUsername = string.Empty;
 	public string ShopUsername
 	{
 		get => _shopUsername;
 		set => this.RaiseAndSetIfChanged(ref _shopUsername, value);
 	}
-	private string _casinoPassword;
+	private string _casinoPassword = string.Empty;
 	public string CasinoPassword
 	{
 		get => _casinoPassword;
 		set => this.RaiseAndSetIfChanged(ref _casinoPassword, value);
 	}
 
-	private string _casinoUsername;
+	private string _casinoUsername = string.Empty;
 	public string CasinoUsername
 	{
 		get => _casinoUsername;
 		set => this.RaiseAndSetIfChanged(ref _casinoUsername, value);
 	}
 	private object? _currentbankLoginPage;
-
 	public object? CurrentbankLoginPage
 	{
 		get => _currentbankLoginPage;
 		set => this.RaiseAndSetIfChanged(ref _currentbankLoginPage, value);
 	}
 
-	private void SetCommands()
-	{
+    public LoginPageViewmodel(object? currentPage, object? currentbankLoginPage, bool signUpViewModel = true, Func<UserControl>? getNextPageForBank = null)
+    {
+		CurrentPage = currentPage;
+		_signUpBankIsVisible = signUpViewModel;
+		CurrentbankLoginPage = currentbankLoginPage;
+		GetNextPageForBank = getNextPageForBank;
+
 		CasinoLoginCommand = ReactiveCommand.Create(CasinoLogin);
 		ShopLoginCommand = ReactiveCommand.Create(ShopLogin);
 		BankLoginCommand = ReactiveCommand.Create(BankLogin);
@@ -107,26 +111,10 @@ public class LoginPageViewmodel : ReactiveObject
 		BankSignUpCommand = ReactiveCommand.Create(BankSignup);
 	}
 
-	public LoginPageViewmodel(object? currentPage, object? currentbankLoginPage)
-	{
-		CurrentPage = currentPage;
-		CurrentbankLoginPage = currentbankLoginPage;
-		SetCommands();
-	}
-
-    public LoginPageViewmodel(Func<UserControl> getNextPageForBank, object? currentbankLoginPage)
-    {
-		_signUpBankIsVisible = false;
-		CurrentbankLoginPage = currentbankLoginPage;
-		GetNextPageForBank = getNextPageForBank;
-		SetCommands();
-	}
-
     private void CasinoLogin()
 	{
-		if(Login(CasinoUsername, CasinoPassword, CasinoUserDatabase.Instance, out User? user))
+		if(CasinoUser.Login(CasinoUsername, CasinoPassword))
 		{
-			CasinoUser.CurrentUser = (CasinoUser?)user;
 			CurrentPage = new CasinoMainPage();
 			return;
 		}
@@ -136,9 +124,8 @@ public class LoginPageViewmodel : ReactiveObject
 
 	private void ShopLogin()
 	{
-		if (Login(ShopUsername, ShopPassword, ShopUserDatabase.Instance, out User? user))
+		if (ShopUser.Login(ShopUsername, ShopPassword))
 		{
-			ShopUser.CurrentShopUser = (ShopUser?)user;
 			CurrentPage = new ShopMainPage();
 			return;
 		}
@@ -148,10 +135,8 @@ public class LoginPageViewmodel : ReactiveObject
 
 	private void BankLogin()
 	{
-		if (Login(BankUsername, BankPassword, BankUserDatabase.Instance, out User? user))
+		if (BankUser.Login(BankUsername, BankPassword))
 		{
-			BankUser.CurrentUser = (BankUser?)user;
-
 			if (GetNextPageForBank == null)
 				CurrentPage = new BankMainPage();
 			else 

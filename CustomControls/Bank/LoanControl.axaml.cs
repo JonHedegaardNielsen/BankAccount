@@ -8,27 +8,10 @@ namespace BankAccount;
 
 public partial class LoanControl : UserControl
 {
-    private Loan Loan;
 
     public LoanControl(Loan loan)
     {
         InitializeComponent();
-        Loan = loan;
-        btnPayDebt.IsVisible = Loan.IsPayTime();
-		DataContext = Loan;
+		DataContext = new BankLoanViewModel(loan);
     }
-
-	private void PayOffLoan(object? sender, RoutedEventArgs e)
-	{
-        Loan.PayLoan();
-		textBoxPayDate.Text = Loan.PayDateString;
-		textBoxDebt.Text = Loan.DebtString;
-        btnPayDebt.IsVisible = Loan.IsPayTime();
-
-        if (Loan.LoanFinished)
-        {
-			IsEnabled = false;
-            IsVisible = false;
-		}
-	}
 }

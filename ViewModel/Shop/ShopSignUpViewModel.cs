@@ -18,7 +18,7 @@ public class ShopSignUpViewModel : SignUpViewModel
 
     public ShopSignUpViewModel(object? currentPage) : base(currentPage)
     {
-        OnGoToLogin = () => BankUser.CurrentUser = null;
+        OnGoToLogin = () => BankUser.LogOut();
     }
 
 	protected override void CreateUser()

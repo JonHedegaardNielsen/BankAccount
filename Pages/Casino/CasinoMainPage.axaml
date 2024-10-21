@@ -27,7 +27,7 @@
 	</UserControl.Styles>
 	
 	
-	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}" Loaded="Loaded">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<TabControl>
 			<TabItem Header="Slots">
 				<StackPanel Margin="0,30,0,0">

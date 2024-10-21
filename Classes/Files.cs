@@ -38,8 +38,15 @@ public class Files
 		where Type : notnull
 	{
 		var jsonContent = File.ReadAllText(filePath);
-		JObject keys = (JObject)JsonConvert.DeserializeObject(jsonContent);
-		return keys[key];
+		object? obj = JsonConvert.DeserializeObject(jsonContent);
+
+		if (obj != null)
+		{
+			JObject keys = (JObject)obj;
+			return keys[key];
+		}
+
+		throw new JsonReaderException();
 	}
 
 	public static string GetConnectionString() =>

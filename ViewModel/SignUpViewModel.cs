@@ -13,10 +13,10 @@ public abstract class SignUpViewModel : ReactiveObject
 {
 	public ReactiveCommand<Unit, Unit> CreateUserCommand { get; }
 	public ReactiveCommand<Unit, Unit> GoToLoginCommand { get; }
-	protected Action OnGoToLogin { private get; set; }
+	protected Action? OnGoToLogin { private get; set; }
 
-	protected object _currentPage;
-	public object CurrentPage
+	protected object? _currentPage;
+	public object? CurrentPage
 	{
 		get => _currentPage;
 		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
@@ -60,6 +60,7 @@ public abstract class SignUpViewModel : ReactiveObject
 	public SignUpViewModel(object? currentPage)
 	{
 		CurrentPage = currentPage;
+
 		CreateUserCommand = ReactiveCommand.Create(SignUp);
 		GoToLoginCommand = ReactiveCommand.Create(GoToLogin);
 	}

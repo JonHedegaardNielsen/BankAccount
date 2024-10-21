@@ -14,8 +14,12 @@ class TransactionDatabase : Database<decimal>
 
 	private TransactionDatabase() { }
 
-	public void Insert(decimal price, SpendingCategory category, int userId) =>
+	public void Insert(decimal price, SpendingCategory category, int bankAccountId)
+	{
+		int userId = BankUserDatabase.Instance.GetUserIdFromBankAccountId(bankAccountId);
 		ExecuteNonQuery($"INSERT INTO transactions(category, price, userId) VALUES({(int)category}, {FormatDecimal(price)}, {userId})");
+
+	}
 
 	public decimal GetUserExpensesOfCategory(SpendingCategory category, int userId)
 	{

@@ -27,7 +27,7 @@ public class CasinoSignUpViewModel : SignUpViewModel
 
 	public CasinoSignUpViewModel(object? currentPage) : base(currentPage)
 	{
-		OnGoToLogin = () => BankUser.CurrentUser = null;
+		OnGoToLogin = () => BankUser.LogOut();
 	}
 
 	protected override void CreateUser()
@@ -35,7 +35,7 @@ public class CasinoSignUpViewModel : SignUpViewModel
 		if (_selectedBankAccount != null)
 		{
 			CasinoUserDatabase.Instance.CreateUser(Username, Password, _selectedBankAccount.Id);
-			BankUser.CurrentUser = null;
+			BankUser.LogOut();
 		}
 	}
 }

@@ -25,6 +25,7 @@ public class BankAccountDatabase : Database<BankAccount>
 	public void DeleteBankAccount(int bankAccountId)
 	{
 		ShopUserDatabase.Instance.DeleteUserFromBankAccountId(bankAccountId);
+		CasinoUserDatabase.Instance.DeleteUserFromBankAccountId(bankAccountId);
 		ExecuteNonQuery($"DELETE FROM bankAccount WHERE bankAccountId = {bankAccountId}");
 	}
 

@@ -17,10 +17,10 @@ class ShopItemDatabase : Database<ShopItem>
 	public List<ShopItem> GetShopItems(int userId) =>
 		RunQuery($"SELECT * FROM shopItem WHERE userId = {userId}", GetData);
 
-	public void Insert(ShopItem shopItem, int userId)
+	public void Insert(ShopItem shopItem, ShopUser user)
 	{
-		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {userId}, {(int)shopItem.Category})");
-		TransactionDatabase.Instance.Insert(shopItem.Price, shopItem.Category, userId);
+		ExecuteNonQuery($"INSERT INTO shopItem([name], price, userId, category) VALUES('{shopItem.Name}', {FormatDecimal(shopItem.Price)}, {user.Id}, {(int)shopItem.Category})");
+		TransactionDatabase.Instance.Insert(shopItem.Price, shopItem.Category, user.UserBankAccount.Id);
 	}
 
 	public int SelectCountItemType(int userId, ShopItemType shopItemType) =>

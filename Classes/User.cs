@@ -18,4 +18,12 @@ public abstract class User
         Username = username;
         Password = password;
     }
+
+	protected static User ValidateGetUser(User? user)
+    {
+		if (user == null)
+			throw new NotLoggedInException();
+
+		return user;
+	}
 }

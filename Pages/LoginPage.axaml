@@ -6,7 +6,7 @@
 		xmlns:local="using:BankAccount"
         x:Class="BankAccount.LoginPage"
 		x:DataType="local:LoginPageViewmodel">
-	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}" Loaded="PageLoaded">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<TabControl>
 			<TabItem Header="BankAccount">
 				<local:BankLoginPage x:Name="bankLogin"/>

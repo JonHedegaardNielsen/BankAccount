@@ -30,13 +30,15 @@ class BankUserDatabase : Database<BankUser>, ILoginDatabase
 		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
 			BankAccountDatabase.Instance.DeleteBankAccount(bankAccount.Id);
 
+		TransactionDatabase.Instance.DeleteFromUserId(BankUser.CurrentUser.Id);
+
 		ExecuteNonQuery($"DELETE FROM bankUser WHERE userId = {BankUser.CurrentUser.Id}");
 	}
 
 
 
 	public int GetUserIdFromBankAccountId(int bankAccountId) =>
-		RunSingleQuery($"SELECT TOP(1) userId FROM bankUser WHERE (SELECT TOP(1) userId FROM bankAccount WHERE bankAccountId = {bankAccountId})", r => r.GetInt32(0));
+		RunSingleQuery($"SELECT TOP(1) userId FROM bankAccount WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
 
 	public bool FindUser(string username, string password, out User? user)
 	{

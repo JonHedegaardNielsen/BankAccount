@@ -22,8 +22,8 @@ public class CasinoViewModel : ReactiveObject
 	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
 	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
 
-	private object _currentPage;
-	public object CurrentPage
+	private object? _currentPage;
+	public object? CurrentPage
 	{
 		get => _currentPage;
 		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
@@ -99,13 +99,13 @@ public class CasinoViewModel : ReactiveObject
 		PlaySlotsCommand = ReactiveCommand.Create(PlaySlots);
 		LogOutCommand = ReactiveCommand.Create(Logout);
 		DeleteUserCommand = ReactiveCommand.Create(DeleteUser);
-
-		CurrentPage = currenPage; 
+		if (currenPage != null)
+			_currentPage = currenPage; 
 	}
 
 	private void Logout()
 	{
-		CasinoUser.CurrentUser = null;
+		CasinoUser.Logout();
 		CurrentPage = new LoginPage();
 	}
 

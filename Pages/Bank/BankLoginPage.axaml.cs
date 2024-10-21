@@ -8,8 +8,6 @@ namespace BankAccount;
 
 public partial class BankLoginPage : UserControl
 {
-	private Func<UserControl>? GetNextPage;
-	public object CurrentPage { private get; set; }
 	
 	public BankLoginPage()
 	{
@@ -20,7 +18,7 @@ public partial class BankLoginPage : UserControl
 	public BankLoginPage(Func<UserControl> getNextPage, object? currentPage)
 	{
 		InitializeComponent();
-		DataContext = new LoginPageViewmodel(getNextPage, MainContent.Content);
+		DataContext = new LoginPageViewmodel(currentPage, MainContent.Content, false, getNextPage);
 		btnSignUp.IsVisible = false;
 	}
 }

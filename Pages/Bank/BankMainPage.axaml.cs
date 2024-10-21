@@ -17,7 +17,7 @@ public partial class BankMainPage : UserControl
 		comboBoxBankAccountTransferFrom.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		comboBoxBankAccountTransferTo.ItemsSource = BankUser.CurrentUser.BankAccounts;
 		BankUser.UpdateCurrentUser();
-		BankViewModel = new BankMainPageViewModel();
+		BankViewModel = new BankMainPageViewModel(MainContent.Content);
 		DataContext = BankViewModel;
 	}
 
@@ -60,7 +60,7 @@ public partial class BankMainPage : UserControl
 		MainContent.Content = new CreateLoanPage();
 	}
 
-	private void ValidateNumber(object? sender, TextInputEventArgs e)
+	private void ValidateNumber(object sender, TextInputEventArgs e)
 	{
 		TextBox textBox = (TextBox)sender;
 
@@ -104,17 +104,5 @@ public partial class BankMainPage : UserControl
 
 		textBoxBankAcconutIdTransferTo.IsVisible = (bool)checkBox.IsChecked;
 		comboBoxBankAccountTransferTo.IsVisible = !(bool)checkBox.IsChecked;
-	}
-
-	private void LogOut(object? sender, RoutedEventArgs e)
-	{
-		BankUser.LogOut();
-		MainContent.Content = new LoginPage();
-	}
-
-	private void DeleteUser(object? sender, RoutedEventArgs e)
-	{
-		BankViewModel.DeleteUser();
-		MainContent.Content = new LoginPage();
 	}
 }
