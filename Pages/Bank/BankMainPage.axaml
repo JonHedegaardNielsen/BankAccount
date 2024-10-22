@@ -7,32 +7,52 @@
 			 xmlns:uc ="using:BankAccount"
 			 x:DataType="uc:BankMainPageViewModel"
 			 >
-	
+	<UserControl.Resources>
+		<uc:DecimalConverter x:Key="NumberConverter"/>
+	</UserControl.Resources>
 
 	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<TabControl Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top"  Background="">
 			<TabItem Header="BankAccounts">
-				<Grid x:Name="gridBankAccount" Loaded="BankAccountLoaded" ColumnDefinitions="300,auto" RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto">
-
-					<Button Click="CreateNewBankAccount" Margin="0,0,0,0" CornerRadius="20" Grid.Column="1" Grid.Row="0" FontSize="32" Width="500" Height="70">
+				<Grid ColumnDefinitions="300,auto">
+					<ScrollViewer Grid.Column="0">
+						<StackPanel>
+							<ItemsControl ItemsSource="{Binding BankAccountControls}">
+								<ItemsControl.ItemsPanel>
+									
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+						</StackPanel>
+					</ScrollViewer>
+					
+					<Button Click="CreateNewBankAccount" Margin="0,0,0,0" CornerRadius="20" Grid.Column="1" FontSize="32" Width="500" Height="70">
 						<Label HorizontalAlignment="Center">Create New Bank Account</Label>
 					</Button>
 				</Grid>
-
 			</TabItem>
 			<TabItem Header="Loans">
-				<Grid x:Name="gridLoan" Loaded="LoadLoan" ColumnDefinitions="300,*" RowDefinitions="200,200,200,200,200">
+				<Grid ColumnDefinitions="300,*">
+					<ScrollViewer Grid.Column="0">
+						<StackPanel>
+							<ItemsControl ItemsSource="{Binding LoanControls}">
+								<ItemsControl.ItemsPanel>
+									
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+						</StackPanel>
+					</ScrollViewer>
 					<Button Grid.Column="1" Height="70" Width="350" Margin="20,0,0,0" VerticalAlignment="Center" CornerRadius="15" Grid.Row="0" HorizontalAlignment="Center" FontSize="32" Click="CreateLoan">Take New Loan</Button>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Transfer">
 				<Border Width="500" Height="600" CornerRadius="5" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="2">
 					<Grid Margin="0,10,0,0" HorizontalAlignment="Left" ColumnDefinitions="400" RowDefinitions="auto,auto,auto, auto,auto" >
-						<CheckBox x:Name="checkBoxTransferToOtherUser" Grid.Row="0" Grid.Column="0" Click="CheckBox_Click">Transfer to other user</CheckBox>
+						<CheckBox x:Name="checkBoxTransferToOtherUser" IsChecked="{Binding TransferToOtherUser}" Grid.Row="0" Grid.Column="0" Click="CheckBox_Click">Transfer to other user</CheckBox>
 
 						<TextBox x:Name="textBoxBankAcconutIdTransferTo" Margin="10" Grid.Row="1" Grid.Column="0" Width="400" IsVisible="False">0</TextBox>
 
-						<ComboBox x:Name="comboBoxBankAccountTransferTo" Margin="10" Grid.Column="0" Grid.Row="1" Width="400">
+						<ComboBox x:Name="comboBoxBankAccountTransferTo" Margin="10" Grid.Column="0" Grid.Row="1" 
+								  Width="400" SelectedItem="{Binding BankAccountToTransferTo}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
@@ -40,10 +60,11 @@
 							</ComboBox.ItemTemplate>
 						</ComboBox>
 
-						<TextBox x:Name="textBoxAmountToTransfer" Margin="10" TextInput="ValidateNumber" Grid.Row="2" Grid.Column="0">0</TextBox>
+						<TextBox x:Name="textBoxAmountToTransfer" Text="{Binding AmountToTransfer, Converter={StaticResource NumberConverter}, UpdateSourceTrigger=PropertyChanged}"
+								 Margin="10" Grid.Row="2" Grid.Column="0" TextChanged="AmountToTransferTextChanged">0</TextBox>
+						
 
-
-						<ComboBox x:Name="comboBoxBankAccountTransferFrom" Margin="10" Grid.Row="3" Grid.Column="0" Width="400">
+						<ComboBox x:Name="comboBoxBankAccountTransferFrom" Margin="10" Grid.Row="3" Grid.Column="0" Width="400" SelectedItem="{Binding BankAccountToTransferFrom}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>

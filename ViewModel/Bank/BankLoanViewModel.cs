@@ -53,8 +53,8 @@ public class BankLoanViewModel : ReactiveObject
 
 		if (Loan.LoanFinished)
 		{
-			_isEnabled = false;
-			_isVisible = false;
+			IsEnabled = false;
+			IsVisible = false;
 		}
 	}
 }

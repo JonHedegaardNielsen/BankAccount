@@ -5,12 +5,15 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace BankAccount;
 
 public partial class BankMainPage : UserControl
 {
+	private string AmountToTranferText = String.Empty;
 	BankMainPageViewModel BankViewModel;
+
 	public BankMainPage()
 	{
 		InitializeComponent();
@@ -20,35 +23,6 @@ public partial class BankMainPage : UserControl
 		BankViewModel = new BankMainPageViewModel(MainContent.Content);
 		DataContext = BankViewModel;
 	}
-
-	private void BankAccountLoaded(object sender, RoutedEventArgs e)
-	{
-		int rowCounter = 0;
-
-		foreach (var bankAccount in BankUser.CurrentUser.BankAccounts)
-		{
-			var child = new BankAccountControl(bankAccount);
-			child.SetValue(Grid.RowProperty, rowCounter);
-			gridBankAccount.Children.Add(child);
-			rowCounter++;
-		}
-	}
-
-	private void LoadLoan(object sender, RoutedEventArgs e)
-	{
-		Grid grid = (Grid)sender;
-		int rowCounter = 0;
-
-		foreach (var loan in BankUser.CurrentUser.Loans)
-		{
-			var child = new LoanControl(loan);
-			child.SetValue(Grid.RowProperty, rowCounter);
-			child.SetValue(Grid.ColumnProperty, 0);
-			grid.Children.Add(child);
-			rowCounter++;
-		}
-	}
-
 
 	private void CreateNewBankAccount(object sender, RoutedEventArgs e)
 	{
@@ -62,12 +36,7 @@ public partial class BankMainPage : UserControl
 
 	private void ValidateNumber(object sender, TextInputEventArgs e)
 	{
-		TextBox textBox = (TextBox)sender;
 
-		if (!int.TryParse(e.Text, out _) || e.Text == "," || e.Text == ".")
-		{
-			e.Handled = true;
-		}
 	}
 
 	void OnTransferFail()
@@ -104,5 +73,19 @@ public partial class BankMainPage : UserControl
 
 		textBoxBankAcconutIdTransferTo.IsVisible = (bool)checkBox.IsChecked;
 		comboBoxBankAccountTransferTo.IsVisible = !(bool)checkBox.IsChecked;
+	}
+
+	private void AmountToTransferTextChanged(object? sender, TextChangedEventArgs e)
+	{
+		if (sender is TextBox textBox && textBox != null)
+		{
+			if (String.IsNullOrWhiteSpace(textBox.Text) || decimal.TryParse(textBox.Text, out decimal TextDecimal))
+			{
+				AmountToTranferText = textBox.Text;
+				textBox.CaretIndex = textBox.Text.Length;
+			}
+			else
+				textBox.Text = AmountToTranferText;
+		}
 	}
 }

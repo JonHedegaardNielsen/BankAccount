@@ -9,7 +9,7 @@
 			 x:DataType="uc:ShopMainViewModel"
 			 >
 
-	<ContentControl x:Name="MainContent">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		<TabControl>
 			<TabItem Header="Shopping">
 				<Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*,*">
@@ -24,7 +24,7 @@
 				</Grid>
 			</TabItem>
 
-			<TabItem Header="Your Items" Loaded="ShopItemAmountLoaded">
+			<TabItem Header="Your Items">
 				<Grid RowDefinitions="auto,auto,auto,auto,auto,auto" ColumnDefinitions="*">
 					<local:ShopItemAmountControl Grid.Row="0" x:Name="shopItemAmountControlMilk" ItemName="Milk"/>
 					<local:ShopItemAmountControl Grid.Row="1" x:Name="shopItemAmountControlSugar" ItemName="Sugar"/>
@@ -36,8 +36,8 @@
 			</TabItem>
 			<TabItem Header="Settings">
 				<StackPanel>
-					<Button Click="LogOut" Classes="DangerousButton" >LogOut</Button>
-					<Button Click="DeleteUser" Classes="DangerousButton" >Delete User</Button>
+					<Button Command="{Binding LogOutCommand}" Classes="DangerousButton" >LogOut</Button>
+					<Button Command="{Binding DeleteUserCommand}"  Classes="DangerousButton" >Delete User</Button>
 				</StackPanel>
 			</TabItem>
 		</TabControl>

@@ -8,11 +8,20 @@ using System.Windows.Input;
 using ReactiveUI;
 using System.Reactive;
 using System.Reflection.Metadata;
+using System.Data.Common;
 namespace BankAccount;
 
 public class ShopMainViewModel : ReactiveObject
 {
 	private ShopItemType _itemType;
+
+	private object? _currentPage;
+	public object? CurrentPage
+	{
+		get => _currentPage;
+		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
+	}
+
 	private decimal _itemPrice;
 	public decimal ItemPrice
 	{
@@ -38,19 +47,32 @@ public class ShopMainViewModel : ReactiveObject
 	}
 
 	public ReactiveCommand<string,Unit> BuyItemCommand { get; }
+	public ReactiveCommand<Unit, Unit> LogOutCommand { get; }
+	public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
 
-	public ShopMainViewModel()
+	public ShopMainViewModel(object? currentPage)
 	{
-		BuyItemCommand = ReactiveCommand.Create<string>(parameter =>
-		{
-			ShopUser.CurrentUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), parameter));
-			Balance -= ItemPrice;
-		});
+		CurrentPage = currentPage;
+		LogOutCommand = ReactiveCommand.Create(LogOut);
+		BuyItemCommand = ReactiveCommand.Create<string>(BuyItem);
+		DeleteUserCommand = ReactiveCommand.Create(DeleteCurrentUser);
 	}
 
-	public void DeleteCurrentUser()
+	private void BuyItem(string ItemType)
+	{
+		ShopUser.CurrentUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), ItemType));
+		Balance -= ItemPrice;
+	}
+
+	private void LogOut()
+	{
+		ShopUser.CurrentUser.LogOut();
+		CurrentPage = new LoginPage();
+	}
+
+	private void DeleteCurrentUser()
 	{
 		ShopUserDatabase.Instance.DeleteUserFromUserId(ShopUser.CurrentUser.Id);
-		ShopUser.CurrentUser.LogOut();
+		LogOut();
 	}
 }

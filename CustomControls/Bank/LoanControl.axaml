@@ -21,11 +21,11 @@
 						</MultiBinding>
 					</TextBlock.Text>
 				</TextBlock>
-				<TextBlock x:Name="textBoxDebt" Margin="10,0,0,0" Text="{Binding Debt}" FontSize="16" Grid.Column="0" 
+				<TextBlock x:Name="textBoxDebt" Margin="10,0,0,0" Text="{Binding Debt, StringFormat={}Total Debt: {0}}" FontSize="16" Grid.Column="0" 
 						   Grid.Row="1"/>
 				<TextBlock Margin="10,0,0,0" Text="{Binding Interest, StringFormat={}Interest: {0}% }" FontSize="16" 
 						   Grid.Column="0" Grid.Row="2"/>
-				<TextBlock x:Name="textBoxPayDate" Margin="10,0,0,0" Text="{Binding PayDate}" FontSize="16" Grid.Column="0" 
+				<TextBlock x:Name="textBoxPayDate" Margin="10,0,0,0" Text="{Binding PayDate, StringFormat='Pay Date: {0}'}" FontSize="16" Grid.Column="0" 
 						   Grid.Row="3"/>
 				<Button x:Name="btnPayDebt" Command="{Binding PayOffLoan}" Margin="10,0,0,0" Grid.Row="4" 
 						IsEnabled="{Binding IsPayTime}" IsVisible="{Binding IsPayTime}">Pay Loan</Button>

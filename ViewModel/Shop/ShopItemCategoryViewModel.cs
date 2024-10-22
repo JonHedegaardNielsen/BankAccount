@@ -14,7 +14,6 @@ public class ShopItemCategoryViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _category, value);
 	}
 
-	private int _amountBought;
 	public int AmountBought => TransactionDatabase.Instance.GetCategoryCount(Category, BankUser.CurrentUser.Id);
 
 	public decimal AmountSpent => TransactionDatabase.Instance.GetUserExpensesOfCategory(Category, BankUser.CurrentUser.Id);

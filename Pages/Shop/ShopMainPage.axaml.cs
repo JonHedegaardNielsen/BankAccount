@@ -12,23 +12,11 @@ public partial class ShopMainPage : UserControl
     public ShopMainPage()
     {
         InitializeComponent();
-		ShopViewModel = new ShopMainViewModel();
+		ShopViewModel = new ShopMainViewModel(MainContent.Content);
 		DataContext = ShopViewModel;
     }
 
-	private void ShopItemAmountLoaded(object? sender, RoutedEventArgs e)
+	private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
 	{
-	}
-
-	private void LogOut(object? sender, RoutedEventArgs e)
-	{
-		ShopUser.CurrentUser.LogOut();
-		MainContent.Content = new LoginPage();
-	}
-
-	private void DeleteUser(object? sender, RoutedEventArgs e)
-	{
-		ShopViewModel.DeleteCurrentUser();
-		MainContent.Content = new LoginPage();
 	}
 }
