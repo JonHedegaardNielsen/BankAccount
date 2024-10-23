@@ -19,11 +19,21 @@ public class BankAccount
 		Id = id;
 	}
 
-	public void Transfer(decimal balanceToTransfer, BankAccount bankAccountTranferFrom)
+	public bool Transfer(decimal balanceToTransfer, BankAccount bankAccountTranferFrom)
 	{
-		Balance += balanceToTransfer;
-		bankAccountTranferFrom.Balance -= balanceToTransfer;
-		BankAccountDatabase.Instance.UpdateBalance(Id, Balance);
-		BankAccountDatabase.Instance.UpdateBalance(bankAccountTranferFrom.Id, bankAccountTranferFrom.Balance);
+		if (bankAccountTranferFrom.Balance >= balanceToTransfer)
+		{
+			Balance += balanceToTransfer;
+			bankAccountTranferFrom.Balance -= balanceToTransfer;
+
+			BankAccountDatabase.Instance.UpdateBalance(Id, Balance);
+			BankAccountDatabase.Instance.UpdateBalance(bankAccountTranferFrom.Id, bankAccountTranferFrom.Balance);
+
+			return true;
+		}
+
+		return false;
+
+		
 	}
 }

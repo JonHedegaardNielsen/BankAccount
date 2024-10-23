@@ -3,15 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="BankAccount.CreateBankAccountPage">
-	<ContentControl x:Name="MainContent">
+             x:Class="BankAccount.CreateBankAccountPage"
+			 xmlns:uc="using:BankAccount"
+			 x:DataType="uc:BankAccountContolViewModel">
+	<ContentControl x:Name="CurrentPage" Content="{Binding CurrentPage}">
 		<Border CornerRadius="5" Width="250" BorderBrush="black" Padding="10,5,30,0" Height="300" BorderThickness="4" Background="GreenYellow">
 			<Grid RowDefinitions="auto,auto,auto,auto,auto" Margin="0,0,0,0" ColumnDefinitions="*">
 				<Label Grid.Row="0" FontSize="20">Name</Label>
-				<TextBox x:Name="textBoxName" Grid.Row="1" Grid.Column="0"/>
+				<TextBox x:Name="textBoxName" Text="{Binding BankAccountName}" Grid.Row="1" Grid.Column="0"/>
 
-				<Button Click="CreateBankAccount" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">Create Bank Account</Button>
-				<Button Click="GoBack" Grid.Row="3" Margin="0,30,0,0" HorizontalAlignment="Center">Go Back</Button>
+				<Button Command="{Binding CreateBankAccountCommand}" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">Create Bank Account</Button>
+				<Button Command="{Binding GoBackCommand}" Grid.Row="3" Margin="0,30,0,0" HorizontalAlignment="Center">Go Back</Button>
+				<Label Classes="FailText" Margin="0,10,0,0" Grid.Row="4" IsVisible="{Binding FailTextIsVisible}">Invalid Name</Label>
 			</Grid>
 		</Border>
 	</ContentControl>

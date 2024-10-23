@@ -1,7 +1,10 @@
-﻿using BankAccount.Database;
+﻿using Avalonia;
+using Avalonia.Controls;
+using BankAccount.Database;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Reactive;
 using System.Runtime.CompilerServices;
@@ -17,6 +20,8 @@ public class BankMainPageViewModel : ReactiveObject
 	public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
 	public ReactiveCommand<Unit, Unit> LogOutCommand { get; }
 	public ReactiveCommand<Unit, Unit> TransferMoneyCommand { get; }
+	public ReactiveCommand<Unit, Unit> CreateLoanCommand { get; }
+	public ReactiveCommand<Unit, Unit> CreateBankAccountCommand { get; }
 
 	private object? _currentPage;
 	public object? CurrentPage
@@ -48,6 +53,20 @@ public class BankMainPageViewModel : ReactiveObject
 		set => _transferToOtherUser = value;
 	}
 
+	private bool _transferFailTextIsVisible = false;
+	public bool TransferFailTextIsVisible
+	{
+		get => _transferFailTextIsVisible;
+		set => this.RaiseAndSetIfChanged(ref _transferFailTextIsVisible, value);
+	}
+
+	private bool _transferAmountFailText = false;
+	public bool TransferAmountFailText
+	{
+		get => _transferAmountFailText;
+		set => this.RaiseAndSetIfChanged(ref _transferAmountFailText, value);
+	}
+
 	private decimal AmountToTransferDecimal
 	{
 		get => !String.IsNullOrWhiteSpace(_amountToTransferString) ? decimal.Parse(_amountToTransferString) : 0;
@@ -61,13 +80,24 @@ public class BankMainPageViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _amountToTransferString, value);
 	}
 
+	private int AccountIdToTransferToInt
+	{
+		get => !String.IsNullOrEmpty(_accountIdToTransferTo) ? int.Parse(_accountIdToTransferTo) : 0;
+		set => AccountIdToTransferTo = value.ToString();
+	}
 
+	private string _accountIdToTransferTo = string.Empty;
+	public string AccountIdToTransferTo
+	{
+		get => _accountIdToTransferTo != null ? _accountIdToTransferTo.ToString() : String.Empty;
+		set => this.RaiseAndSetIfChanged(ref _accountIdToTransferTo, value);
+	}
 
 	public BankMainPageViewModel(object? currentPage)
 	{
 		BankAccounts = new(BankUser.CurrentUser.BankAccounts);
 
-		foreach (BankAccount bankAccount in BankUser.CurrentUser.BankAccounts)
+		foreach (BankAccount bankAccount in BankAccounts)
 			BankAccountControls.Add(new BankAccountControl(bankAccount));
 
 		foreach (Loan loan in BankUser.CurrentUser.Loans)
@@ -75,32 +105,43 @@ public class BankMainPageViewModel : ReactiveObject
 
 		DeleteUserCommand = ReactiveCommand.Create(DeleteUser);
 		LogOutCommand = ReactiveCommand.Create(Logout);
-		TransferMoneyCommand = ReactiveCommand.Create(TranferMoney);
+		TransferMoneyCommand = ReactiveCommand.Create(TransferMoney);
+		CreateLoanCommand = ReactiveCommand.Create(CrateLoan);
+		CreateBankAccountCommand = ReactiveCommand.Create(CreateBankAccount);
+
 		CurrentPage = currentPage;
 	}
 
-	private void TransferMoneyToOtherUser() 
-	{ 
-		if (BankAccountToTransferFrom != null && BankAccountToTransferTo != null)
-			BankAccountToTransferTo.Transfer(AmountToTransferDecimal, BankAccountToTransferFrom);
-	}
-
-	private void TransferToCurrentUserBankAccount()
+	private void TransferMoney()
 	{
-		
-	}
+		if (BankAccountToTransferFrom != null && BankAccountToTransferTo != null || AccountIdToTransferToInt != 0)
+		{
+			TransferFailTextIsVisible = false;
 
-	private void TranferMoney()
-	{
-		
-		if (TransferToOtherUser)
-		{
-			TransferMoneyToOtherUser();
+			BankAccount bankAccountToTransferTo;
+			if (TransferToOtherUser)
+				bankAccountToTransferTo = BankAccountDatabase.Instance.GetSingleBankAccount(AccountIdToTransferToInt);
+			else
+				bankAccountToTransferTo = BankAccountToTransferTo;
+
+			if (bankAccountToTransferTo.Transfer(AmountToTransferDecimal, BankAccountToTransferFrom))
+			{
+				if (!TransferToOtherUser)
+				{
+					int bankAccountToTransferToIndex = BankAccounts.IndexOf(BankAccountToTransferTo);
+					BankAccountControls[bankAccountToTransferToIndex] = new(BankAccountToTransferTo);
+				}
+
+				int bankAccountToTransferFromIndex = BankAccounts.IndexOf(BankAccountToTransferFrom);
+				BankAccountControls[bankAccountToTransferFromIndex] = new(BankAccountToTransferFrom);
+
+				TransferAmountFailText = false;
+			}
+			else
+				TransferAmountFailText = true;
 		}
-		else
-		{
-			TransferToCurrentUserBankAccount();
-		}
+		else 
+			TransferFailTextIsVisible = true;
 	}
 
 	private void DeleteUser()
@@ -115,4 +156,11 @@ public class BankMainPageViewModel : ReactiveObject
 		BankUser.LogOut();
 		CurrentPage = new LoginPage();
 	}
+
+ 	private void CrateLoan() =>
+		CurrentPage = new CreateLoanPage();
+
+	private void CreateBankAccount() =>
+		CurrentPage = new CreateBankAccountPage();
+
 }

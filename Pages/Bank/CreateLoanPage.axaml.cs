@@ -23,7 +23,7 @@ public partial class CreateLoanPage : UserControl
 	public CreateLoanPage()
 	{
 		InitializeComponent();
-		BankAccounts = BankAccountDatabase.Instance.GetBankAccounts(BankUser.CurrentUser.Id);
+		DataContext = new CreateLoanPageViewModel(MainContent.Content);
 	}
 
 	private void PageLoaded(object sender, RoutedEventArgs e)
@@ -55,8 +55,4 @@ public partial class CreateLoanPage : UserControl
 		}
 	}
 
-	private void BackToMainPage(object sender, RoutedEventArgs e)
-	{
-		MainContent.Content = new BankMainPage();
-	}
 }

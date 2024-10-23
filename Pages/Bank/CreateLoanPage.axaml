@@ -5,15 +5,16 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.CreateLoanPage"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:Loan">
+			 x:DataType="uc:CreateLoanPageViewModel">
 	
-	<ContentControl x:Name="MainContent" Loaded="PageLoaded">
+	<ContentControl x:Name="MainContent" Content="{Binding CurrentPage}">
 		
-		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto" Width="300" Height="500" ColumnDefinitions="250" HorizontalAlignment="Center" Margin="0,10,0,0" Background="DarkSeaGreen">
+		<Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto, auto" Width="300" Height="500" ColumnDefinitions="250" HorizontalAlignment="Center" Margin="0,10,0,0" Background="DarkSeaGreen">
 	
 			<Label Margin="10,0,0,0" Grid.Row="0">Type</Label>
 			
-			<ComboBox x:Name="comboBoxLoanTypes" Margin="10,5,0,0" Grid.Column="0" HorizontalAlignment="Stretch" SelectionChanged="SelectLoan" Grid.Row="1">
+			<ComboBox x:Name="comboBoxLoanTypes" Margin="10,5,0,0" Grid.Column="0" ItemsSource="{Binding Loans}"
+					  SelectedItem="{Binding SelectedLoan}" HorizontalAlignment="Stretch" Grid.Row="1">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock x:DataType="uc:Loan" Text="{Binding Name}"/>
@@ -35,7 +36,9 @@
 			<TextBox IsReadOnly="True" Grid.Row="9" Margin="10,5,0,0" Text="{Binding CostForEachPayment, StringFormat='{}{0:C}'}"></TextBox>
 
 			<Label Grid.Row="10" Grid.Column="0" Margin="10,5,0,0">Bank Account</Label>
-			<ComboBox x:Name="comboBoxBankAccount" Margin="10,10,0,0" Grid.Column="0" HorizontalAlignment="Stretch" Grid.Row="11">
+			
+			<ComboBox x:Name="comboBoxBankAccount" Margin="10,10,0,0" Grid.Column="0" HorizontalAlignment="Stretch" 
+					  Grid.Row="11" SelectedItem="{Binding SelectedBankAccount}" ItemsSource="{Binding BankAccounts}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
 						<TextBlock x:DataType="uc:BankAccount" Text="{Binding Name}"/>
@@ -43,8 +46,10 @@
 				</ComboBox.ItemTemplate>
 			</ComboBox>
 
-			<Button Click="CreateLoan" Grid.Row="12" HorizontalAlignment="Center" Margin="0,15,0,0">Take Loan</Button>
-			<Button Click="BackToMainPage" Grid.Row="13" HorizontalAlignment="Center" Margin="0,15,0,0">Go Back</Button>
+			<Button Command="{Binding CreateLoanCommand}" Grid.Row="12" HorizontalAlignment="Center" Margin="0,15,0,0">Take Loan</Button>
+			<Button Command="{Binding GoBackCommand}" Grid.Row="13" HorizontalAlignment="Center" Margin="0,15,0,0">Go Back</Button>
+
+			<Label Classes="FailText" Grid.Row="14" IsVisible="{Binding FailTextIsVisible}">Invalid Inputs</Label>
 		</Grid>
 	</ContentControl>
 </UserControl>

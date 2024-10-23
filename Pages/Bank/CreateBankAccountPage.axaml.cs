@@ -11,6 +11,7 @@ public partial class CreateBankAccountPage : UserControl
     public CreateBankAccountPage()
     {
         InitializeComponent();
+        DataContext = new BankAccountContolViewModel(CurrentPage.Content);
     }
 
     private void CreateBankAccount(object sender, RoutedEventArgs e)
@@ -18,8 +19,7 @@ public partial class CreateBankAccountPage : UserControl
         BankAccountDatabase.Instance.Insert(BankUser.CurrentUser.Id, textBoxName.Text, 0);
     }
 
-    private void GoBack(object sender, RoutedEventArgs e)
-    {
-		MainContent.Content = new BankMainPage();
+	private void Binding(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+	{
 	}
 }
