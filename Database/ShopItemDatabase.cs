@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 
-namespace BankAccount.Database;
+namespace BankAccount;
 
 class ShopItemDatabase : Database<ShopItem>
 {
