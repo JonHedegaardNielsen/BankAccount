@@ -5,8 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="BankAccount.ShopItemAmountControl"
 			 xmlns:uc="using:BankAccount"
-			 x:DataType="uc:ShopItem"
-			 Loaded="OnLoad">
+			 x:DataType="uc:ShopItemAmountViewModel">
 	
 	<UserControl.Styles>
 		<Style Selector="TextBlock">
@@ -37,7 +36,7 @@
 			<TextBlock Classes="Value" Grid.Column="0" Text="{Binding Name}"/>
 			<TextBlock Classes="Value" Grid.Column="1" Text="{Binding Price, StringFormat={}{0:C}}"/>
 			<TextBlock Classes="Value" Grid.Column="2" Text="{Binding Amountbought}"/>
-			<TextBlock Classes="Value" Grid.Column="3" Text="{Binding TotalAmountSpent, StringFormat={}{0:C}}"/>
+			<TextBlock Classes="Value" Grid.Column="3" Text="{Binding AmountSpent, StringFormat={}{0:C}}"/>
 			<TextBlock Classes="Value" Grid.Column="4" Text="{Binding Category}"/>
 		</Grid>
 	</Border>

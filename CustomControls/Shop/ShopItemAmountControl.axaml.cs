@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 
 namespace BankAccount;
 
@@ -17,18 +16,14 @@ public partial class ShopItemAmountControl : UserControl
         set => SetValue(ShopItemName, value);
     }
 
-	public ShopItemAmountControl()
+	public ShopItemAmountControl(ShopItem shopItem)
     {
         InitializeComponent();
-
+		DataContext = new ShopItemAmountViewModel(shopItem);
 	}
-
-	public void Reload()
-    {
-    }
 
     private void OnLoad(object? sender, RoutedEventArgs e)
     {
-		DataContext = ShopItem.ShopItemTypes[ItemName];
+		//DataContext = new ShopItemAmountViewModel( ShopItem.ShopItemTypes[ItemName]);
 	}
 }

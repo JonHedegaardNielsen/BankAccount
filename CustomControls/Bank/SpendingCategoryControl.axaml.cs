@@ -1,7 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System.Data;
 using Avalonia.Interactivity;
 using Avalonia.Data;
 

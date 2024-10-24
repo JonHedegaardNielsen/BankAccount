@@ -11,23 +11,23 @@ public class Files
 {
 	private readonly static string AppSettingsFilePath = "../../../JSON/AppSettings.json";
 
-	public static Dictionary<Images, string> ImageFiles = new Dictionary<Images, string>()
+	public static Dictionary<Image, string> ImageFiles = new Dictionary<Image, string>()
 	{
-		{ Images.Milk, "../../../Images/Milk.jpg"},
-		{ Images.Suger, "../../../Images/Sugar.jpg" },
-		{ Images.Battery, "../../../Images/battery.jpg"},
-		{ Images.Car, "../../../Images/Car.jpg" },
-		{ Images.Chair, "../../../Images/Chair.jpg"},
-		{ Images.Charger, "../../../Images/Charger.jpg" },
-		{ Images.QuestionMark, "../../../Images/QuestionMark.png"},
-		{ Images.Seven, "../../../Images/Seven.jpg" },
-		{Images.Grapes, "../../../Images/Grapes.jpg" },
-		{Images.Orange, "../../../Images/Orange.jpg" },
-		{Images.Cherry, "../../../Images/Cherry.jpg" },
-		{Images.Bell, "../../../Images/Bell.jpg" },
+		{ Image.Milk, "../../../Images/Milk.jpg"},
+		{ Image.Suger, "../../../Images/Sugar.jpg" },
+		{ Image.Battery, "../../../Images/battery.jpg"},
+		{ Image.Car, "../../../Images/Car.jpg" },
+		{ Image.Chair, "../../../Images/Chair.jpg"},
+		{ Image.Charger, "../../../Images/Charger.jpg" },
+		{ Image.QuestionMark, "../../../Images/QuestionMark.png"},
+		{ Image.Seven, "../../../Images/Seven.jpg" },
+		{Image.Grapes, "../../../Images/Grapes.jpg" },
+		{Image.Orange, "../../../Images/Orange.jpg" },
+		{Image.Cherry, "../../../Images/Cherry.jpg" },
+		{Image.Bell, "../../../Images/Bell.jpg" },
 	};
 
-	public static Bitmap[] ImagesToBitmaps(Images[] images) =>
+	public static Bitmap[] ImagesToBitmaps(Image[] images) =>
 	[
 		new(ImageFiles[images[0]]),
 		new(ImageFiles[images[1]]),

@@ -14,7 +14,7 @@
 				<Label Margin="10,30,0,0" FontSize="16" Grid.Row="2" Grid.Column="0">Password</Label>
 				<TextBox PasswordChar="*" x:Name="textBoxPassword" Margin="10,10,0,0" Grid.Row="4" Grid.Column="0">test1234</TextBox>
 				<Button x:Name="btnLogin" Command="{Binding CasinoLoginCommand}" Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="5">Login</Button>
-				<Button x:Name="btnSignUp" Click="SignUp" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
+				<Button x:Name="btnSignUp" Command="{Binding CasinoSignUpCommand}" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Grid.Row="6">Signup</Button>
 				<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" Foreground="Red" IsVisible="false">Invalid username or password</Label>
 			</Grid>
 		</Border>

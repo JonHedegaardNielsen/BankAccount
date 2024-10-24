@@ -1,14 +1,7 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using BankAccount.Database;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data.SqlTypes;
 using System.Reactive;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace BankAccount;
 
@@ -112,17 +105,24 @@ public class BankMainPageViewModel : ReactiveObject
 		CurrentPage = currentPage;
 	}
 
+	private BankAccount GetBankAccountToTransferTo()
+	{
+		if (TransferToOtherUser)
+			return BankAccountDatabase.Instance.GetSingleBankAccount(AccountIdToTransferToInt);
+
+		if (BankAccountToTransferTo != null)
+			return BankAccountToTransferTo;
+
+		throw new NullReferenceException();
+	}
+
 	private void TransferMoney()
 	{
 		if (BankAccountToTransferFrom != null && BankAccountToTransferTo != null || AccountIdToTransferToInt != 0)
 		{
 			TransferFailTextIsVisible = false;
 
-			BankAccount bankAccountToTransferTo;
-			if (TransferToOtherUser)
-				bankAccountToTransferTo = BankAccountDatabase.Instance.GetSingleBankAccount(AccountIdToTransferToInt);
-			else
-				bankAccountToTransferTo = BankAccountToTransferTo;
+			BankAccount bankAccountToTransferTo = GetBankAccountToTransferTo();
 
 			if (bankAccountToTransferTo.Transfer(AmountToTransferDecimal, BankAccountToTransferFrom))
 			{

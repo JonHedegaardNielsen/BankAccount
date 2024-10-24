@@ -1,23 +1,17 @@
 ﻿using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
 public class BankLoanViewModel : ReactiveObject
 {
 	public ReactiveCommand<Unit,Unit> PayOffLoanCommand { get; }
-	private object? _currentpage;
 	
 	private Loan Loan;
 	public bool IsPayTime => Loan.IsPayTime();
 	public decimal Interest => Loan.Interest;
 	public string PayDate => Loan.PayDate.ToString("dd-MM-yyyy");
-	public PaymentTypes PaymentType => Loan.PaymentType;
+	public PaymentType PaymentType => Loan.PaymentType;
 	public decimal CostForEachPayment => Loan.CostForEachPayment;
 
 	private decimal _debt;
@@ -45,6 +39,7 @@ public class BankLoanViewModel : ReactiveObject
 	{
 		Loan = loan;
 		Debt = Loan.Debt;
+		PayOffLoanCommand = ReactiveCommand.Create(PayOffLoan);
 	}
 
 	private void PayOffLoan()

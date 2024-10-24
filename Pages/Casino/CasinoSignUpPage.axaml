@@ -26,9 +26,9 @@
 				</ComboBox>
 				<Button Command="{Binding CreateUserCommand}" HorizontalAlignment="Center" Grid.Row="8">Create Account</Button>
 				<Button Command="{Binding GoToLoginCommand}" HorizontalAlignment="Center" Grid.Row="9">Login</Button>
-				<Label x:Name="labelPasswordMatchingFailText" Grid.Row="10" Classes="FailText" IsVisible="{Binding FailTextMatchingIsVisible}">The passwords do not match</Label>
-				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">The password have to be between</Label>
-				<Label x:Name="labelPasswordLengthFailtext" Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">8 and 32 charecters</Label>
+				<Label Grid.Row="10" Classes="FailText" IsVisible="{Binding FailTextMatchingIsVisible}">The passwords do not match</Label>
+				<Label Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">The password have to be between</Label>
+				<Label Grid.Row="11" Classes="FailText" IsVisible="{Binding FailtextLengthIsVisible}">8 and 32 charecters</Label>
 			</Grid>
 		</Border>
 	</ContentControl>

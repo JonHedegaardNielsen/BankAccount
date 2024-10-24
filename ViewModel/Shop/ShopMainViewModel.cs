@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Windows.Input;
 using ReactiveUI;
 using System.Reactive;
-using System.Reflection.Metadata;
-using System.Data.Common;
+using System.Collections.ObjectModel;
+
 namespace BankAccount;
 
 public class ShopMainViewModel : ReactiveObject
 {
 	private ShopItemType _itemType;
-
+	public ObservableCollection<ShopItemAmountControl> ItemsAmountContols { get; } = new();
+	private ShopItemType[] ShopItemTypes;
 	private object? _currentPage;
 	public object? CurrentPage
 	{
@@ -56,11 +53,22 @@ public class ShopMainViewModel : ReactiveObject
 		LogOutCommand = ReactiveCommand.Create(LogOut);
 		BuyItemCommand = ReactiveCommand.Create<string>(BuyItem);
 		DeleteUserCommand = ReactiveCommand.Create(DeleteCurrentUser);
+
+		ShopItemTypes = ShopItem.ShopItemTypes.Keys.ToArray();
+
+		foreach (KeyValuePair<ShopItemType, ShopItem> shopItem in ShopItem.ShopItemTypes)
+			ItemsAmountContols.Add(new(shopItem.Value));
+
 	}
 
 	private void BuyItem(string ItemType)
 	{
+		ShopItemType type = (ShopItemType)Enum.Parse(typeof(ShopItemType), ItemType);
 		ShopUser.CurrentUser.BuyItem((ShopItemType)Enum.Parse(typeof(ShopItemType), ItemType));
+
+		int index = Array.IndexOf(ShopItemTypes, type);
+		ItemsAmountContols[index] = new(ShopItem.ShopItemTypes[type]);
+
 		Balance -= ItemPrice;
 	}
 

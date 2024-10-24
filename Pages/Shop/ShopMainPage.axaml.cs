@@ -1,8 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using System;
-using Avalonia.Interactivity;
 
 namespace BankAccount;
 

@@ -1,10 +1,5 @@
 ﻿using BankAccount.Database;
-using System;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
@@ -22,7 +17,7 @@ public class ShopItem
 		{ShopItemType.Milk, new(ShopItemType.Milk, 11.95m) },
 		{ShopItemType.Sugar, new(ShopItemType.Sugar, 9.95m) },
 		{ShopItemType.Charger, new(ShopItemType.Charger, 40m) },
-		{ShopItemType.Battery, new(ShopItemType.Sugar, 30m) },
+		{ShopItemType.Battery, new(ShopItemType.Battery, 30m) },
 		{ShopItemType.Chair, new(ShopItemType.Chair, 100m) },
 		{ShopItemType.Car, new(ShopItemType.Car, 100000m) }
 	};

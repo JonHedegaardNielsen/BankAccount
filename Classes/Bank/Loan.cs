@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
@@ -11,7 +6,7 @@ public class Loan
 {
 	public int Id { get; }
 	public string Name { get; set; }
-	public PaymentTypes PaymentType { get; set; }
+	public PaymentType PaymentType { get; set; }
 	public decimal Debt { get; private set; }
 	public string DebtString => $"Total Debt {Debt.ToString()} kr.";
 	public decimal CostForEachPayment { get; private set; } 
@@ -28,7 +23,7 @@ public class Loan
 		PayDate <= GetCurrentDate();
 
 
-	public Loan(string name, PaymentTypes paymentType , decimal initialValue, decimal interest, decimal costForEachPayment)
+	public Loan(string name, PaymentType paymentType , decimal initialValue, decimal interest, decimal costForEachPayment)
 	{
 		Name = name;
 		PaymentType = paymentType;
@@ -38,7 +33,7 @@ public class Loan
 		Debt = initialValue;
 	}
 
-	public Loan(int id, string name, decimal costForEachPayment, decimal interest, PaymentTypes paymentType, decimal debt, DateTime payDate, BankAccount bankAccount)
+	public Loan(int id, string name, decimal costForEachPayment, decimal interest, PaymentType paymentType, decimal debt, DateTime payDate, BankAccount bankAccount)
 	{
 		Id = id;
 		PaymentType = paymentType;
@@ -96,16 +91,16 @@ public class Loan
 	{
 		switch (PaymentType)
 		{
-			case PaymentTypes.Weekly:
+			case PaymentType.Weekly:
 				return PayDate.AddDays(7);
 
-			case PaymentTypes.Monthly:
+			case PaymentType.Monthly:
 				return PayDate.AddMonths(1);
 
-			case PaymentTypes.Yearly:
+			case PaymentType.Yearly:
 				return PayDate.AddYears(1);
 
-			case PaymentTypes.Quarterly:
+			case PaymentType.Quarterly:
 				return PayDate.AddMonths(3);
 
 			default:

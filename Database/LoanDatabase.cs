@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace BankAccount;
@@ -10,7 +9,7 @@ namespace BankAccount;
 	public static LoanDatabase Instance { get; private set; } = new();
 
 	private Loan GetData(SqlDataReader reader) =>
-		new Loan(reader.GetInt32(0), reader.GetString(1), reader.GetDecimal(2), reader.GetDecimal(3), (PaymentTypes)reader.GetValue(4), reader.GetDecimal(5), reader.GetDateTime(6), new(reader.GetInt32(9), reader.GetString(10), reader.GetDecimal(11)));
+		new Loan(reader.GetInt32(0), reader.GetString(1), reader.GetDecimal(2), reader.GetDecimal(3), (PaymentType)reader.GetValue(4), reader.GetDecimal(5), reader.GetDateTime(6), new(reader.GetInt32(9), reader.GetString(10), reader.GetDecimal(11)));
 
 	public List<Loan> SelectLoan(int userId)
 	{

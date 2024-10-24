@@ -1,43 +1,39 @@
 ﻿using Avalonia.Media.Imaging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace BankAccount;
 
 public class SlotsMachine
 {
-	private static Images[] Options =
+	private static Image[] Options =
 	{
-		Images.Cherry,
-		Images.Grapes,
-		Images.Orange,
-		Images.Seven,
-		Images.Bell,
+		Image.Cherry,
+		Image.Grapes,
+		Image.Orange,
+		Image.Seven,
+		Image.Bell,
 	};
 
 	Random rand = new Random();
-	public static Dictionary<Images, Decimal> Rewards = new()
+	public static Dictionary<Image, Decimal> Rewards = new()
 	{
-		{Images.Cherry, 100m},
-		{Images.Grapes, 100m},
-		{Images.Orange, 300m},
-		{Images.Seven, 200m},
-		{Images.Bell, 500m },
+		{Image.Cherry, 100m},
+		{Image.Grapes, 100m},
+		{Image.Orange, 300m},
+		{Image.Seven, 200m},
+		{Image.Bell, 500m },
 	};
 
-	private Images GetRandElement() =>
+	private Image GetRandElement() =>
 			Options[rand.Next(Options.Length)];
 
-	public Images[] GetRandCompination() =>
+	public Image[] GetRandCompination() =>
 		[ GetRandElement(), GetRandElement(), GetRandElement() ];
 
-	private Images[] GetRandCombinationUnique()
+	private Image[] GetRandCombinationUnique()
 	{
-		Images[] result;
+		Image[] result;
 
 		do
 		{
@@ -47,11 +43,11 @@ public class SlotsMachine
 		return result;
 	}
 
-	private bool CheckCombinationMatching(Images[] images) =>
+	private bool CheckCombinationMatching(Image[] images) =>
 		images[0] == images[1] && images[0] == images[2];
 
 
-	public bool Play(out Images[] images, out decimal reward)
+	public bool Play(out Image[] images, out decimal reward)
 	{
 		images = GetRandCompination();
 

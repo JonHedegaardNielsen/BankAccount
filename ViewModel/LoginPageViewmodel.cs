@@ -1,22 +1,20 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
 public class LoginPageViewmodel : ReactiveObject
 {
-	public ReactiveCommand<Unit, Unit> CasinoLoginCommand { get; private set; }
-	public ReactiveCommand<Unit, Unit> ShopLoginCommand { get; private set; }
-	public ReactiveCommand<Unit, Unit> BankLoginCommand { get; private set; }
-	public ReactiveCommand<Unit, Unit> ShopSignUpCommand { get; private set; }
-	public ReactiveCommand<Unit, Unit> CasinoSignUpCommand { get; private set; }
-	public ReactiveCommand<Unit, Unit> BankSignUpCommand { get; private set; }
+	public ReactiveCommand<Unit, Unit> CasinoLoginCommand { get; }
+	public ReactiveCommand<Unit, Unit> ShopLoginCommand { get; }
+	public ReactiveCommand<Unit, Unit> BankLoginCommand { get; }
+	public ReactiveCommand<Unit, Unit> ShopSignUpCommand { get; }
+	public ReactiveCommand<Unit, Unit> CasinoSignUpCommand { get; }
+	public ReactiveCommand<Unit, Unit> BankSignUpCommand { get; }
+	public ReactiveCommand<Unit, Unit> GoBackToLoginCommand {  get; }
+
 	private Func<UserControl>? GetNextPageForBank;
 
 	private bool _signUpBankIsVisible = true;
@@ -96,12 +94,20 @@ public class LoginPageViewmodel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _currentbankLoginPage, value);
 	}
 
+	private bool _goBackToLoginIsVisible = false;
+	public bool GoBackToLoginIsVisible
+	{
+		get => _goBackToLoginIsVisible;
+		set => this.RaiseAndSetIfChanged(ref _goBackToLoginIsVisible, value);
+	}
+
     public LoginPageViewmodel(object? currentPage, object? currentbankLoginPage, bool signUpViewModel = true, Func<UserControl>? getNextPageForBank = null)
     {
 		CurrentPage = currentPage;
 		_signUpBankIsVisible = signUpViewModel;
 		CurrentbankLoginPage = currentbankLoginPage;
 		GetNextPageForBank = getNextPageForBank;
+		GoBackToLoginIsVisible = !signUpViewModel;
 
 		CasinoLoginCommand = ReactiveCommand.Create(CasinoLogin);
 		ShopLoginCommand = ReactiveCommand.Create(ShopLogin);
@@ -109,6 +115,7 @@ public class LoginPageViewmodel : ReactiveObject
 		ShopSignUpCommand = ReactiveCommand.Create(ShopSignup);
 		CasinoSignUpCommand = ReactiveCommand.Create(CasinoSignUp);
 		BankSignUpCommand = ReactiveCommand.Create(BankSignup);
+		GoBackToLoginCommand = ReactiveCommand.Create(GoBackToLogin);
 	}
 
     private void CasinoLogin()
@@ -148,8 +155,8 @@ public class LoginPageViewmodel : ReactiveObject
 		BankFailTextIsVisible = true;
 	}
 
-	private  bool Login(string username, string password, ILoginDatabase database, out User? user) =>
-		database.FindUser(username, password, out user);
+	private void GoBackToLogin() =>
+		CurrentbankLoginPage = new LoginPage();
 
 	private void BankSignup() =>
 		CurrentPage = new BankSignupPage();

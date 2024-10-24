@@ -1,19 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using System.IO;
-using Avalonia.Controls.Shapes;
-using System;
-using BankAccount.Database;
 
 namespace BankAccount;
 
 public partial class ShopItemControl : UserControl
 {
-	public static readonly StyledProperty<Images> ImageName =
-	    AvaloniaProperty.Register<ShopItemControl, Images>(nameof(Image));
+	public static readonly StyledProperty<Image> ImageName =
+	    AvaloniaProperty.Register<ShopItemControl, Image>(nameof(Image));
 
 	public static readonly StyledProperty<decimal> ShopPrice =
 		AvaloniaProperty.Register<ShopItemControl, decimal>(nameof(ShopPrice));
@@ -33,7 +28,7 @@ public partial class ShopItemControl : UserControl
         set => SetValue(ShopItemName, value);
     }
 
-	public Images Image
+	public Image Image
     {
         get => GetValue(ImageName);
         set => SetValue(ImageName, value);

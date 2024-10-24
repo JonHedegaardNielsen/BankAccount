@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BankAccount;
 
 class CasinoUser : User
@@ -21,7 +15,9 @@ class CasinoUser : User
 
 	public static bool Login(string? userName, string? password)
 	{
-		if (ShopUserDatabase.Instance.FindUser(userName, password, out User? shopuser))
+		if (userName != null && password != null)
+
+		if (CasinoUserDatabase.Instance.FindUser(userName, password, out User? shopuser))
 			_currentUser = (CasinoUser?)shopuser;
 
 		return _currentUser != null;

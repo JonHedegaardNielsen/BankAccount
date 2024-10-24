@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media.Imaging;
-using System;
-using System.Data;
 
 namespace BankAccount;
 

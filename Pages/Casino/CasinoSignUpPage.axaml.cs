@@ -1,11 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
-using ReactiveUI;
-using System;
-using System.Diagnostics;
-using System.Reactive;
 
 namespace BankAccount;
 

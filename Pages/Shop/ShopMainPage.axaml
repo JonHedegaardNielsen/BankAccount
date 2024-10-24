@@ -25,14 +25,16 @@
 			</TabItem>
 
 			<TabItem Header="Your Items">
-				<Grid RowDefinitions="auto,auto,auto,auto,auto,auto" ColumnDefinitions="*">
-					<local:ShopItemAmountControl Grid.Row="0" x:Name="shopItemAmountControlMilk" ItemName="Milk"/>
-					<local:ShopItemAmountControl Grid.Row="1" x:Name="shopItemAmountControlSugar" ItemName="Sugar"/>
-					<local:ShopItemAmountControl Grid.Row="2" x:Name="shopItemAmountControlCharger" ItemName="Charger"/>
-					<local:ShopItemAmountControl Grid.Row="3" x:Name="shopItemAmountControlBattery" ItemName="Battery"/>
-					<local:ShopItemAmountControl Grid.Row="4" x:Name="shopItemAmountControlChair" ItemName="Chair"/>
-					<local:ShopItemAmountControl Grid.Row="5" x:Name="shopItemAmountControlCar" ItemName="Car"/>
-				</Grid>
+				<ScrollViewer>
+					<StackPanel>
+						<ItemsControl ItemsSource="{Binding ItemsAmountContols}">
+							<ItemsControl.ItemsPanel>
+								
+							</ItemsControl.ItemsPanel>
+						</ItemsControl>
+					</StackPanel>
+				</ScrollViewer>
+
 			</TabItem>
 			<TabItem Header="Settings">
 				<StackPanel>

@@ -1,11 +1,6 @@
 ﻿using BankAccount.Database;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
@@ -27,7 +22,7 @@ class ShopUserDatabase : Database<ShopUser>, ILoginDatabase
 	{
 		try
 		{
-			return RunSingleQuery<int>($"SELECT userId FROM shopUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
+			return RunSingleQuery($"SELECT userId FROM shopUser WHERE bankAccountId = {bankAccountId}", r => r.GetInt32(0));
 		}
 		catch (InvalidOperationException)
 		{

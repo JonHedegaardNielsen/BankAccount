@@ -1,6 +1,6 @@
 ﻿namespace BankAccount;
 
-public enum Images
+public enum Image
 {
 	Milk = 1,
 	Car = 2,

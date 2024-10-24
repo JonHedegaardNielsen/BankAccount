@@ -1,11 +1,6 @@
 ﻿using ReactiveUI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BankAccount;
 
@@ -15,9 +10,9 @@ public class CreateLoanPageViewModel : ReactiveObject
 	public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 	public ObservableCollection<Loan> Loans { get; } = new ObservableCollection<Loan>()
 	{
-		new("House Loan", PaymentTypes.Monthly , 10000000 , 1.5m, 5000),
-		new("Car Loan", PaymentTypes.Quarterly, 100000, 3, 2000),
-		new("Quick Loan", PaymentTypes.Monthly , 5000, 20, 1000)
+		new("House Loan", PaymentType.Monthly , 10000000 , 1.5m, 5000),
+		new("Car Loan", PaymentType.Quarterly, 100000, 3, 2000),
+		new("Quick Loan", PaymentType.Monthly , 5000, 20, 1000)
 	};
 
 	public ObservableCollection<BankAccount> BankAccounts { get; } = new(BankUser.CurrentUser.BankAccounts);
@@ -75,8 +70,8 @@ public class CreateLoanPageViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _initialValue, value);
 	}
 
-	private PaymentTypes _paymentType;
-	public PaymentTypes PaymentType
+	private PaymentType _paymentType;
+	public PaymentType PaymentType
 	{
 		get => _paymentType;
 		set => this.RaiseAndSetIfChanged(ref _paymentType, value);

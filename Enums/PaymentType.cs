@@ -1,6 +1,5 @@
-﻿
-namespace BankAccount;
-public enum PaymentTypes
+﻿namespace BankAccount;
+public enum PaymentType
 {
 	Weekly = 1,
 	Yearly = 2,

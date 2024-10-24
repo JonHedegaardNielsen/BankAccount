@@ -1,8 +1,5 @@
-﻿using BankAccount.Database;
-using ReactiveUI;
-using System;
-using System.ComponentModel;
-using System.Reactive;
+﻿using ReactiveUI;
+
 namespace BankAccount;
 
 public class ShopItemCategoryViewModel : ReactiveObject

@@ -1,4 +1,5 @@
-﻿public enum ShopItemType
+﻿namespace BankAccount;
+public enum ShopItemType
 {
 	Milk = 1,
 	Sugar = 2,

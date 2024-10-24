@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive;
-using System.Text;
+﻿using System.Reactive;
 using System.Threading;
-using System.Threading.Tasks;
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
 using ReactiveUI;
 namespace BankAccount;
 
 public class CasinoViewModel : ReactiveObject
 {
-	private static Bitmap DefaultImageUrl = new(Files.ImageFiles[Images.QuestionMark]);
+	private static Bitmap DefaultImageUrl = new(Files.ImageFiles[Image.QuestionMark]);
 
 	private SlotsMachine SlotsMachine;
 
-	public decimal CherryReward => SlotsMachine.Rewards[Images.Cherry];
-	public decimal BellReward => SlotsMachine.Rewards[Images.Bell];
-	public decimal GrapesReward => SlotsMachine.Rewards[Images.Grapes];
-	public decimal SevenReward => SlotsMachine.Rewards[Images.Seven];
-	public decimal OrangeReward => SlotsMachine.Rewards[Images.Orange];
+	public decimal CherryReward => SlotsMachine.Rewards[Image.Cherry];
+	public decimal BellReward => SlotsMachine.Rewards[Image.Bell];
+	public decimal GrapesReward => SlotsMachine.Rewards[Image.Grapes];
+	public decimal SevenReward => SlotsMachine.Rewards[Image.Seven];
+	public decimal OrangeReward => SlotsMachine.Rewards[Image.Orange];
 
 	private object? _currentPage;
 	public object? CurrentPage
@@ -29,10 +23,11 @@ public class CasinoViewModel : ReactiveObject
 		set => this.RaiseAndSetIfChanged(ref _currentPage, value);
 	}
 
+	private decimal _amountToWinBack = CasinoUser.CurrentUser.AmountToWinBack > 0 ? CasinoUser.CurrentUser.AmountToWinBack : 0m;
 	public decimal AmountToWinBack
 	{
-		get => CasinoUser.CurrentUser.AmountToWinBack > 0 ? CasinoUser.CurrentUser.AmountToWinBack : 0m;
-		set => this.RaisePropertyChanged();
+		get => _amountToWinBack;
+		set => this.RaiseAndSetIfChanged(ref _amountToWinBack, value);
 	}
 
 	private decimal _reward;
@@ -139,10 +134,10 @@ public class CasinoViewModel : ReactiveObject
 
 			CasinoUser.CurrentUser.BankAccount.Balance -= Cost;
 
-			int bankUserId = BankUserDatabase.Instance.GetUserIdFromBankAccountId(CasinoUser.CurrentUser.BankAccount.Id);
+			int bankUserId = CasinoUser.CurrentUser.BankAccount.Id;
 			TransactionDatabase.Instance.Insert(Cost, SpendingCategory.Gambling, bankUserId);
 
-			bool win = SlotsMachine.Play(out Images[] images, out decimal reward);
+			bool win = SlotsMachine.Play(out Image[] images, out decimal reward);
 
 			CasinoUser.CurrentUser.AmountToWinBack += Cost - reward;
 			this.RaisePropertyChanged(nameof(AmountToWinBack));

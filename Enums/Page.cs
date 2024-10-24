@@ -1,4 +1,6 @@
-﻿public enum Pages
+﻿namespace BankAccount;
+
+public enum Page
 {
 	BankAccount = 1,
 	Shop = 2,

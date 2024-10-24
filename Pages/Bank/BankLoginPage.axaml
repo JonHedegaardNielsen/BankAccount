@@ -8,8 +8,8 @@
 			 x:DataType="uc:LoginPageViewmodel">
 	<ContentControl x:Name="MainContent" Content="{Binding CurrentbankLoginPage}">
 		<Border Background="LightGreen" Padding="20,0,0,0" CornerRadius="50" BorderBrush="DarkGreen" BorderThickness="3" 
-				Width="400" Height="400">
-			<Grid  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto" ColumnDefinitions="320,60">
+				Width="400" Height="430">
+			<Grid  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto, auto" ColumnDefinitions="320,60">
 				<Label Classes="LoginTitle" Margin="10,10,0,0" Grid.Row="0" Grid.Column="0">Username</Label>
 				<TextBox x:Name="textBoxUsername" Text="{Binding BankUsername}" Margin="10,10,0,0" Grid.Row="1" 
 						 Grid.Column="0">akselSmuk</TextBox>
@@ -19,9 +19,10 @@
 				<Button Margin="10,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" 
 						Command="{Binding BankLoginCommand}" Grid.Row="5">Login</Button>
 				<Button x:Name="btnSignUp" Margin="10,60,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-						FontSize="20" Command="{Binding BankSignUpCommand}" Grid.Row="6" IsVisible="{Binding SignUpBankIsVisible}"
-						>Signup</Button>
-				<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="7" FontSize="16" 
+						FontSize="20" Command="{Binding BankSignUpCommand}" Grid.Row="6" 
+						IsVisible="{Binding SignUpBankIsVisible}">Signup</Button>
+				<Button Command="{Binding GoBackToLoginCommand}" Margin="10,60,0,0" HorizontalAlignment="Center" FontSize="20" VerticalAlignment="Bottom" Grid.Row="6" IsVisible="{Binding GoBackToLoginIsVisible}" >Go To Login</Button>
+				<Label x:Name="LabelFailText" Margin="10,10,0,0" Grid.Column="0" Grid.Row="8" FontSize="16" 
 					   Foreground="Red" IsVisible="{Binding BankFailTextIsVisible}">Invalid username or password</Label>
 			</Grid>
 		</Border>
